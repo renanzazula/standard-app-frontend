@@ -4,8 +4,7 @@ import {DialogDataInterface} from "./dialog-data.interface";
 
 @Component({
     selector: 'app-dialog',
-    templateUrl: './dialog.component.html',
-    styleUrls: ['./dialog.component.css']
+    templateUrl: './dialog.component.html'
 })
 export class DialogComponent implements OnInit {
 

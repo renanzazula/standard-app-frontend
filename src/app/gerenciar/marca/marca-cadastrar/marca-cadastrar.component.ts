@@ -80,7 +80,7 @@ export class MarcaCadastrarComponent implements OnInit {
             .pipe(first())
             .subscribe(
                 data => {
-                    this.alertaService.success('Registrado com sucesso!', true);
+                    this.alertaService.success('Alterado com sucesso!', true);
                     this.marcaForm.reset();
                     this.submitted = false;
                     this.update = false;

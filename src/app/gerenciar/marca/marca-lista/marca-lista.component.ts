@@ -30,7 +30,7 @@ export class MarcaListaComponent implements OnInit {
     }
 
     ngOnInit() {
-        return this.marcaService.consultar().subscribe(
+        this.marcaService.consultar().subscribe(
             (marca: any[]) => {
                 this.marcas = marca;
             }, (error) => console.log(error)

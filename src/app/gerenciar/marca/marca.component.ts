@@ -16,10 +16,4 @@ export class MarcaComponent implements OnInit {
 
     ngOnInit() {
     }
-
-    onAlterar(marca: Marca) {
-        this.marcaParaEditar = marca;
-
-    }
-
 }
