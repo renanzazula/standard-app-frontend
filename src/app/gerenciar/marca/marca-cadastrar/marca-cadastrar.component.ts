@@ -4,6 +4,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {MarcaService} from "../../../service/marca/marca.service";
 import {first} from "rxjs/operators";
 import {AlertaService} from "../../../service/mensagens/alerta/alerta.service";
+import {GerenciarMarcaService} from "../gerenciar-marca.service";
 
 @Component({
     selector: 'app-marca-cadastrar',
@@ -16,30 +17,32 @@ export class MarcaCadastrarComponent implements OnInit {
     submitted = false;
     update = false;
 
-    @Input() set marcaEditar(elemente: Marca) {
-        if (elemente) {
-            this.update = true;
-            this.marcaForm = this.formBuilder.group({
-                codigo: [elemente.codigo.toString()],
-                nome: [elemente.nome],
-                descricao: [elemente.descricao]
-            });
-        }
-    }
-
     constructor(
         private formBuilder: FormBuilder,
         private marcaService: MarcaService,
-        private alertaService: AlertaService
+        private alertaService: AlertaService,
+        private gerenciarMarcaService: GerenciarMarcaService
     ) {
     }
 
     ngOnInit() {
-        this.marcaForm = this.formBuilder.group({
-            codigo: [],
-            nome: ['', Validators.required],
-            descricao: ['', Validators.required],
-        });
+         this.gerenciarMarcaService.marcaOutputEventEmitter.subscribe(
+            (marca: Marca) => {
+                this.marcaForm = this.formBuilder.group({
+                    codigo: [marca.codigo.toString()],
+                    nome: [marca.nome],
+                    descricao: [marca.descricao]
+                });
+                this.update = true;
+            }
+        );
+        if(this.update !== true){
+            this.marcaForm = this.formBuilder.group({
+                codigo: [],
+                nome: ['', Validators.required],
+                descricao: ['', Validators.required],
+            });
+        }
     }
 
     get f() {

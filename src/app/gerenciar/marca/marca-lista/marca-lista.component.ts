@@ -1,16 +1,11 @@
-import {
-    Component,
-    EventEmitter,
-    Input,
-    OnInit,
-    Output
-} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Marca} from "../../../model/marca";
 import {MarcaService} from "../../../service/marca/marca.service";
 import {DialogComponent} from "../../../mensagens/dialog/dialog.component";
 import {MatDialog} from "@angular/material";
 import {first} from "rxjs/operators";
 import {AlertaService} from "../../../service/mensagens/alerta/alerta.service";
+import {GerenciarMarcaService} from "../gerenciar-marca.service";
 
 
 @Component({
@@ -19,14 +14,13 @@ import {AlertaService} from "../../../service/mensagens/alerta/alerta.service";
 })
 export class MarcaListaComponent implements OnInit {
 
-    @Output() marcaSelecionada = new EventEmitter<Marca>();
-
     marcas: Marca[] = [];
 
     constructor(
         private marcaService: MarcaService,
         private alertaService:AlertaService,
-        private dialog: MatDialog) {
+        private gerenciarMarcaService: GerenciarMarcaService,
+        private dialogComponente: MatDialog) {
     }
 
     ngOnInit() {
@@ -38,7 +32,7 @@ export class MarcaListaComponent implements OnInit {
     }
 
     onAlterar(element: Marca) {
-        const dialogRef = this.dialog.open(DialogComponent, {
+        const dialogRef = this.dialogComponente.open(DialogComponent, {
             data: {
                 cabecalho: "Editar?",
                 codigo: element.codigo,
@@ -50,13 +44,13 @@ export class MarcaListaComponent implements OnInit {
 
         dialogRef.afterClosed().subscribe(result => {
             if (result === true) {
-                this.marcaSelecionada.emit(element);
+                this.gerenciarMarcaService.marcaOutputEventEmitter.emit(element);
             }
         });
     }
 
     onExcluir(element: Marca) {
-        const dialogRef = this.dialog.open(DialogComponent, {
+        const dialogRef = this.dialogComponente.open(DialogComponent, {
             data: {
                 cabecalho: "Excluir?",
                 codigo: element.codigo,

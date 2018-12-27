@@ -1,19 +1,16 @@
-import {Component, OnInit} from '@angular/core';
-import {Marca} from "../../model/marca";
+import {Component} from '@angular/core';
 import {MarcaService} from "../../service/marca/marca.service";
+import {GerenciarMarcaService} from "./gerenciar-marca.service";
 
 @Component({
     selector: 'app-marca',
     templateUrl: './marca.component.html',
-    providers:[MarcaService]
+    providers: [MarcaService, GerenciarMarcaService]
 })
-export class MarcaComponent implements OnInit {
+export class MarcaComponent {
 
-    marcaParaEditar: Marca;
 
     constructor() {
     }
 
-    ngOnInit() {
-    }
 }
