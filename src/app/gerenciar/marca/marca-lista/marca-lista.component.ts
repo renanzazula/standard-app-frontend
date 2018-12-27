@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Marca} from "../../../model/marca";
 import {MarcaService} from "../../../service/marca/marca.service";
 import {DialogComponent} from "../../../mensagens/dialog/dialog.component";
@@ -24,6 +24,15 @@ export class MarcaListaComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.gerenciarMarcaService.marcaChange.subscribe(
+            () => {
+                this.get();
+            }
+        );
+        this.get();
+    }
+
+    get(){
         this.marcaService.consultar().subscribe(
             (marca: any[]) => {
                 this.marcas = marca;
@@ -65,9 +74,9 @@ export class MarcaListaComponent implements OnInit {
                 this.marcaService.excluir(element.codigo)
                     .pipe(first())
                     .subscribe(
-                        data => {
-                            console.log(data);
+                        () => {
                             this.alertaService.success('Marca foi desativada com sucesso!', true);
+                            this.gerenciarMarcaService.marcaChange.emit();
                         },
                         error => {
                             console.log(error);

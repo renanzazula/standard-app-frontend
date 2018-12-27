@@ -26,23 +26,25 @@ export class MarcaCadastrarComponent implements OnInit {
     }
 
     ngOnInit() {
-         this.gerenciarMarcaService.marcaOutputEventEmitter.subscribe(
+        this.gerenciarMarcaService.marcaOutputEventEmitter.subscribe(
             (marca: Marca) => {
-                this.marcaForm = this.formBuilder.group({
-                    codigo: [marca.codigo.toString()],
-                    nome: [marca.nome],
-                    descricao: [marca.descricao]
-                });
+                this.marcaService.getById(marca.codigo).subscribe(
+                    (m: Marca) => {
+                        this.marcaForm = this.formBuilder.group({
+                            codigo: [m.codigo.toString()],
+                            nome: [m.nome.toString(), Validators.required],
+                            descricao: [m.descricao.toString(), Validators.required],
+                        });
+                    }
+                );
                 this.update = true;
             }
         );
-        if(this.update !== true){
-            this.marcaForm = this.formBuilder.group({
-                codigo: [],
-                nome: ['', Validators.required],
-                descricao: ['', Validators.required],
-            });
-        }
+        this.marcaForm = this.formBuilder.group({
+            codigo: [],
+            nome: ['', Validators.required],
+            descricao: ['', Validators.required],
+        });
     }
 
     get f() {
@@ -62,9 +64,9 @@ export class MarcaCadastrarComponent implements OnInit {
             .subscribe(
                 data => {
                     this.alertaService.success('Registrado com sucesso!', true);
-
                     this.marcaForm.reset();
                     this.submitted = false;
+                    this.gerenciarMarcaService.marcaChange.emit();
                 },
                 error => {
                     this.alertaService.error(error);
@@ -87,6 +89,7 @@ export class MarcaCadastrarComponent implements OnInit {
                     this.marcaForm.reset();
                     this.submitted = false;
                     this.update = false;
+                    this.gerenciarMarcaService.marcaChange.emit();
                 },
                 error => {
                      this.alertaService.error(error);

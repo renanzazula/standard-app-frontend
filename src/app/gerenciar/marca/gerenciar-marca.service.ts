@@ -5,6 +5,7 @@ import {Marca} from "../../model/marca";
 export class GerenciarMarcaService {
 
   marcaOutputEventEmitter = new EventEmitter<Marca>();
+  marcaChange = new EventEmitter<void>();
 
   constructor() { }
 
