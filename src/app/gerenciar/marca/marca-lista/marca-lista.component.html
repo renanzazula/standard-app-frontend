@@ -1,0 +1,38 @@
+<div class="card">
+  <div class="card-header">
+    <h3 class="card-title">Consultar Marca</h3>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive-md">
+      <table class="table table-bordered table-hover">
+        <thead class="thead-dark">
+        <tr>
+          <th scope="col">Código</th>
+          <th scope="col">Nome</th>
+          <th scope="col">Descrição</th>
+          <th scope="col">Data</th>
+          <th scope="col">Hora</th>
+          <th scope="col">Edit</th>
+          <th scope="col">Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+          <tr  *ngFor="let marcaElement of marcas" scope="row">
+              <td>{{marcaElement.codigo}}</td>
+              <td>{{marcaElement.nome}}</td>
+              <td>{{marcaElement.descricao}}</td>
+              <td>{{marcaElement.data}}</td>
+              <td>{{marcaElement.hora}}</td>
+              <td>
+                  <button type="button" class="btn btn-outline-warning btn-sm" (click)="onAlterar(marcaElement)">Alterar</button>
+              </td>
+              <td>
+                  <button type="button" class="btn btn-outline-danger btn-sm" (click)="onExcluir(marcaElement)">Excluir</button>
+              </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
