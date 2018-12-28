@@ -1,11 +1,12 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit} from '@angular/core';
 import {Marca} from "../../../model/marca";
 import {MarcaService} from "../../../service/marca/marca.service";
 import {DialogComponent} from "../../../mensagens/dialog/dialog.component";
 import {MatDialog} from "@angular/material";
 import {first} from "rxjs/operators";
 import {AlertaService} from "../../../service/mensagens/alerta/alerta.service";
-import {GerenciarMarcaService} from "../gerenciar-marca.service";
+
+import {Router} from "@angular/router";
 
 
 @Component({
@@ -14,17 +15,19 @@ import {GerenciarMarcaService} from "../gerenciar-marca.service";
 })
 export class MarcaListaComponent implements OnInit {
 
+    marcaChange = new EventEmitter<void>();
     marcas: Marca[] = [];
 
     constructor(
+        private router: Router,
         private marcaService: MarcaService,
         private alertaService:AlertaService,
-        private gerenciarMarcaService: GerenciarMarcaService,
+
         private dialogComponente: MatDialog) {
     }
 
     ngOnInit() {
-        this.gerenciarMarcaService.marcaChange.subscribe(
+        this.marcaChange.subscribe(
             () => {
                 this.get();
             }
@@ -53,7 +56,7 @@ export class MarcaListaComponent implements OnInit {
 
         dialogRef.afterClosed().subscribe(result => {
             if (result === true) {
-                this.gerenciarMarcaService.marcaOutputEventEmitter.emit(element);
+                this.router.navigate(['/marca/', element.codigo, 'editar']);
             }
         });
     }
@@ -76,10 +79,9 @@ export class MarcaListaComponent implements OnInit {
                     .subscribe(
                         () => {
                             this.alertaService.success('Marca foi desativada com sucesso!', true);
-                            this.gerenciarMarcaService.marcaChange.emit();
+                            this.marcaChange.emit();
                         },
                         error => {
-                            console.log(error);
                             this.alertaService.error("Erro ao desativar Marca" + error);
                         });
             }

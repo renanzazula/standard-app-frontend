@@ -3,7 +3,7 @@
         <h3 class="card-title">Consultar Marca</h3>
     </div>
     <div class="card-body">
-        <div class="table-responsive-md">
+        <div class="table-responsive-sm">
             <table class="table table-bordered table-hover">
                 <thead class="thead-dark">
                 <tr>
@@ -20,22 +20,22 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr *ngFor="let marcaElement of marcas" scope="row">
-                    <td>{{marcaElement.codigo}}</td>
-                    <td>{{marcaElement.nome}}</td>
-                    <td>{{marcaElement.descricao}}</td>
-                    <td>{{marcaElement.status}}</td>
-                    <td>{{marcaElement.data}}</td>
-                    <td>{{marcaElement.hora}}</td>
-                    <td>{{marcaElement.dataAlteracao}}</td>
-                    <td>{{marcaElement.horaAlteracao}}</td>
+                <tr *ngFor="let marca of marcas" scope="row">
+                    <td>{{marca.codigo}}</td>
+                    <td>{{marca.nome}}</td>
+                    <td>{{marca.descricao}}</td>
+                    <td>{{marca.status}}</td>
+                    <td>{{marca.data}}</td>
+                    <td>{{marca.hora}}</td>
+                    <td>{{marca.dataAlteracao}}</td>
+                    <td>{{marca.horaAlteracao}}</td>
                     <td>
-                        <button type="button" class="btn btn-outline-warning btn-sm" (click)="onAlterar(marcaElement)">
+                        <button type="button" class="btn btn-outline-warning btn-sm" (click)="onAlterar(marca)">
                             Alterar
                         </button>
                     </td>
                     <td>
-                        <button type="button" class="btn btn-outline-danger btn-sm" (click)="onExcluir(marcaElement)">
+                        <button type="button" class="btn btn-outline-danger btn-sm" (click)="onExcluir(marca)">
                             Excluir
                         </button>
                     </td>

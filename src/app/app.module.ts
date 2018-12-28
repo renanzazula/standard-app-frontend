@@ -13,8 +13,10 @@ import {MatDialog, MatDialogModule} from "@angular/material";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {MarcaCadastrarComponent} from './gerenciar/marca/marca-cadastrar/marca-cadastrar.component';
 import {AlertaComponent} from './mensagens/alerta/alerta.component';
-import {AppRoutingModule} from "./app.routing";
 import {AlertaService} from "./service/mensagens/alerta/alerta.service";
+import {routing} from "./app.routing";
+import {MarcaService} from "./service/marca/marca.service";
+
 
 
 @NgModule({
@@ -26,8 +28,8 @@ import {AlertaService} from "./service/mensagens/alerta/alerta.service";
         HeaderComponent,
         MarcaComponent,
         MarcaListaComponent,
-        DialogComponent,
         MarcaCadastrarComponent,
+        DialogComponent,
         AlertaComponent
     ],
     imports: [
@@ -37,10 +39,10 @@ import {AlertaService} from "./service/mensagens/alerta/alerta.service";
         ReactiveFormsModule,
         MatDialogModule,
         BrowserAnimationsModule,
-        AppRoutingModule
+        routing
     ],
     entryComponents: [DialogComponent],
-    providers: [AlertaService, MatDialog],
+    providers: [AlertaService, MarcaService, MatDialog],
     bootstrap: [AppComponent]
 })
 export class AppModule {

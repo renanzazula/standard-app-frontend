@@ -1,14 +1,17 @@
 ﻿import {RouterModule, Routes} from '@angular/router';
-import {NgModule} from '@angular/core';
+import {MarcaCadastrarComponent} from "./gerenciar/marca/marca-cadastrar/marca-cadastrar.component";
+import {MarcaListaComponent} from "./gerenciar/marca/marca-lista/marca-lista.component";
+import {MarcaComponent} from "./gerenciar/marca/marca.component";
 
 const appRoutes: Routes = [
+    {path: 'marca', component: MarcaComponent, children: [
+            {path: 'cadastrar', component: MarcaCadastrarComponent},
+            {path: ':codigo/editar', component: MarcaCadastrarComponent},
+            {path: 'listar', component: MarcaListaComponent},
+    ]},
+
     // otherwise redirect to home
-    {path: '**', redirectTo: ''}
+    {path: '**', redirectTo: ""}
 ];
 
-@NgModule({
-    imports: [RouterModule.forRoot(appRoutes)],
-    exports: [RouterModule]
-})
-export class AppRoutingModule {
-}
+export const routing = RouterModule.forRoot(appRoutes);
