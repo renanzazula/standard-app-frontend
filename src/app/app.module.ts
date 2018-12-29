@@ -16,6 +16,10 @@ import {AlertaComponent} from './mensagens/alerta/alerta.component';
 import {AlertaService} from "./service/mensagens/alerta/alerta.service";
 import {routing} from "./app.routing";
 import {MarcaService} from "./service/marca/marca.service";
+import { MedidaComponent } from './gerenciar/medida/medida.component';
+import { MedidaListarComponent } from './gerenciar/medida/medida-listar/medida-listar.component';
+import { MedidaCadastrarComponent } from './gerenciar/medida/medida-cadastrar/medida-cadastrar.component';
+import {MedidaService} from "./service/medida/medida.service";
 
 
 
@@ -30,7 +34,10 @@ import {MarcaService} from "./service/marca/marca.service";
         MarcaListaComponent,
         MarcaCadastrarComponent,
         DialogComponent,
-        AlertaComponent
+        AlertaComponent,
+        MedidaComponent,
+        MedidaListarComponent,
+        MedidaCadastrarComponent
     ],
     imports: [
         BrowserModule,
@@ -42,7 +49,7 @@ import {MarcaService} from "./service/marca/marca.service";
         routing
     ],
     entryComponents: [DialogComponent],
-    providers: [AlertaService, MarcaService, MatDialog],
+    providers: [AlertaService, MarcaService, MatDialog, MedidaService],
     bootstrap: [AppComponent]
 })
 export class AppModule {

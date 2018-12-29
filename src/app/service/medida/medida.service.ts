@@ -1,9 +1,33 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
+import {HttpClient} from "@angular/common/http";
+import {Medida} from "../../model/medida";
+import {environment} from "../../../environments/environment";
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class MedidaService {
 
-  constructor() { }
+    constructor(private http: HttpClient) {
+    }
+
+    consultar() {
+        return this.http.get<Medida[]>(`${environment.apiUrl}/medida`);
+    }
+
+    getById(id: number) {
+        console.log(id);
+        return this.http.get(`${environment.apiUrl}/medida/${id}`);
+    }
+
+    cadastrar(medida: Medida) {
+        return this.http.post(`${environment.apiUrl}/medida`, medida);
+    }
+
+    alterar(medida: Medida) {
+        return this.http.put(`${environment.apiUrl}/medida/${medida.codigo}`, medida);
+    }
+
+    excluir(id: number) {
+        return this.http.delete(`${environment.apiUrl}/medida/${id}`);
+    }
+
 }

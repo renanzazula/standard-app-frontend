@@ -1,0 +1,35 @@
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">Consultar Medida</h3>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive-sm">
+            <table class="table table-bordered">
+                <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Valor</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let medida of medidas" scope="row">
+                        <td colspan="4">
+                            <table class="table">
+                                <tbody>
+                                    <tr *ngFor="let itemTipoMedida of medida.itensTipoMedida; let i = index" [attr.data-index]="i"  >
+                                        <td *ngIf="i === 0" scope="col" style="background-color: lightgrey; font-weight: bold" [routerLink]="['medida/', medida.codigo, 'editar']" >
+                                            {{medida.codigo}} - {{medida.nome}} - {{itemTipoMedida.categoria.nome}} - {{medida.descricao}}
+                                        </td>
+                                        <td *ngIf="i !== 0" scope="col">
+                                            {{itemTipoMedida.valor}}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
