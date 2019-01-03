@@ -19,6 +19,7 @@ export class MedidaService {
     }
 
     cadastrar(medida: Medida) {
+        console.log(medida);
         return this.http.post(`${environment.apiUrl}/medida`, medida);
     }
 

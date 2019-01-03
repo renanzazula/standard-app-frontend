@@ -16,10 +16,12 @@
                             <table class="table">
                                 <tbody>
                                     <tr *ngFor="let itemTipoMedida of medida.itensTipoMedida; let i = index" [attr.data-index]="i"  >
-                                        <td *ngIf="i === 0" scope="col" style="background-color: lightgrey; font-weight: bold" [routerLink]="['medida/', medida.codigo, 'editar']" >
+                                        <td *ngIf="i === 0" scope="col" style="background-color: lightgrey; font-weight: bold" [routerLink]="['/medida', medida.codigo, 'editar']" >
                                             {{medida.codigo}} - {{medida.nome}} - {{itemTipoMedida.categoria.nome}} - {{medida.descricao}}
                                         </td>
-                                        <td *ngIf="i !== 0" scope="col">
+                                    </tr>
+                                    <tr *ngFor="let itemTipoMedida of medida.itensTipoMedida; let i = index" [attr.data-index]="i"  >
+                                        <td scope="col">
                                             {{itemTipoMedida.valor}}
                                         </td>
                                     </tr>

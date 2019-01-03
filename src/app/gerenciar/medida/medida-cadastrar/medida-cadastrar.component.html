@@ -1,34 +1,137 @@
 <div class="card panel-default">
-  <div class="card-header">
-    <h3 class="card-title">Cadastrar Marca </h3>
-  </div>
-  <form [formGroup]="medidaForm" [ngSwitch]="update">
-    <div class="card-body">
-      <div class="form-group" *ngSwitchCase="true">
-        <label for="codigo">Código</label>
-        <input type="text" formControlName="codigo" class="form-control" readonly/>
-      </div>
+    <div class="card-header">
+        <h3 class="card-title">Cadastrar Medida</h3>
+    </div>
+    <form [formGroup]="medidaForm" [ngSwitch]="update">
+        <div class="card-body">
+            <div class="form-group" *ngSwitchCase="true">
+                <label for="codigo">Código</label>
+                <input type="text" formControlName="codigo" class="form-control" readonly/>
+            </div>
 
-      <div class="form-group">
-        <label for="nome">Nome</label>
-        <input type="text" formControlName="nome" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.nome.errors }"/>
-        <div *ngIf="submitted && f.nome.errors" class="invalid-feedback">
-          <div *ngIf="f.nome.errors.required">Nome é obrigatório</div>
+            <div class="form-group">
+                <label for="nome">Nome</label>
+                <input type="text" formControlName="nome" class="form-control"
+                       [ngClass]="{ 'is-invalid': submitted && f.nome.errors }"/>
+                <div *ngIf="submitted && f.nome.errors" class="invalid-feedback">
+                    <div *ngIf="f.nome.errors.required">Nome é obrigatório</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="descricao">Descrição</label>
+                <textarea type="text" formControlName="descricao" class="form-control"
+                          [ngClass]="{ 'is-invalid': submitted && f.descricao.errors }"></textarea>
+                <div *ngIf="submitted && f.descricao.errors" class="invalid-feedback">
+                    <div *ngIf="f.descricao.errors.required">Descrição é obrigatório</div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="form-row">
+                    <div class="col-md-8 mb-4">
+                        <label for="categoria">Categoria</label>
+                        <select class="form-control" formControlName="categoria"
+                                (change)="onChange($event.target.value)"
+                                [ngClass]="{ 'is-invalid': submitted && f.categoria.errors }">
+                            <option *ngFor="let c of categorias" [value]="stringify(c)">{{c.nome}}</option>
+                        </select>
+                        <div *ngIf="submitted && f.categoria.errors" class="invalid-feedback">
+                            <div *ngIf="f.categoria.errors.required">Categoría é obrigatório</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <label>&nbsp;</label>
+                        <button type="button" class="btn btn-secondary form-control" routerLink="/categoria/cadastrar">
+                            Nova Categoria
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="form-row">
+                    <div class="col-md-8 mb-4">
+                        <label for="subcategoria">Subcategoría</label>
+                        <select class="form-control" formControlName="subcategoria"
+                                [ngClass]="{ 'is-invalid': submitted && f.subcategoria.errors}"
+                                [disableControl]="disable">
+                            <option *ngFor="let subcategoria of subcategorias"
+                                    [value]="stringify(subcategoria)">{{subcategoria.nome}}</option>
+                        </select>
+                        <div *ngIf="submitted && f.subcategoria.errors" class="invalid-feedback">
+                            <div *ngIf="f.subcategoria.errors.required">Subcategoría é obrigatório</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <label>&nbsp;</label>
+                        <button type="button" class="btn btn-secondary form-control"
+                                routerLink="/subcategoria/cadastrar">Nova Subcategoría
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="form-row">
+                    <div class="col-md-8 mb-4">
+                        <label for="marca">Marca</label>
+                        <select class="form-control" formControlName="marca"
+                                [ngClass]="{ 'is-invalid': submitted && f.marca.errors }">
+                            <option *ngFor="let marca of marcas" [value]="stringify(marca)">{{marca.nome}}</option>
+                        </select>
+                        <div *ngIf="submitted && f.marca.errors" class="invalid-feedback">
+                            <div *ngIf="f.marca.errors.required">Marca é obrigatório</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <label>&nbsp;</label>
+                        <button type="button" class="btn btn-secondary form-control" routerLink="/marca/cadastrar">Nova
+                            Marca
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card panel-default">
+                <div class="card-header">
+                    <h6 class="card-title">Cadastrar Medida</h6>
+                </div>
+                <div class="card-body">
+                    <div class="form-group row">
+                        <div class="col-md-9 mb-2">
+                            <input type="text" class="form-control" placeholder="valor" formControlName="valor"/>
+                        </div>
+                        <div class="col-md-3 mb-2">
+                            <button type="button" class="btn btn-secondary form-control" (click)="onAdd()">+ Adicionar
+                                medida
+                            </button>
+                        </div>
+                    </div>
+                    <div class="table-responsive-sm">
+                        <table class="table table-bordered table-hover">
+                            <thead class="thead-dark">
+                            <tr>
+                                <th scope="col ">Medida</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let itemTipoMedida of itensTipoMedida; let i = index" [attr.data-index]="i"  scope="row" (click)="onRemove(i)">
+                                <td>{{itemTipoMedida.valor}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+            <div class="card-footer bg-transparent text-right">
+                <button *ngSwitchCase="true" type="button" class="btn btn-primary">Alterar</button>
+                <button *ngSwitchCase="false" type="button" class="btn btn-primary" (click)="onCadastrar()">Cadastrar
+                </button>
+                <button type="button" class="btn btn-secondary ml-1">Cancelar</button>
+            </div>
         </div>
-      </div>
-      <div class="form-group">
-        <label for="descricao">Descrição</label>
-        <input type="text" formControlName="descricao" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.descricao.errors }" />
-        <div *ngIf="submitted && f.descricao.errors" class="invalid-feedback">
-          <div *ngIf="f.descricao.errors.required">Descrição é obrigatório</div>
-        </div>
-      </div>
-    </div>
-    <div class="card-footer bg-transparent text-right">
-      <button *ngSwitchCase="true" type="button"  class="btn btn-primary" (click)="onAlterar()">Alterar</button>
-      <button *ngSwitchCase="false" type="button" class="btn btn-primary" (click)="onCadastrar()">Cadastrar</button>
-      <button type="button" class="btn btn-secondary ml-1" (click)="onCancelar()">Cancelar</button>
-    </div>
-  </form>
+    </form>
 </div>
 <br>
+

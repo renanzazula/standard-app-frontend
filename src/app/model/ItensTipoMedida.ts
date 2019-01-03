@@ -6,9 +6,8 @@ export class ItensTipoMedida {
     valor: string;
     categoria: Categoria;
 
-    constructor(codigo: string, valor: string, categoria: Categoria) {
-        this.codigo = codigo;
+
+    constructor(valor: string) {
         this.valor = valor;
-        this.categoria = categoria;
     }
 }

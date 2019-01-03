@@ -20,6 +20,9 @@ import { MedidaComponent } from './gerenciar/medida/medida.component';
 import { MedidaListarComponent } from './gerenciar/medida/medida-listar/medida-listar.component';
 import { MedidaCadastrarComponent } from './gerenciar/medida/medida-cadastrar/medida-cadastrar.component';
 import {MedidaService} from "./service/medida/medida.service";
+import {CategoriaService} from "./service/categoria/categoria.service";
+import {SubCategoriaService} from "./service/subcategoria/sub-categoria.service";
+import {DisableControlDirective} from "./directives/disable-control-directive";
 
 
 
@@ -37,7 +40,8 @@ import {MedidaService} from "./service/medida/medida.service";
         AlertaComponent,
         MedidaComponent,
         MedidaListarComponent,
-        MedidaCadastrarComponent
+        MedidaCadastrarComponent,
+        DisableControlDirective
     ],
     imports: [
         BrowserModule,
@@ -46,10 +50,10 @@ import {MedidaService} from "./service/medida/medida.service";
         ReactiveFormsModule,
         MatDialogModule,
         BrowserAnimationsModule,
-        routing
+        routing,
     ],
     entryComponents: [DialogComponent],
-    providers: [AlertaService, MarcaService, MatDialog, MedidaService],
+    providers: [AlertaService, MarcaService, MatDialog, MedidaService, CategoriaService, SubCategoriaService],
     bootstrap: [AppComponent]
 })
 export class AppModule {
