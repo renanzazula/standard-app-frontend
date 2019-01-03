@@ -14,142 +14,189 @@ import {first} from "rxjs/operators";
 import {ItensTipoMedida} from "../../../model/ItensTipoMedida";
 
 @Component({
-    selector: 'app-medida-cadastrar',
-    templateUrl: './medida-cadastrar.component.html'
+  selector: 'app-medida-cadastrar',
+  templateUrl: './medida-cadastrar.component.html'
 })
 export class MedidaCadastrarComponent implements OnInit {
 
-    categoria: Categoria;
-    subcategoria: Subcategoria;
-    categorias: Categoria[] = [];
-    subcategorias: Subcategoria[] = [];
-    marca: Marca;
-    marcas: Marca[] = [];
-    medida: Medida = new Medida();
-    itensTipoMedida: ItensTipoMedida[] = [];
+  categoria: Categoria;
+  subcategoria: Subcategoria;
+  categorias: Categoria[] = [];
+  subcategorias: Subcategoria[] = [];
+  marcas: Marca[] = [];
+  marca: Marca;
+  medida: Medida = new Medida();
+  itensTipoMedida: ItensTipoMedida[] = [];
 
-    medidaForm: FormGroup;
-    submitted = false;
-    update = false;
-    disable = true;
+  medidaForm: FormGroup;
+  submitted = false;
+  update = false;
+  disable = true;
 
 
-    constructor(
-        private router: Router,
-        private activatedRoute: ActivatedRoute,
-        private formBuilder: FormBuilder,
-        private medidaService: MedidaService,
-        private alertaService: AlertaService,
-        private marcaService: MarcaService,
-        private categoriaService: CategoriaService,
-        private subcategoriaService: SubCategoriaService,
-    ) {
-        this.medidaForm = new FormGroup({
-            codigo: new FormControl(''),
-            nome: new FormControl('', Validators.required),
-            descricao: new FormControl('', Validators.required),
-            categoria: new FormControl('', Validators.required),
-            subcategoria: new FormControl({value: '', disabled: true}, Validators.required),
-            marca: new FormControl('', Validators.required),
-            valor: new FormControl(''),
+  constructor(
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private formBuilder: FormBuilder,
+    private medidaService: MedidaService,
+    private alertaService: AlertaService,
+    private marcaService: MarcaService,
+    private categoriaService: CategoriaService,
+    private subcategoriaService: SubCategoriaService,
+  ) {
+    this.medidaForm = new FormGroup({
+      codigo: new FormControl(''),
+      nome: new FormControl('', Validators.required),
+      descricao: new FormControl('', Validators.required),
+      categoria: new FormControl('', Validators.required),
+      subcategoria: new FormControl({value: '', disabled: true}, Validators.required),
+      marca: new FormControl('', Validators.required),
+      valor: new FormControl(''),
+    });
+
+
+  }
+
+  ngOnInit() {
+    const codigo = this.activatedRoute.snapshot.params['codigo'];
+
+    this.marcaService.consultar().subscribe(
+      (marca: any[]) => {
+        this.marcas = marca;
+      }, (error) => console.log(error)
+    );
+
+    this.categoriaService.consultar().subscribe(
+      (categoria: any[]) => {
+        this.categorias = categoria;
+      }, (error) => console.log(error)
+    );
+
+    if (codigo !== undefined) {
+      this.update = true;
+      this.disable = false;
+      this.medidaService.getById(codigo).subscribe(
+        (medida: Medida) => {
+          this.medidaForm.setValue({
+            codigo: medida.codigo,
+            nome: medida.nome,
+            descricao: medida.descricao,
+            categoria: this.stringify(medida.itensTipoMedida[0].categoria),
+            subcategoria: this.stringify(medida.itensTipoMedida[0].subcategoria),
+            marca: this.stringify(medida.itensTipoMedida[0].marca),
+            valor: ''
+          });
+          this.itensTipoMedida = medida.itensTipoMedida;
+          this.subcategorias = medida.itensTipoMedida[0].categoria.subcategorias;
         });
-
-
     }
+  }
 
-    ngOnInit() {
-        const codigo = this.activatedRoute.snapshot.params['codigo'];
-        console.log(codigo);
-        this.marcaService.consultar().subscribe(
-            (marca: any[]) => {
-                this.marcas = marca;
-            }, (error) => console.log(error)
-        );
+  onChange(value) {
+    this.categoria = JSON.parse(value);
+    this.subcategoriaService.getSubcategoriaByCategoriaId(this.categoria.codigo).subscribe(
+      (subcategoria: any[]) => {
+        this.subcategorias = subcategoria;
+      }, (error) => console.log(error)
+    );
+    this.disable = false;
+    this.medidaForm.get('subcategoria').setValue(this.subcategorias[0]);
+  }
 
-        this.categoriaService.consultar().subscribe(
-            (categoria: any[]) => {
-                this.categorias = categoria;
-            }, (error) => console.log(error)
-        );
+  stringify(o: any): string {
+    return JSON.stringify(o);
+  }
 
-        if (Array.isArray(this.itensTipoMedida)) {
+  onAdd() {
+    this.itensTipoMedida.push(new ItensTipoMedida(this.medidaForm.get('valor').value));
+    this.medidaForm.get('valor').setValue('');
 
-        }
+  }
 
-        if (codigo !== undefined) {
-            this.update = true;
-            this.disable = false;
-            this.medidaService.getById(codigo).subscribe(
-                (medida: Medida) => {
-                    this.medidaForm.setValue({
-                        codigo: medida.codigo,
-                        nome: medida.nome,
-                        descricao: medida.descricao,
-                        categoria: medida.categoria,
-                        subcategoria: medida.subcategoria,
-                        marca: medida.marca,
-                        valor: ''
-                     });
-                    this.itensTipoMedida = medida.itensTipoMedida;
-                });
-        }
+  onRemove(index) {
+    this.itensTipoMedida.splice(index, 1);
+  }
+
+  onCadastrar() {
+
+    this.submitted = true;
+
+    // stop here if form is invalid
+    if (this.medidaForm.invalid) {
+      return;
     }
+    this.medida = this.medidaForm.value;
+    this.medida.categoria = JSON.parse(this.medidaForm.get('categoria').value);
+    this.medida.subcategoria = JSON.parse(this.medidaForm.get('subcategoria').value);
+    this.medida.marca = JSON.parse(this.medidaForm.get('marca').value);
+    this.medida.itensTipoMedida = this.itensTipoMedida;
+    this.medidaService.cadastrar(this.medida)
+      .pipe(first())
+      .subscribe(
+        data => {
+          this.alertaService.success('Registrado com sucesso!', true);
+          this.router.navigate(['medida/listar']);
+        },
+        error => {
+          this.alertaService.error(error);
+        });
+  }
 
-    onChange(value) {
-        this.categoria = JSON.parse(value);
-        this.subcategoriaService.getSubcategoriaByCategoriaId(this.categoria.codigo).subscribe(
-            (subcategoria: any[]) => {
-                this.subcategorias = subcategoria;
-            }, (error) => console.log(error)
-        );
-        this.disable = false;
-        this.medidaForm.get('subcategoria').setValue(this.subcategorias[0]);
-    }
+  get f() {
+    return this.medidaForm.controls;
+  }
 
-    stringify(o: any): string {
-        return JSON.stringify(o);
-    }
+  onAlterar() {
+    this.medida = new Medida();
+    this.medida = this.medidaForm.value;
+    this.medida.categoria = JSON.parse(this.medidaForm.get('categoria').value);
+    this.medida.subcategoria = JSON.parse(this.medidaForm.get('subcategoria').value);
+    this.medida.marca = JSON.parse(this.medidaForm.get('marca').value);
+    this.medida.itensTipoMedida = this.itensTipoMedida;
+    this.medidaService.alterar(this.medida)
+      .pipe(first())
+      .subscribe(
+        data => {
+          this.alertaService.success('Alterado com sucesso!', true);
+          this.router.navigate(['medida/listar']);
+        },
+        error => {
+          this.alertaService.error(error);
+        });
+  }
 
-    onAdd() {
-        this.itensTipoMedida.push(new ItensTipoMedida(this.medidaForm.get('valor').value));
-        this.medidaForm.get('valor').setValue('');
+  onCancelar() {
+    this.medidaForm = new FormGroup({
+      codigo: new FormControl(''),
+      nome: new FormControl('', Validators.required),
+      descricao: new FormControl('', Validators.required),
+      categoria: new FormControl('', Validators.required),
+      subcategoria: new FormControl({value: '', disabled: true}, Validators.required),
+      marca: new FormControl('', Validators.required),
+      valor: new FormControl(''),
+    });
 
-    }
+    this.itensTipoMedida = [];
+    this.submitted = false;
+    this.update = false;
+    this.disable = true;
 
-    onRemove(index) {
-        this.itensTipoMedida.splice(index, 1);
-    }
-
-    onCadastrar() {
-
-        this.submitted = true;
-
-        // stop here if form is invalid
-        if (this.medidaForm.invalid) {
-            return;
-        }
+    this.categorias = [];
+    this.subcategorias = [];
+    this.marcas = [];
 
 
-        this.medida = this.medidaForm.value;
-        this.medida.categoria = JSON.parse(this.medidaForm.get('categoria').value);
-        this.medida.subcategoria = JSON.parse(this.medidaForm.get('subcategoria').value);
-        this.medida.marca = JSON.parse(this.medidaForm.get('marca').value);
-        this.medida.itensTipoMedida = this.itensTipoMedida;
-        this.medidaService.cadastrar(this.medida)
-            .pipe(first())
-            .subscribe(
-                data => {
-                    this.alertaService.success('Registrado com sucesso!', true);
-                    this.router.navigate(['medida/listar']);
-                },
-                error => {
-                    this.alertaService.error(error);
-                });
-    }
+    this.marcaService.consultar().subscribe(
+      (marca: any[]) => {
+        this.marcas = marca;
+      }, (error) => console.log(error)
+    );
 
-    get f() {
-        return this.medidaForm.controls;
-    }
-
+    this.categoriaService.consultar().subscribe(
+      (categoria: any[]) => {
+        this.categorias = categoria;
+      }, (error) => console.log(error)
+    );
+  }
 
 }

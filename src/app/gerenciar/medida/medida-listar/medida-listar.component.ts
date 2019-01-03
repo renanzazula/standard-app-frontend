@@ -23,6 +23,7 @@ export class MedidaListarComponent implements OnInit {
                 this.medidas = medida;
             }, (error) => console.log(error)
         );
+
     }
 
 }

@@ -122,13 +122,12 @@
                         </table>
                     </div>
                 </div>
-
             </div>
             <div class="card-footer bg-transparent text-right">
-                <button *ngSwitchCase="true" type="button" class="btn btn-primary">Alterar</button>
+                <button *ngSwitchCase="true" type="button" class="btn btn-primary" (click)="onAlterar()">Alterar</button>
                 <button *ngSwitchCase="false" type="button" class="btn btn-primary" (click)="onCadastrar()">Cadastrar
                 </button>
-                <button type="button" class="btn btn-secondary ml-1">Cancelar</button>
+                <button type="button" class="btn btn-secondary ml-1" (click)="onCancelar()">Cancelar</button>
             </div>
         </div>
     </form>

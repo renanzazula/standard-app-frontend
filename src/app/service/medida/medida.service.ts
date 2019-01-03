@@ -14,7 +14,6 @@ export class MedidaService {
     }
 
     getById(id: number) {
-        console.log(id);
         return this.http.get(`${environment.apiUrl}/medida/${id}`);
     }
 
