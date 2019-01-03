@@ -7,6 +7,7 @@ import {MedidaListarComponent} from "./gerenciar/medida/medida-listar/medida-lis
 import {MedidaCadastrarComponent} from "./gerenciar/medida/medida-cadastrar/medida-cadastrar.component";
 import {CategoriaListarComponent} from "./gerenciar/categoria/categoria-listar/categoria-listar.component";
 import {CategoriaComponent} from "./gerenciar/categoria/categoria.component";
+import {CategoriaCadastrarComponent} from "./gerenciar/categoria/categoria-cadastrar/categoria-cadastrar.component";
 
 const appRoutes: Routes = [
     {
@@ -25,8 +26,8 @@ const appRoutes: Routes = [
     },
     {
         path: 'categoria', component: CategoriaComponent, children: [
-            // {path: 'cadastrar', component: CategoriaCadastrarComponent},
-            // {path: ':codigo/editar', component: CategoriaCadastrarComponent},
+            {path: 'cadastrar', component: CategoriaCadastrarComponent},
+            {path: ':codigo/editar', component: CategoriaCadastrarComponent},
             {path: 'listar', component: CategoriaListarComponent}
         ]
     },

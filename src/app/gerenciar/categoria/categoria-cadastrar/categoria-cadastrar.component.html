@@ -1,3 +1,68 @@
-<p>
-  categoria-cadastrar works!
-</p>
+<div class="card panel-default">
+    <div class="card-header">
+        <h3 class="card-title">Cadastrar Categoría</h3>
+    </div>
+    <form [formGroup]="categoriaForm" [ngSwitch]="update">
+        <div class="card-body">
+            <div class="form-group" *ngSwitchCase="true">
+                <label for="codigo">Código</label>
+                <input type="text" formControlName="codigo" class="form-control" readonly/>
+            </div>
+
+            <div class="form-group">
+                <label for="nome">Nome</label>
+                <input type="text" formControlName="nome" class="form-control"
+                       [ngClass]="{ 'is-invalid': submitted && f.nome.errors }"/>
+                <div *ngIf="submitted && f.nome.errors" class="invalid-feedback">
+                    <div *ngIf="f.nome.errors.required">Nome é obrigatório</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="descricao">Descrição</label>
+                <textarea type="text" formControlName="descricao" class="form-control"
+                          [ngClass]="{ 'is-invalid': submitted && f.descricao.errors }"></textarea>
+                <div *ngIf="submitted && f.descricao.errors" class="invalid-feedback">
+                    <div *ngIf="f.descricao.errors.required">Descrição é obrigatório</div>
+                </div>
+            </div>
+            <div class="card panel-default">
+                <div class="card-header">
+                    <h6 class="card-title">Subcategorías</h6>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive-sm">
+                        <table class="table table-bordered table-hover">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col">codigo</th>
+                                    <th scope="col">Nome</th>
+                                    <th scope="col">Descrição</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let subcategoria of subcategorias; let i = index" [attr.data-index]="i"  scope="row">
+                                    <td scope="col">{{subcategoria.codigo}}</td>
+                                    <td scope="col">{{subcategoria.nome}}</td>
+                                    <td scope="col">{{subcategoria.descricao}}</td>
+                                    <td class="text-center">
+                                        <input type="checkbox">
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer bg-transparent text-right">
+                <button *ngSwitchCase="true" type="button" class="btn btn-secondary" (click)="onAlterar()">Alterar</button>
+                <button *ngSwitchCase="true" type="button" class="btn btn-secondary ml-1" (click)="onExcluir(categoriaForm.value)">Excluir</button>
+                <button *ngSwitchCase="false" type="button" class="btn btn-secondary" (click)="onCadastrar()">Cadastrar</button>
+                <button type="button" class="btn btn-secondary ml-1" (click)="onCancelar()">Cancelar</button>
+            </div>
+
+        </div>
+    </form>
+
+
+</div>
