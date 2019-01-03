@@ -23,6 +23,9 @@ import {MedidaService} from "./service/medida/medida.service";
 import {CategoriaService} from "./service/categoria/categoria.service";
 import {SubCategoriaService} from "./service/subcategoria/sub-categoria.service";
 import {DisableControlDirective} from "./directives/disable-control-directive";
+import { CategoriaComponent } from './gerenciar/categoria/categoria.component';
+import { CategoriaListarComponent } from './gerenciar/categoria/categoria-listar/categoria-listar.component';
+import { CategoriaCadastrarComponent } from './gerenciar/categoria/categoria-cadastrar/categoria-cadastrar.component';
 
 
 
@@ -41,7 +44,10 @@ import {DisableControlDirective} from "./directives/disable-control-directive";
         MedidaComponent,
         MedidaListarComponent,
         MedidaCadastrarComponent,
-        DisableControlDirective
+        DisableControlDirective,
+        CategoriaComponent,
+        CategoriaListarComponent,
+        CategoriaCadastrarComponent
     ],
     imports: [
         BrowserModule,
