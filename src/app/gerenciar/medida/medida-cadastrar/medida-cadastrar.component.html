@@ -94,7 +94,7 @@
 
             <div class="card panel-default">
                 <div class="card-header">
-                    <h6 class="card-title">Cadastrar Medida</h6>
+                    <h6 class="card-title">Medida</h6>
                 </div>
                 <div class="card-body">
                     <div class="form-group row">
@@ -115,18 +115,18 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr *ngFor="let itemTipoMedida of itensTipoMedida; let i = index" [attr.data-index]="i"  scope="row" (click)="onRemove(i)">
-                                <td>{{itemTipoMedida.valor}}</td>
-                            </tr>
+                                <tr *ngFor="let itemTipoMedida of itensTipoMedida; let i = index" [attr.data-index]="i"  scope="row" (click)="onRemove(i)">
+                                    <td>{{itemTipoMedida.valor}}</td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
             <div class="card-footer bg-transparent text-right">
-                <button *ngSwitchCase="true" type="button" class="btn btn-primary" (click)="onAlterar()">Alterar</button>
-                <button *ngSwitchCase="false" type="button" class="btn btn-primary" (click)="onCadastrar()">Cadastrar
-                </button>
+                <button *ngSwitchCase="true" type="button" class="btn btn-secondary" (click)="onAlterar()">Alterar</button>
+                <button *ngSwitchCase="true" type="button" class="btn btn-secondary ml-1" (click)="onExcluir(medidaForm.value)">Excluir</button>
+                <button *ngSwitchCase="false" type="button" class="btn btn-secondary" (click)="onCadastrar()">Cadastrar</button>
                 <button type="button" class="btn btn-secondary ml-1" (click)="onCancelar()">Cancelar</button>
             </div>
         </div>

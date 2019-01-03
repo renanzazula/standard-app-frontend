@@ -11,26 +11,17 @@
                     <th scope="col">Nome</th>
                     <th scope="col">Descrição</th>
                     <th scope="col">Status</th>
-                    <th scope="col">Edit</th>
-                    <th scope="col">Delete</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr *ngFor="let marca of marcas" scope="row">
+                <tr *ngIf="marcas.length ===0" scope="row">
+                    <td class="col text-center" colspan="4">Nenhuma Marca encontrada!</td>
+                </tr>
+                <tr *ngFor="let marca of marcas" scope="row" [routerLink]="['/marca', marca.codigo, 'editar']">
                     <td>{{marca.codigo}}</td>
                     <td>{{marca.nome}}</td>
                     <td>{{marca.descricao}}</td>
                     <td>{{marca.status}}</td>
-                    <td>
-                        <button type="button" class="btn btn-outline-warning btn-sm" (click)="onAlterar(marca)">
-                            Alterar
-                        </button>
-                    </td>
-                    <td>
-                        <button type="button" class="btn btn-outline-danger btn-sm" (click)="onExcluir(marca)">
-                            Excluir
-                        </button>
-                    </td>
                 </tr>
                 </tbody>
             </table>

@@ -6,13 +6,18 @@
         <div class="table-responsive-sm">
             <table class="table table-bordered">
                 <thead class="thead-dark">
-                <tr>
-                    <th scope="col">Valor</th>
-                </tr>
+                    <tr>
+                        <th scope="col">Valor</th>
+                    </tr>
                 </thead>
+                <tbody *ngIf="medidas.length === 0">
+                    <tr>
+                        <td class="col text-center"  >Nenhuma Medida encontrada!</td>
+                    </tr>
+                </tbody>
                 <tbody>
                     <tr *ngFor="let medida of medidas" scope="row">
-                        <td colspan="4">
+                        <td>
                             <table class="table">
                                 <tbody>
                                     <tr *ngFor="let itemTipoMedida of medida.itensTipoMedida; let i = index" [attr.data-index]="i"  >
