@@ -18,7 +18,7 @@
                 <tbody>
                 <tr *ngFor="let categoria of categorias" scope="row">
                     <td>
-                        <table class="table">
+                        <table class="table" *ngIf="categoria.subcategorias.length !== 0 ">
                             <tbody>
                                 <tr *ngFor="let subcategoria of categoria.subcategorias; let i = index"
                                     [attr.data-index]="i">
@@ -33,6 +33,19 @@
                                         {{subcategoria.nome}}
                                     </td>
                                 </tr>
+                            </tbody>
+                        </table>
+                        <table class="table" *ngIf="categoria.subcategorias.length === 0 ">
+                            <tbody>
+                            <tr  scope="row">
+                                <td scope="col" style="background-color: lightgrey; font-weight: bold"
+                                    [routerLink]="['/categoria', categoria.codigo, 'editar']">
+                                    {{categoria.nome}}
+                                </td>
+                            </tr>
+                            <tr  scope="row">
+                                <td class="col text-center">Nenhuma Subategoría encontrada!</td>
+                            </tr>
                             </tbody>
                         </table>
                     </td>
