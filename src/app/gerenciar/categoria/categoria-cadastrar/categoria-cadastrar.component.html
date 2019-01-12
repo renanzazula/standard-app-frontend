@@ -40,13 +40,13 @@
                                     <th></th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr *ngFor="let subcategoria of subcategorias; let i = index" [attr.data-index]="i"  scope="row">
+                            <tbody formArrayName="subcategorias">
+                                <tr *ngFor="let subcategoria of subcategorias ; let i = index;"  scope="row">
                                     <td scope="col">{{subcategoria.codigo}}</td>
                                     <td scope="col">{{subcategoria.nome}}</td>
                                     <td scope="col">{{subcategoria.descricao}}</td>
-                                    <td class="text-center">
-                                        <input type="checkbox">
+                                    <td class="text-center" >
+                                        <input type="checkbox" [formControlName]="i">
                                     </td>
                                 </tr>
                             </tbody>
@@ -60,7 +60,6 @@
                 <button *ngSwitchCase="false" type="button" class="btn btn-secondary" (click)="onCadastrar()">Cadastrar</button>
                 <button type="button" class="btn btn-secondary ml-1" (click)="onCancelar()">Cancelar</button>
             </div>
-
         </div>
     </form>
 

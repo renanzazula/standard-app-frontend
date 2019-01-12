@@ -1,14 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterContentInit, Component, OnInit} from '@angular/core';
 import {Categoria} from "../../../model/categoria";
 import {Subcategoria} from "../../../model/subcategoria";
-import {Marca} from "../../../model/marca";
-import {Medida} from "../../../model/medida";
-import {ItensTipoMedida} from "../../../model/ItensTipoMedida";
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
-import {MedidaService} from "../../../service/medida/medida.service";
 import {AlertaService} from "../../../service/mensagens/alerta/alerta.service";
-import {MarcaService} from "../../../service/marca/marca.service";
 import {CategoriaService} from "../../../service/categoria/categoria.service";
 import {SubCategoriaService} from "../../../service/subcategoria/sub-categoria.service";
 import {MatDialog} from "@angular/material";
@@ -19,12 +14,13 @@ import {first} from "rxjs/operators";
     selector: 'app-categoria-cadastrar',
     templateUrl: './categoria-cadastrar.component.html'
 })
-export class CategoriaCadastrarComponent implements OnInit {
+export class CategoriaCadastrarComponent implements OnInit{
 
     categoria: Categoria;
-    subcategorias: Subcategoria[] = [];
-
     categoriaForm: FormGroup;
+    subcategorias: Subcategoria[] = [];
+    checkboxGroup: FormGroup;
+
     submitted = false;
     update = false;
     disable = true;
@@ -38,46 +34,49 @@ export class CategoriaCadastrarComponent implements OnInit {
         private subcategoriaService: SubCategoriaService,
         private dialogComponente: MatDialog
     ) {
-        this.categoriaForm = new FormGroup({
-            codigo: new FormControl(''),
-            nome: new FormControl('', Validators.required),
-            descricao: new FormControl('', Validators.required),
-        });
+        let checkboxArray = new FormArray([]);
+        this.subcategoriaService.consultar().subscribe(
+            (subcategoria: Subcategoria[]) => {
+                subcategoria.forEach((value, index) => {
+                    checkboxArray.insert(index, new FormControl(false))
+                });
+            }, (error) => console.log(error)
+        )
+        this.categoriaForm = formBuilder.group({
+            codigo: [''],
+            nome: ['', Validators.required],
+            descricao: ['', Validators.required],
+            subcategorias:  checkboxArray
+    });
     }
 
     ngOnInit() {
-        const codigo = this.activatedRoute.snapshot.params['codigo'];
-
         this.subcategoriaService.consultar().subscribe(
             (subcategoria: any[]) => {
                 this.subcategorias = subcategoria;
             }, (error) => console.log(error)
         );
-
-        if (codigo !== undefined) {
-            this.update = true;
-            this.disable = false;
-            this.categoriaService.getById(codigo).subscribe(
-                (categoria: Categoria) => {
-                    this.categoriaForm.setValue({
-                        codigo: categoria.codigo,
-                        nome: categoria.nome,
-                        descricao: categoria.descricao,
-                        subcategoria: categoria.subcategorias,
-                    });
-                });
-        }
     }
 
-    onCadastrar() {
-        this.submitted = true;
 
+    onCadastrar() {
+
+        const selected = this.categoriaForm.value.subcategorias
+            .map((v, i) => v ? this.subcategorias[i] : null)
+            .filter(v => v !== null);
+
+        this.submitted = true;
         // stop here if form is invalid
         if (this.categoriaForm.invalid) {
             return;
         }
+        this.categoria = new Categoria();
+        this.categoria = this.categoriaForm.value;
+        this.categoria.subcategorias =selected;
 
-        this.categoriaService.cadastrar(this.categoriaForm.value)
+        console.log(this.categoria);
+
+        this.categoriaService.cadastrar(this.categoria)
             .pipe(first())
             .subscribe(
                 data => {
@@ -156,5 +155,4 @@ export class CategoriaCadastrarComponent implements OnInit {
             }
         });
     }
-
 }

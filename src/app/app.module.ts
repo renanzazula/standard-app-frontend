@@ -16,17 +16,16 @@ import {AlertaComponent} from './mensagens/alerta/alerta.component';
 import {AlertaService} from "./service/mensagens/alerta/alerta.service";
 import {routing} from "./app.routing";
 import {MarcaService} from "./service/marca/marca.service";
-import { MedidaComponent } from './gerenciar/medida/medida.component';
-import { MedidaListarComponent } from './gerenciar/medida/medida-listar/medida-listar.component';
-import { MedidaCadastrarComponent } from './gerenciar/medida/medida-cadastrar/medida-cadastrar.component';
+import {MedidaComponent} from './gerenciar/medida/medida.component';
+import {MedidaListarComponent} from './gerenciar/medida/medida-listar/medida-listar.component';
+import {MedidaCadastrarComponent} from './gerenciar/medida/medida-cadastrar/medida-cadastrar.component';
 import {MedidaService} from "./service/medida/medida.service";
 import {CategoriaService} from "./service/categoria/categoria.service";
 import {SubCategoriaService} from "./service/subcategoria/sub-categoria.service";
 import {DisableControlDirective} from "./directives/disable-control-directive";
-import { CategoriaComponent } from './gerenciar/categoria/categoria.component';
-import { CategoriaListarComponent } from './gerenciar/categoria/categoria-listar/categoria-listar.component';
-import { CategoriaCadastrarComponent } from './gerenciar/categoria/categoria-cadastrar/categoria-cadastrar.component';
-
+import {CategoriaComponent} from './gerenciar/categoria/categoria.component';
+import {CategoriaListarComponent} from './gerenciar/categoria/categoria-listar/categoria-listar.component';
+import {CategoriaCadastrarComponent} from './gerenciar/categoria/categoria-cadastrar/categoria-cadastrar.component';
 
 
 @NgModule({
@@ -59,7 +58,9 @@ import { CategoriaCadastrarComponent } from './gerenciar/categoria/categoria-cad
         routing,
     ],
     entryComponents: [DialogComponent],
-    providers: [AlertaService, MarcaService, MatDialog, MedidaService, CategoriaService, SubCategoriaService],
+    providers: [AlertaService, MarcaService,
+        MatDialog, MedidaService,
+        CategoriaService, SubCategoriaService],
     bootstrap: [AppComponent]
 })
 export class AppModule {
