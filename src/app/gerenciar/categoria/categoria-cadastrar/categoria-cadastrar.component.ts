@@ -90,10 +90,8 @@ export class CategoriaCadastrarComponent implements OnInit{
             return;
         }
 
-
         let categoria = this.categoriaForm.value;
         categoria.subcategorias =selected;
-
 
         this.categoriaService.cadastrar(categoria)
             .pipe(first())
@@ -130,8 +128,7 @@ export class CategoriaCadastrarComponent implements OnInit{
                     .filter(v => v !== null);
 
                 let categoria = this.categoriaForm.value;
-                categoria.subcategorias =selected;
-
+                categoria.subcategorias = selected;
 
                 this.submitted = true;
                 // stop here if form is invalid
@@ -154,6 +151,9 @@ export class CategoriaCadastrarComponent implements OnInit{
     }
 
     onCancelar() {
+        this.categoriaForm.reset();
+        this.submitted = false;
+        this.update = false;
     }
 
     onExcluir(element: Categoria) {
