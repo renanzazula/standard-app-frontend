@@ -1,4 +1,4 @@
-import {AfterContentInit, Component, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Categoria} from "../../../model/categoria";
 import {Subcategoria} from "../../../model/subcategoria";
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
@@ -9,13 +9,12 @@ import {SubCategoriaService} from "../../../service/subcategoria/sub-categoria.s
 import {MatDialog} from "@angular/material";
 import {DialogComponent} from "../../../mensagens/dialog/dialog.component";
 import {first} from "rxjs/operators";
-import {Medida} from "../../../model/medida";
 
 @Component({
     selector: 'app-categoria-cadastrar',
     templateUrl: './categoria-cadastrar.component.html'
 })
-export class CategoriaCadastrarComponent implements OnInit{
+export class CategoriaCadastrarComponent implements OnInit {
 
     categoriaForm: FormGroup;
     subcategorias: Subcategoria[] = [];
@@ -61,13 +60,13 @@ export class CategoriaCadastrarComponent implements OnInit{
         }
     }
 
-    mergeCheckbox(subcategoriasSelecionadas: Subcategoria[]){
+    mergeCheckbox(subcategoriasSelecionadas: Subcategoria[]) {
         this.subcategoriaService.consultar().subscribe(
             (entry: any[]) => {
                 entry.forEach((value, index) => {
                     var estado = false;
                     subcategoriasSelecionadas.forEach((v, i) => {
-                        if(value.codigo === v.codigo){
+                        if (value.codigo === v.codigo) {
                             estado = true;
                         }
                     });
@@ -91,7 +90,7 @@ export class CategoriaCadastrarComponent implements OnInit{
         }
 
         let categoria = this.categoriaForm.value;
-        categoria.subcategorias =selected;
+        categoria.subcategorias = selected;
 
         this.categoriaService.cadastrar(categoria)
             .pipe(first())

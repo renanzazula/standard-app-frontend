@@ -17,6 +17,9 @@ import {FormasdepagamentoListarComponent} from "./gerenciar/formasdepagamento/fo
 import {FornecedorListarComponent} from "./gerenciar/fornecedor/fornecedor-listar/fornecedor-listar.component";
 import {FornecedorCadastrarComponent} from "./gerenciar/fornecedor/fornecedor-cadastrar/fornecedor-cadastrar.component";
 import {FornecedorComponent} from "./gerenciar/fornecedor/fornecedor.component";
+import {DominioListarComponent} from "./gerenciar/dominio/dominio-listar/dominio-listar.component";
+import {DominioCadastrarComponent} from "./gerenciar/dominio/dominio-cadastrar/dominio-cadastrar.component";
+import {DominioComponent} from "./gerenciar/dominio/dominio.component";
 
 const appRoutes: Routes = [
     {
@@ -54,6 +57,12 @@ const appRoutes: Routes = [
             {path: 'cadastrar', component: FornecedorCadastrarComponent},
             {path: ':codigo/editar', component: FornecedorCadastrarComponent},
             {path: 'listar', component: FornecedorListarComponent}
+        ]
+    },{
+        path: 'dominio', component: DominioComponent, children: [
+            {path: 'cadastrar', component: DominioCadastrarComponent},
+            {path: ':codigo/editar', component: DominioCadastrarComponent},
+            {path: 'listar', component: DominioListarComponent}
         ]
     },
     // otherwise redirect to home

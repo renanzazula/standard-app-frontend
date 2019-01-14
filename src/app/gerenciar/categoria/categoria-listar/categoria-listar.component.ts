@@ -1,31 +1,29 @@
-import { Component, OnInit } from '@angular/core';
-import {Medida} from "../../../model/medida";
-import {MedidaService} from "../../../service/medida/medida.service";
+import {Component, OnInit} from '@angular/core';
 import {CategoriaService} from "../../../service/categoria/categoria.service";
 import {Categoria} from "../../../model/categoria";
 
 @Component({
-  selector: 'app-categoria-listar',
-  templateUrl: './categoria-listar.component.html'
+    selector: 'app-categoria-listar',
+    templateUrl: './categoria-listar.component.html'
 })
 export class CategoriaListarComponent implements OnInit {
 
-  categorias: Categoria[] = [];
+    categorias: Categoria[] = [];
 
-  constructor(private categoriaService: CategoriaService) {
-  }
+    constructor(private categoriaService: CategoriaService) {
+    }
 
-  ngOnInit() {
-    this.get();
-  }
+    ngOnInit() {
+        this.get();
+    }
 
-  get() {
-    this.categoriaService.consultar().subscribe(
-        (categoria: any[]) => {
-          this.categorias = categoria;
-        }, (error) => console.log(error)
-    );
+    get() {
+        this.categoriaService.consultar().subscribe(
+            (categoria: any[]) => {
+                this.categorias = categoria;
+            }, (error) => console.log(error)
+        );
 
-  }
+    }
 
 }
