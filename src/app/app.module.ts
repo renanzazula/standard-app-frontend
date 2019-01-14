@@ -33,6 +33,10 @@ import {FormasdepagamentoListarComponent} from './gerenciar/formasdepagamento/fo
 import {FormasdepagamentoCadastrarComponent} from './gerenciar/formasdepagamento/formasdepagamento-cadastrar/formasdepagamento-cadastrar.component';
 import {FormasdepagamentoComponent} from './gerenciar/formasdepagamento/formasdepagamento.component';
 import {FormasDePagamentoService} from "./service/formasDePagamento/formas-de-pagamento.service";
+import {FornecedorCadastrarComponent} from './gerenciar/fornecedor/fornecedor-cadastrar/fornecedor-cadastrar.component';
+import {FornecedorListarComponent} from './gerenciar/fornecedor/fornecedor-listar/fornecedor-listar.component';
+import {FornecedorComponent} from "./gerenciar/fornecedor/fornecedor.component";
+import {FornecedorService} from "./service/fornecedor/fornecedor.service";
 
 
 @NgModule({
@@ -59,7 +63,10 @@ import {FormasDePagamentoService} from "./service/formasDePagamento/formas-de-pa
         SubcategoriaComponent,
         FormasdepagamentoListarComponent,
         FormasdepagamentoCadastrarComponent,
-        FormasdepagamentoComponent
+        FormasdepagamentoComponent,
+        FornecedorCadastrarComponent,
+        FornecedorListarComponent,
+        FornecedorComponent
     ],
     imports: [
         BrowserModule,
@@ -72,8 +79,8 @@ import {FormasDePagamentoService} from "./service/formasDePagamento/formas-de-pa
     ],
     entryComponents: [DialogComponent],
     providers: [AlertaService, MarcaService,
-        MatDialog, MedidaService,CategoriaService,
-        SubCategoriaService, FormasDePagamentoService],
+        MatDialog, MedidaService, CategoriaService,
+        SubCategoriaService, FormasDePagamentoService, FornecedorService],
     bootstrap: [AppComponent]
 })
 export class AppModule {
