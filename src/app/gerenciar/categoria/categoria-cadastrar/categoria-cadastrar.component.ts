@@ -9,6 +9,7 @@ import {SubCategoriaService} from "../../../service/subcategoria/sub-categoria.s
 import {MatDialog} from "@angular/material";
 import {DialogComponent} from "../../../mensagens/dialog/dialog.component";
 import {first} from "rxjs/operators";
+import {Medida} from "../../../model/medida";
 
 @Component({
     selector: 'app-categoria-cadastrar',
@@ -16,10 +17,9 @@ import {first} from "rxjs/operators";
 })
 export class CategoriaCadastrarComponent implements OnInit{
 
-    categoria: Categoria;
     categoriaForm: FormGroup;
     subcategorias: Subcategoria[] = [];
-    checkboxGroup: FormGroup;
+    checkboxArray: FormArray = new FormArray([]);
 
     submitted = false;
     update = false;
@@ -34,30 +34,49 @@ export class CategoriaCadastrarComponent implements OnInit{
         private subcategoriaService: SubCategoriaService,
         private dialogComponente: MatDialog
     ) {
-        let checkboxArray = new FormArray([]);
-        this.subcategoriaService.consultar().subscribe(
-            (subcategoria: Subcategoria[]) => {
-                subcategoria.forEach((value, index) => {
-                    checkboxArray.insert(index, new FormControl(false))
-                });
-            }, (error) => console.log(error)
-        )
-        this.categoriaForm = formBuilder.group({
+        this.mergeCheckbox([]);
+        this.categoriaForm = this.formBuilder.group({
             codigo: [''],
             nome: ['', Validators.required],
             descricao: ['', Validators.required],
-            subcategorias:  checkboxArray
-    });
+            subcategorias: this.checkboxArray
+        });
     }
 
     ngOnInit() {
-        this.subcategoriaService.consultar().subscribe(
-            (subcategoria: any[]) => {
-                this.subcategorias = subcategoria;
-            }, (error) => console.log(error)
-        );
+        const codigo = this.activatedRoute.snapshot.params['codigo'];
+        if (codigo !== undefined) {
+            this.update = true;
+            this.disable = false;
+            this.categoriaService.getById(codigo).subscribe(
+                (categoria: Categoria) => {
+                    this.mergeCheckbox(categoria.subcategorias);
+                    this.categoriaForm.patchValue({
+                        codigo: categoria.codigo,
+                        nome: categoria.nome,
+                        descricao: categoria.descricao,
+                    });
+                });
+            this.categoriaForm.setControl('subcategorias', this.checkboxArray);
+        }
     }
 
+    mergeCheckbox(subcategoriasSelecionadas: Subcategoria[]){
+        this.subcategoriaService.consultar().subscribe(
+            (entry: any[]) => {
+                entry.forEach((value, index) => {
+                    var estado = false;
+                    subcategoriasSelecionadas.forEach((v, i) => {
+                        if(value.codigo === v.codigo){
+                            estado = true;
+                        }
+                    });
+                    this.subcategorias[index] = value;
+                    this.checkboxArray.insert(index, new FormControl(estado))
+                });
+            }, (error) => console.log("ERROR" + error)
+        );
+    }
 
     onCadastrar() {
 
@@ -70,13 +89,13 @@ export class CategoriaCadastrarComponent implements OnInit{
         if (this.categoriaForm.invalid) {
             return;
         }
-        this.categoria = new Categoria();
-        this.categoria = this.categoriaForm.value;
-        this.categoria.subcategorias =selected;
 
-        console.log(this.categoria);
 
-        this.categoriaService.cadastrar(this.categoria)
+        let categoria = this.categoriaForm.value;
+        categoria.subcategorias =selected;
+
+
+        this.categoriaService.cadastrar(categoria)
             .pipe(first())
             .subscribe(
                 data => {
@@ -106,13 +125,21 @@ export class CategoriaCadastrarComponent implements OnInit{
         dialogRef.afterClosed().subscribe(result => {
             if (result === true) {
 
+                const selected = this.categoriaForm.value.subcategorias
+                    .map((v, i) => v ? this.subcategorias[i] : null)
+                    .filter(v => v !== null);
+
+                let categoria = this.categoriaForm.value;
+                categoria.subcategorias =selected;
+
+
                 this.submitted = true;
                 // stop here if form is invalid
                 if (this.categoriaForm.invalid) {
                     return;
                 }
 
-                this.categoriaService.alterar(this.categoriaForm.value)
+                this.categoriaService.alterar(categoria)
                     .pipe(first())
                     .subscribe(
                         data => {

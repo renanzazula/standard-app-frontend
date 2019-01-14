@@ -15,7 +15,6 @@ export class CategoriaService {
     }
 
     getById(id: number) {
-        console.log(id);
         return this.http.get(`${environment.apiUrl}/categoria/${id}`);
     }
 
