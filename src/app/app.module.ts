@@ -26,6 +26,9 @@ import {DisableControlDirective} from "./directives/disable-control-directive";
 import {CategoriaComponent} from './gerenciar/categoria/categoria.component';
 import {CategoriaListarComponent} from './gerenciar/categoria/categoria-listar/categoria-listar.component';
 import {CategoriaCadastrarComponent} from './gerenciar/categoria/categoria-cadastrar/categoria-cadastrar.component';
+import { SubcategoriaListarComponent } from './gerenciar/subcategoria/subcategoria-listar/subcategoria-listar.component';
+import { SubcategoriaCadastrarComponent } from './gerenciar/subcategoria/subcategoria-cadastrar/subcategoria-cadastrar.component';
+import { SubcategoriaComponent } from './gerenciar/subcategoria/subcategoria.component';
 
 
 @NgModule({
@@ -46,7 +49,10 @@ import {CategoriaCadastrarComponent} from './gerenciar/categoria/categoria-cadas
         DisableControlDirective,
         CategoriaComponent,
         CategoriaListarComponent,
-        CategoriaCadastrarComponent
+        CategoriaCadastrarComponent,
+        SubcategoriaListarComponent,
+        SubcategoriaCadastrarComponent,
+        SubcategoriaComponent
     ],
     imports: [
         BrowserModule,
