@@ -11,6 +11,9 @@ import {CategoriaCadastrarComponent} from "./gerenciar/categoria/categoria-cadas
 import {SubcategoriaComponent} from "./gerenciar/subcategoria/subcategoria.component";
 import {SubcategoriaListarComponent} from "./gerenciar/subcategoria/subcategoria-listar/subcategoria-listar.component";
 import {SubcategoriaCadastrarComponent} from "./gerenciar/subcategoria/subcategoria-cadastrar/subcategoria-cadastrar.component";
+import {FormasdepagamentoComponent} from "./gerenciar/formasdepagamento/formasdepagamento.component";
+import {FormasdepagamentoCadastrarComponent} from "./gerenciar/formasdepagamento/formasdepagamento-cadastrar/formasdepagamento-cadastrar.component";
+import {FormasdepagamentoListarComponent} from "./gerenciar/formasdepagamento/formasdepagamento-listar/formasdepagamento-listar.component";
 
 const appRoutes: Routes = [
     {
@@ -36,6 +39,12 @@ const appRoutes: Routes = [
             {path: 'cadastrar', component: SubcategoriaCadastrarComponent},
             {path: ':codigo/editar', component: SubcategoriaCadastrarComponent},
             {path: 'listar', component: SubcategoriaListarComponent}
+        ]
+    },{
+        path: 'formasdepagamento', component: FormasdepagamentoComponent, children: [
+            {path: 'cadastrar', component: FormasdepagamentoCadastrarComponent},
+            {path: ':codigo/editar', component: FormasdepagamentoCadastrarComponent},
+            {path: 'listar', component: FormasdepagamentoListarComponent}
         ]
     },
     // otherwise redirect to home

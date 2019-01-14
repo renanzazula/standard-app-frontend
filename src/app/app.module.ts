@@ -26,9 +26,13 @@ import {DisableControlDirective} from "./directives/disable-control-directive";
 import {CategoriaComponent} from './gerenciar/categoria/categoria.component';
 import {CategoriaListarComponent} from './gerenciar/categoria/categoria-listar/categoria-listar.component';
 import {CategoriaCadastrarComponent} from './gerenciar/categoria/categoria-cadastrar/categoria-cadastrar.component';
-import { SubcategoriaListarComponent } from './gerenciar/subcategoria/subcategoria-listar/subcategoria-listar.component';
-import { SubcategoriaCadastrarComponent } from './gerenciar/subcategoria/subcategoria-cadastrar/subcategoria-cadastrar.component';
-import { SubcategoriaComponent } from './gerenciar/subcategoria/subcategoria.component';
+import {SubcategoriaListarComponent} from './gerenciar/subcategoria/subcategoria-listar/subcategoria-listar.component';
+import {SubcategoriaCadastrarComponent} from './gerenciar/subcategoria/subcategoria-cadastrar/subcategoria-cadastrar.component';
+import {SubcategoriaComponent} from './gerenciar/subcategoria/subcategoria.component';
+import {FormasdepagamentoListarComponent} from './gerenciar/formasdepagamento/formasdepagamento-listar/formasdepagamento-listar.component';
+import {FormasdepagamentoCadastrarComponent} from './gerenciar/formasdepagamento/formasdepagamento-cadastrar/formasdepagamento-cadastrar.component';
+import {FormasdepagamentoComponent} from './gerenciar/formasdepagamento/formasdepagamento.component';
+import {FormasDePagamentoService} from "./service/formasDePagamento/formas-de-pagamento.service";
 
 
 @NgModule({
@@ -52,7 +56,10 @@ import { SubcategoriaComponent } from './gerenciar/subcategoria/subcategoria.com
         CategoriaCadastrarComponent,
         SubcategoriaListarComponent,
         SubcategoriaCadastrarComponent,
-        SubcategoriaComponent
+        SubcategoriaComponent,
+        FormasdepagamentoListarComponent,
+        FormasdepagamentoCadastrarComponent,
+        FormasdepagamentoComponent
     ],
     imports: [
         BrowserModule,
@@ -65,8 +72,8 @@ import { SubcategoriaComponent } from './gerenciar/subcategoria/subcategoria.com
     ],
     entryComponents: [DialogComponent],
     providers: [AlertaService, MarcaService,
-        MatDialog, MedidaService,
-        CategoriaService, SubCategoriaService],
+        MatDialog, MedidaService,CategoriaService,
+        SubCategoriaService, FormasDePagamentoService],
     bootstrap: [AppComponent]
 })
 export class AppModule {

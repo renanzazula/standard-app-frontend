@@ -1,0 +1,30 @@
+<div class="card">
+  <div class="card-header">
+    <h3 class="card-title">Consultar {{page_nome}}</h3>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive-sm">
+      <table class="table table-bordered table-hover">
+        <thead class="thead-dark">
+        <tr>
+          <th scope="col">Código</th>
+          <th scope="col">Nome</th>
+          <th scope="col">Descrição</th>
+          <th scope="col">Porcentagem de Desconto%</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngIf="formasdepagamentos.length ===0" scope="row">
+          <td class="col text-center" colspan="4">{{nunhum_encontrado}}</td>
+        </tr>
+        <tr *ngFor="let formasdepagamento of formasdepagamentos" scope="row" [routerLink]="['/formasdepagamento', formasdepagamento.codigo, 'editar']">
+          <td>{{formasdepagamento.codigo}}</td>
+          <td>{{formasdepagamento.nome}}</td>
+          <td>{{formasdepagamento.descricao}}</td>
+          <td>{{formasdepagamento.porcentagemDesconto}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
