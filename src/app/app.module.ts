@@ -41,6 +41,10 @@ import {DominioComponent} from './gerenciar/dominio/dominio.component';
 import {DominioCadastrarComponent} from './gerenciar/dominio/dominio-cadastrar/dominio-cadastrar.component';
 import {DominioListarComponent} from './gerenciar/dominio/dominio-listar/dominio-listar.component';
 import {DominioService} from "./service/dominio/dominio.service";
+import {ProdutoCadastrarComponent} from './gerenciar/produto/produto-cadastrar/produto-cadastrar.component';
+import {ProdutoListarComponent} from './gerenciar/produto/produto-listar/produto-listar.component';
+import {ProdutoComponent} from "./gerenciar/produto/produto.component";
+import {ProdutoService} from "./service/produto/produto.service";
 
 
 @NgModule({
@@ -73,7 +77,10 @@ import {DominioService} from "./service/dominio/dominio.service";
         FornecedorComponent,
         DominioComponent,
         DominioCadastrarComponent,
-        DominioListarComponent
+        DominioListarComponent,
+        ProdutoCadastrarComponent,
+        ProdutoListarComponent,
+        ProdutoComponent
     ],
     imports: [
         BrowserModule,
@@ -88,7 +95,7 @@ import {DominioService} from "./service/dominio/dominio.service";
     providers: [AlertaService, MarcaService,
         MatDialog, MedidaService, CategoriaService,
         SubCategoriaService, FormasDePagamentoService,
-        FornecedorService, DominioService],
+        FornecedorService, DominioService, ProdutoService],
     bootstrap: [AppComponent]
 })
 export class AppModule {

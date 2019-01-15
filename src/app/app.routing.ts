@@ -20,6 +20,9 @@ import {FornecedorComponent} from "./gerenciar/fornecedor/fornecedor.component";
 import {DominioListarComponent} from "./gerenciar/dominio/dominio-listar/dominio-listar.component";
 import {DominioCadastrarComponent} from "./gerenciar/dominio/dominio-cadastrar/dominio-cadastrar.component";
 import {DominioComponent} from "./gerenciar/dominio/dominio.component";
+import {ProdutoListarComponent} from "./gerenciar/produto/produto-listar/produto-listar.component";
+import {ProdutoCadastrarComponent} from "./gerenciar/produto/produto-cadastrar/produto-cadastrar.component";
+import {ProdutoComponent} from "./gerenciar/produto/produto.component";
 
 const appRoutes: Routes = [
     {
@@ -63,6 +66,12 @@ const appRoutes: Routes = [
             {path: 'cadastrar', component: DominioCadastrarComponent},
             {path: ':codigo/editar', component: DominioCadastrarComponent},
             {path: 'listar', component: DominioListarComponent}
+        ]
+    },{
+        path: 'produto', component: ProdutoComponent, children: [
+            {path: 'cadastrar', component: ProdutoCadastrarComponent},
+            {path: ':codigo/editar', component: ProdutoCadastrarComponent},
+            {path: 'listar', component: ProdutoListarComponent}
         ]
     },
     // otherwise redirect to home

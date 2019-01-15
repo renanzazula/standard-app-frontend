@@ -14,7 +14,6 @@ export class SubCategoriaService {
     }
 
     getById(id: number) {
-        console.log(id);
         return this.http.get(`${environment.apiUrl}/subcategoria/${id}`);
     }
 

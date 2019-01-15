@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 
 import {HttpClient} from '@angular/common/http';
 import {Marca} from "../../model/marca";
@@ -14,7 +14,6 @@ export class MarcaService {
   }
 
   getById(id: number) {
-    console.log(id);
     return this.http.get(`${environment.apiUrl}/marca/${id}`);
   }
 
