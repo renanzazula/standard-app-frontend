@@ -1,0 +1,38 @@
+<div class="card panel-default">
+  <div class="card-header">
+    <h3 class="card-title">Cadastrar {{nome_page}}</h3>
+  </div>
+  <form [formGroup]="produtoForm" [ngSwitch]="update">
+    <div class="card-body">
+      <div class="form-group" *ngSwitchCase="true">
+        <label for="codigo">Código</label>
+        <input type="text" formControlName="codigo" class="form-control" readonly/>
+      </div>
+
+      <div class="form-group">
+        <label for="nome">Nome</label>
+        <input type="text" formControlName="nome" class="form-control"
+               [ngClass]="{ 'is-invalid': submitted && f.nome.errors }"/>
+        <div *ngIf="submitted && f.nome.errors" class="invalid-feedback">
+          <div *ngIf="f.nome.errors.required">Nome é obrigatório</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="descricao">Descrição</label>
+        <textarea type="text" formControlName="descricao" class="form-control"
+                  [ngClass]="{ 'is-invalid': submitted && f.descricao.errors }"></textarea>
+        <div *ngIf="submitted && f.descricao.errors" class="invalid-feedback">
+          <div *ngIf="f.descricao.errors.required">Descrição é obrigatório</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-footer bg-transparent text-right">
+      <button *ngSwitchCase="true"  type="button" class="btn btn-secondary" (click)="onAlterar()">Alterar</button>
+      <button *ngSwitchCase="true"  type="button" class="btn btn-secondary ml-1" (click)="onExcluir(produtoForm.value)">Excluir</button>
+      <button *ngSwitchCase="false" type="button" class="btn btn-secondary" (click)="onCadastrar()">Cadastrar
+      </button>
+      <button type="button" class="btn btn-secondary ml-1" (click)="onCancelar()">Cancelar</button>
+    </div>
+  </form>
+</div>
+<br>
