@@ -7,6 +7,18 @@ import {Subcategoria} from "../../../model/subcategoria";
 import {first} from "rxjs/operators";
 import {DialogComponent} from "../../../mensagens/dialog/dialog.component";
 import {ProdutoService} from "../../../service/produto/produto.service";
+import {Fornecedor} from "../../../model/fornecedor";
+import {Medida} from "../../../model/medida";
+import {Categoria} from "../../../model/categoria";
+import {Marca} from "../../../model/marca";
+import {FornecedorService} from "../../../service/fornecedor/fornecedor.service";
+import {MedidaService} from "../../../service/medida/medida.service";
+import {CategoriaService} from "../../../service/categoria/categoria.service";
+import {SubCategoriaService} from "../../../service/subcategoria/sub-categoria.service";
+import {MarcaService} from "../../../service/marca/marca.service";
+import {ItensTipoMedida} from "../../../model/ItensTipoMedida";
+import {DominioService} from "../../../service/dominio/dominio.service";
+import {Dominio} from "../../../model/dominio";
 
 @Component({
     selector: 'app-produto-cadastrar',
@@ -30,10 +42,17 @@ export class ProdutoCadastrarComponent implements OnInit {
     message_registrado_sucesso = 'Registrado com sucesso!';
     messagem_erro = "Erro ao desativar " + this.nome_page + " ";
 
-
     produtoForm: FormGroup;
     submitted = false;
     update = false;
+
+    fornecedores: Fornecedor[];
+    categorias: Categoria[];
+    subcategorias: Subcategoria[];
+    marcas: Marca[];
+    medidas: Medida[];
+    itensTipoMedida: ItensTipoMedida[] = [];
+    dominios: Dominio[];
 
     constructor(
         private router: Router,
@@ -41,29 +60,72 @@ export class ProdutoCadastrarComponent implements OnInit {
         private formBuilder: FormBuilder,
         private produtoService: ProdutoService,
         private alertaService: AlertaService,
-        private dialogComponente: MatDialog
+        private dialogComponente: MatDialog,
+        private fornecedorService: FornecedorService,
+        private medidaService: MedidaService,
+        private categoriaService: CategoriaService,
+        private subcategoriaService: SubCategoriaService,
+        private marcaService: MarcaService,
+        private dominioService: DominioService
     ) {
         this.produtoForm = this.formBuilder.group({
-            codigo: [''],
+            barCode: ['', Validators.required],
             nome: ['', Validators.required],
             descricao: ['', Validators.required],
+            precoCusto: ['', Validators.required],
+            porcentagem: ['', Validators.required],
+            precoVenda: ['', Validators.required],
+            porcentagemDesconto: ['', Validators.required],
+            desconto: ['', Validators.required],
+            precoOferta: ['', Validators.required],
+            peso: ['', Validators.required],
+            fornecedor: ['', Validators.required],
+            medida: ['', Validators.required],
+            categoria: ['', Validators.required],
+            subcategoria: ['', Validators.required],
+            marca: ['', Validators.required]
         });
     }
 
     ngOnInit() {
         const codigo = this.activatedRoute.snapshot.params['codigo'];
 
-        if (codigo !== undefined) {
-            this.update = true;
-            this.produtoService.getById(codigo).subscribe(
-                (m: Subcategoria) => {
-                    this.produtoForm.setValue({
-                        codigo: m.codigo,
-                        nome: m.nome,
-                        descricao: m.descricao
-                    });
-                });
-        }
+        this.fornecedorService.consultar().subscribe(
+            (fornecedor: any[]) => {
+                this.fornecedores = fornecedor;
+            }, (error) => console.log(error)
+        );
+
+        this.medidaService.consultar().subscribe(
+            (medida: any[]) => {
+                this.medidas = medida;
+            }, (error) => console.log(error)
+        );
+
+        this.categoriaService.consultar().subscribe(
+            (categoria: any[]) => {
+                this.categorias = categoria;
+            }, (error) => console.log(error)
+        );
+
+        this.subcategoriaService.consultar().subscribe(
+            (subcategoria: any[]) => {
+                this.subcategorias = subcategoria;
+            }, (error) => console.log(error)
+        );
+
+        this.marcaService.consultar().subscribe(
+            (marca: any[]) => {
+                this.marcas = marca;
+            }, (error) => console.log(error)
+        );
+
+        this.dominioService.consultar().subscribe(
+            (dominio: any[]) => {
+                this.dominios = dominio;
+            }, (error) => console.log(error)
+        );
+
     }
 
     get f() {
@@ -155,5 +217,24 @@ export class ProdutoCadastrarComponent implements OnInit {
                         });
             }
         });
+    }
+
+    stringify(o: any): string {
+        return JSON.stringify(o);
+    }
+
+    onChangeCategoria(value) {
+        var categoria: Categoria = JSON.parse(value);
+        this.subcategoriaService.getSubcategoriaByCategoriaId(categoria.codigo).subscribe(
+            (subcategoria: any[]) => {
+                this.subcategorias = subcategoria;
+            }, (error) => console.log(error)
+        );
+        this.produtoForm.get('subcategoria').setValue(this.subcategorias[0]);
+    }
+
+    onChangeMedida(value) {
+        var medida: Medida = JSON.parse(value);
+        this.itensTipoMedida = medida.itensTipoMedida;
     }
 }

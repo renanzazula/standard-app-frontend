@@ -10,23 +10,28 @@ export class Produto {
     codigo: number;
     barCode: string;
     nome: string;
-    status: string;
     descricao: string;
-    preco: number;
-    precoVenda: number;
+
     precoCusto: number;
-    precoOferta: number;
-    desconto: number;
-    peso: number;
     porcentagem: number;
+    precoVenda: number;
+
     porcentagemDesconto: number;
-    dataCadastro: string;
-    horaCadastro: string;
+    desconto: number;
+    precoOferta: number;
+    peso: number;
+    preco: number; // todo: validar se necessario
+
     fornecedor: Fornecedor;
     medida: Medida;
     categoria: Categoria;
-    subCategoria: Subcategoria;
+    subcategoria: Subcategoria;
     marca: Marca;
+
+    dataCadastro: string;
+    horaCadastro: string;
+    status: string;
+
     dominios: Dominio[];
     fornecedores: Fornecedor[];
     categorias: Categoria[];
