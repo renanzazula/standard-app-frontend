@@ -160,6 +160,7 @@
                         <label for="categoria">Categoría</label>
                         <select class="form-control" formControlName="categoria"
                                 (change)="onChangeCategoria($event.target.value)"
+                                [disableControl]="temCategoria"
                                 [ngClass]="{ 'is-invalid': submitted && f.categoria.errors }">
                             <option *ngFor="let c of categorias" [value]="stringify(c)">{{c.nome}}</option>
                         </select>
@@ -181,7 +182,7 @@
                         <label for="subcategoria">Subcategoría</label>
                         <select class="form-control" formControlName="subcategoria"
                                 [ngClass]="{ 'is-invalid': submitted && f.subcategoria.errors}"
-                                [disableControl]="disable">
+                                [disableControl]="temSubcategoria">
                             <option *ngFor="let subcategoria of subcategorias"
                                     [value]="stringify(subcategoria)">{{subcategoria.nome}}</option>
                         </select>
@@ -202,6 +203,7 @@
                     <div class="col-md-8 mb-4">
                         <label for="marca">Marca</label>
                         <select class="form-control" formControlName="marca"
+                                [disableControl]="temMarca"
                                 [ngClass]="{ 'is-invalid': submitted && f.marca.errors }">
                             <option *ngFor="let marca of marcas" [value]="stringify(marca)">{{marca.nome}}</option>
                         </select>
@@ -231,14 +233,18 @@
                             <th scope="col">Flag Dominio</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr *ngFor="let item of itensTipoMedida" scope="row">
+                    <tbody formArrayName="itensTipoMedidaFormArray">
+                        <tr *ngFor="let item of itensTipoMedida, let i = index" scope="row">
                             <td>{{item.valor}}</td>
                             <td>{{f.precoVenda.value}}</td>
-                            <td><input type="text" class="form-control"/></td>
+                            <td [formGroupName]="i">
+                                <input type="text" class="form-control" formControlName="inventario"/>
+                            </td>
                             <td>{{f.peso.value}}</td>
-                            <td>
-                                <label *ngFor="let dominio of dominios">{{dominio.nome}}</label>
+                            <td [formGroupName]="i">
+                                <label formArrayName="dominiosFormArray" *ngFor="let dominio of dominios, let id = index">
+                                    <input type="checkbox" [formControlName]="id">{{dominio.nome}}
+                                </label>
                             </td>
                         </tr>
                     </tbody>

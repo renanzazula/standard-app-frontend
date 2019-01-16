@@ -4,7 +4,7 @@ import {Marca} from "./marca";
 
 export class ItensTipoMedida {
 
-    codigo: string;
+    codigo: number;
     valor: string;
     categoria: Categoria;
     subcategoria: Subcategoria;

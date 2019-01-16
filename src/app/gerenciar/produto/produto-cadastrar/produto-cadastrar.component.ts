@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import {AlertaService} from "../../../service/mensagens/alerta/alerta.service";
 import {MatDialog} from "@angular/material";
@@ -46,6 +46,10 @@ export class ProdutoCadastrarComponent implements OnInit {
     submitted = false;
     update = false;
 
+    temCategoria=false;
+    temSubcategoria=false;
+    temMarca=false;
+
     fornecedores: Fornecedor[];
     categorias: Categoria[];
     subcategorias: Subcategoria[];
@@ -53,6 +57,9 @@ export class ProdutoCadastrarComponent implements OnInit {
     medidas: Medida[];
     itensTipoMedida: ItensTipoMedida[] = [];
     dominios: Dominio[];
+
+    itensTipoMedidaFormArray: FormArray = new FormArray([]);
+    dominiosFormArray: FormArray = new FormArray([]);
 
     constructor(
         private router: Router,
@@ -83,7 +90,8 @@ export class ProdutoCadastrarComponent implements OnInit {
             medida: ['', Validators.required],
             categoria: ['', Validators.required],
             subcategoria: ['', Validators.required],
-            marca: ['', Validators.required]
+            marca: ['', Validators.required],
+            itensTipoMedidaFormArray: this.formBuilder.array([])
         });
     }
 
@@ -125,6 +133,8 @@ export class ProdutoCadastrarComponent implements OnInit {
                 this.dominios = dominio;
             }, (error) => console.log(error)
         );
+
+
 
     }
 
@@ -236,5 +246,54 @@ export class ProdutoCadastrarComponent implements OnInit {
     onChangeMedida(value) {
         var medida: Medida = JSON.parse(value);
         this.itensTipoMedida = medida.itensTipoMedida;
+        if(this.itensTipoMedida != undefined){
+            if(this.itensTipoMedida.length != 0){
+                if(this.itensTipoMedida[0].categoria != undefined) {
+                    this.temCategoria = true;
+                    this.produtoForm.get('categoria').setValue(this.stringify(this.itensTipoMedida[0].categoria));
+                }else{
+                    this.temCategoria = false;
+                }
+                if(this.itensTipoMedida[0].subcategoria!= undefined) {
+                    this.temSubcategoria = true;
+                    this.produtoForm.get('subcategoria').setValue(this.stringify(this.itensTipoMedida[0].subcategoria));
+                }else{
+                    this.temSubcategoria = false;
+                }
+                if(this.itensTipoMedida[0].marca != undefined) {
+                    this.temMarca = true;
+                    this.produtoForm.get('marca').setValue(this.stringify(this.itensTipoMedida[0].marca));
+                }else{
+                    this.temMarca = false;
+                }
+            }else{
+                this.temCategoria = false;
+                this.temSubcategoria = false;
+                this.temMarca = false;
+            }
+        }
+
+        this.dominios.forEach((dominio, i)=>{
+            this.dominiosFormArray.insert(i, new FormControl(true));
+        });
+
+        this.itensTipoMedida.forEach((itemTipoMedida, i) =>{
+            this.itensTipoMedidaFormArray.insert(i,
+                this.formBuilder.group({
+                    inventario: itemTipoMedida.valor,
+                    dominiosFormArray: this.dominiosFormArray
+                }));
+        });
+        console.log(this.itensTipoMedidaFormArray);
+        this.produtoForm.setControl('itensTipoMedidaFormArray', this.itensTipoMedidaFormArray);
+
+        console.log(this.produtoForm);
+
     }
 }
+
+
+// this.formBuilder.group([{
+//     inventario: [itemTipoMedida.valor],
+//     dominio: this.formBuilder.array([])}]
+// )
