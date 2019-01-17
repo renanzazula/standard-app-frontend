@@ -3,7 +3,7 @@ import {Marca} from "./marca";
 import {Categoria} from "./categoria";
 import {Medida} from "./medida";
 import {Fornecedor} from "./fornecedor";
-import {Dominio} from "./dominio";
+import {ProdutoHasItensTipoMedida} from "./produtoHasItensTipoMedida";
 
 export class Produto {
 
@@ -32,12 +32,14 @@ export class Produto {
     horaCadastro: string;
     status: string;
 
-    dominios: Dominio[];
-    fornecedores: Fornecedor[];
-    categorias: Categoria[];
-    subcategorias: Subcategoria[];
-    marcas: Marca[];
-    medidas: Medida[];
+    produtoHasItensTipoMedida: ProdutoHasItensTipoMedida[];
+
+    // dominios: Dominio[];
+    // fornecedores: Fornecedor[];
+    // categorias: Categoria[];
+    // subcategorias: Subcategoria[];
+    // marcas: Marca[];
+    // medidas: Medida[];
 
     constructor() {
     }
