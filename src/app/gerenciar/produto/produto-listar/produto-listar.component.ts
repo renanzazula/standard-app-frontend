@@ -8,7 +8,6 @@ import {Subcategoria} from "../../../model/subcategoria";
 import {Marca} from "../../../model/marca";
 import {MedidaService} from "../../../service/medida/medida.service";
 import {ItensTipoMedida} from "../../../model/ItensTipoMedida";
-import {Dominio} from "../../../model/dominio";
 
 @Component({
   selector: 'app-produto-listar',
@@ -98,7 +97,7 @@ get() {
     medida.nome = "nome"
     medida.itensTipoMedida = [i,i2];
     p.medida = medida;
-    p.dominios = [new Dominio(0, "nome", "des", "","")];
+    // p.dominios = [new Dominio(0, "nome", "des", "","")];
 
 
     this.produtos = [p, p, p];
