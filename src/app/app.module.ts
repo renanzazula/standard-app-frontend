@@ -2,7 +2,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {AppComponent} from './app.component';
 import {HttpClientModule} from '@angular/common/http';
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, NgControl, ReactiveFormsModule} from "@angular/forms";
 import {DashboardComponent} from './dashboard/dashboard.component';
 import {HeaderComponent} from './header/header.component';
 import {MenuComponent} from "./menu/menu.component";
@@ -45,6 +45,7 @@ import {ProdutoCadastrarComponent} from './gerenciar/produto/produto-cadastrar/p
 import {ProdutoListarComponent} from './gerenciar/produto/produto-listar/produto-listar.component';
 import {ProdutoComponent} from "./gerenciar/produto/produto.component";
 import {ProdutoService} from "./service/produto/produto.service";
+import {CollapseControlDirective} from "./directives/collapse-control-directive";
 
 
 @NgModule({
@@ -63,6 +64,7 @@ import {ProdutoService} from "./service/produto/produto.service";
         MedidaListarComponent,
         MedidaCadastrarComponent,
         DisableControlDirective,
+        CollapseControlDirective,
         CategoriaComponent,
         CategoriaListarComponent,
         CategoriaCadastrarComponent,
