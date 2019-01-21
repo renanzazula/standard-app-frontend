@@ -9,7 +9,7 @@ import {ProdutoService} from "../../../service/produto/produto.service";
 export class ProdutoListarComponent implements OnInit {
 
     page_nome = "Produto";
-    nunhum_encontrado = "Nenhuma "+this.page_nome+" encontrada!";
+    nunhum_encontrado = "Nenhum "+this.page_nome+" encontrado!";
     produtos: Produto[] = [];
 
     constructor(private produtoService: ProdutoService) {

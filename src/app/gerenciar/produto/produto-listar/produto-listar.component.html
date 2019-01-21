@@ -1,28 +1,101 @@
 <div class="card">
-    <div class="card-header">
-        <h3 class="card-title">Consultar {{page_nome}}</h3>
-    </div>
-    <div class="card-body">
-        <div class="table-responsive-sm">
-            <table class="table table-bordered table-hover">
+  <div class="card-header">
+    <h3 class="card-title">Consultar {{page_nome}}</h3>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive-sm">
+      <!--<table class="table table-bordered" *ngIf="produtos.length ===0" scope="row">
+        <tbody>
+        <tr>
+          <td class="col text-center" colspan="4">{{nunhum_encontrado}}</td>
+        </tr>
+        </tbody>
+      </table>-->
+      <table class="table table-bordered" *ngFor="let produto of produtos" [routerLink]="['/produto', produto.codigo, 'editar']">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <table class="table table-bordered table-hover">
                 <thead class="thead-dark">
                 <tr>
-                    <th scope="col">Código</th>
-                    <th scope="col">Nome</th>
-                    <th scope="col">Descrição</th>
+                  <th scope="col">Código</th>
+                  <th scope="col">Nome</th>
+                  <th scope="col">Fornecedor</th>
+                  <th scope="col">Categoria</th>
+                  <th scope="col">Subcategoria</th>
+                  <th scope="col">Marca</th>
+                  <th scope="col">Estoque</th>
+                  <th scope="col">Preço Venda</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr *ngIf="produtos.length ===0" scope="row">
-                    <td class="col text-center" colspan="4">{{nunhum_encontrado}}</td>
-                </tr>
-                <tr *ngFor="let produto of produtos" scope="row" [routerLink]="['/produto', produto.codigo, 'editar']">
-                    <td>{{produto.codigo}}</td>
-                    <td>{{produto.nome}}</td>
-                    <td>{{produto.descricao}}</td>
+                <tr scope="row">
+                  <td>{{produto.codigo}}</td>
+                  <td>{{produto.nome}}</td>
+                  <td>{{produto.descricao}}</td>
+                  <td>{{produto.precoVenda}}</td>
                 </tr>
                 </tbody>
-            </table>
-        </div>
+              </table>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <table class="table table-bordered table-hover">
+                <thead class="thead-dark">
+                  <tr>
+                    <th scope="col">Preço custo</th>
+                    <th scope="col">Porcentagem</th>
+                    <th scope="col">Preço venda</th>
+                    <th scope="col">Porcentagem Desconto</th>
+                    <th scope="col">Desconto</th>
+                    <th scope="col">Preço Oferta</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr scope="row">
+                    <td>{{produto.precoCusto}}</td>
+                    <td>{{produto.porcentagem}}</td>
+                    <td>{{produto.precoVenda}}</td>
+                    <td>{{produto.porcentagemDesconto}}</td>
+                    <td>{{produto.desconto}}</td>
+                    <td>{{produto.precoOferta}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <table class="table table-bordered table-hover">
+                <thead class="thead-dark">
+                <tr>
+                  <th scope="col">valor</th>
+                  <th scope="col">Quantidade</th>
+                  <th scope="col">Flag Dominio</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let item of produto.medida.itensTipoMedida" scope="row">
+                  <td>{{item.valor}}</td>
+                  <td>{{item.valor}}</td>
+                  <td>
+                    <label *ngFor="let dominio of produto.dominios">
+                      <input type="checkbox">{{dominio.nome}}
+                    </label>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
+  </div>
 </div>
