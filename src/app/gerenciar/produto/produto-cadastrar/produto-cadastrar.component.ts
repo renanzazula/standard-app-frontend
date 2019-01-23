@@ -169,8 +169,9 @@ export class ProdutoCadastrarComponent implements OnInit {
         produto.subcategoria = JSON.parse(this.produtoForm.controls.subcategoria.value);
         produto.marca        = JSON.parse(this.produtoForm.controls.marca.value);
 
-        const pFormArray   = this.produtoForm.controls.produtoHasItensTipoMedidaFormArray as FormArray;
+        const pFormArray = this.produtoForm.controls.produtoHasItensTipoMedidaFormArray as FormArray;
 
+        console.log("pFormArray");
         console.log(pFormArray);
         const produtoHasItensTipoMedidaAux: ProdutoHasItensTipoMedida[] = [];
 
@@ -179,12 +180,19 @@ export class ProdutoCadastrarComponent implements OnInit {
             pHasItensTipoMedida.quantidade= item.value.quantidade;
             pHasItensTipoMedida.valorUnitario= produto.precoVenda;
 
-            console.log(item.value.dominiosFormArray);
+            var dominiosSelecionados = item.value.dominiosFormArray.map((v, i) => v ? this.dominios[i] : null).filter(v => v !== null);
 
-            pHasItensTipoMedida.dominios = item.value.dominiosFormArray.map((v, i) => v ? this.dominios[i] : null).filter(v => v !== null);
+            console.log("dominios selecionados");
+            console.log(dominiosSelecionados);
+            pHasItensTipoMedida.dominios = this.mergeDominios(dominiosSelecionados);
+
+            console.log("pHasItensTipoMedida");
+            console.log(pHasItensTipoMedida);
+
             produtoHasItensTipoMedidaAux.push(pHasItensTipoMedida);
-        })
+        });
 
+        console.log("produtoHasItensTipoMedidaAux");
         console.log(produtoHasItensTipoMedidaAux);
 
         produto.produtoHasItensTipoMedida = produtoHasItensTipoMedidaAux;
@@ -327,15 +335,22 @@ export class ProdutoCadastrarComponent implements OnInit {
         });
         console.log(this.produtoHasItensTipoMedidaFormArray);
         this.produtoForm.setControl('produtoHasItensTipoMedidaFormArray', this.produtoHasItensTipoMedidaFormArray);
-
-
-
-
     }
+
+    private mergeDominios(selecionados: Dominio[]): Dominio[]{
+      var dominioChecked: Dominio[] = [];
+      this.dominios.forEach((dominio, i)=>{
+          selecionados.forEach((selecionado, h)=>{
+              if(selecionado.codigo === dominio.codigo){
+                  dominio.checked = true;
+              }
+          });
+          dominioChecked.includes(dominio, i);
+      });
+      console.log("dominioChecked");
+      console.log(dominioChecked);
+      return dominioChecked;
+    }
+
 }
 
-
-// this.formBuilder.group([{
-//     inventario: [itemTipoMedida.valor],
-//     dominio: this.formBuilder.array([])}]
-// )

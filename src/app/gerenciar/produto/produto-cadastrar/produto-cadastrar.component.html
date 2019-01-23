@@ -234,11 +234,11 @@
                         </tr>
                     </thead>
                     <tbody formArrayName="produtoHasItensTipoMedidaFormArray">
-                        <tr *ngFor="let item of itensTipoMedida, let i = index" scope="row">
+                        <tr *ngFor="let item of itensTipoMedida, let i = index" scope="row" >
                             <td>{{item.valor}}</td>
                             <td>{{f.precoVenda.value}}</td>
-                            <td [formGroupName]="i">
-                                <input type="text" class="form-control" formControlName="quantidade"/>
+                            <td>
+                                <!--<input type="text" class="form-control" formControlName="quantidade"/>-->
                             </td>
                             <td>{{f.peso.value}}</td>
                             <td [formGroupName]="i">

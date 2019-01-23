@@ -4,6 +4,7 @@ export class Dominio {
   descricao: string;
   data: string;
   hora: string;
+  checked: boolean;
 
 
   constructor(codigo: number, nome: string, descricao: string, data: string, hora: string) {
