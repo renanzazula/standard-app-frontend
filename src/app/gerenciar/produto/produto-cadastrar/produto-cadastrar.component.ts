@@ -60,7 +60,7 @@ export class ProdutoCadastrarComponent implements OnInit {
     itensTipoMedida: ItensTipoMedida[] = [];
     dominios: Dominio[];
 
-    produtoHasItensTipoMedidaFormArray: FormArray = new FormArray([]);
+    pHITipoMedida: FormArray = new FormArray([]);
     dominiosFormArray: FormArray = new FormArray([]);
 
     constructor(
@@ -93,7 +93,7 @@ export class ProdutoCadastrarComponent implements OnInit {
             categoria: ['', Validators.required],
             subcategoria: ['', Validators.required],
             marca: ['', Validators.required],
-            produtoHasItensTipoMedidaFormArray: this.formBuilder.array([])
+            pHITipoMedida: this.formBuilder.array([])
         });
     }
 
@@ -169,7 +169,7 @@ export class ProdutoCadastrarComponent implements OnInit {
         produto.subcategoria = JSON.parse(this.produtoForm.controls.subcategoria.value);
         produto.marca        = JSON.parse(this.produtoForm.controls.marca.value);
 
-        const pFormArray = this.produtoForm.controls.produtoHasItensTipoMedidaFormArray as FormArray;
+        const pFormArray = this.produtoForm.controls.pHITipoMedida as FormArray;
 
         console.log("pFormArray");
         console.log(pFormArray);
@@ -177,9 +177,10 @@ export class ProdutoCadastrarComponent implements OnInit {
 
         pFormArray.controls.forEach((item, index)=>{
             var pHasItensTipoMedida = new ProdutoHasItensTipoMedida();
+            pHasItensTipoMedida.codigo= item.value.codigo;
             pHasItensTipoMedida.quantidade= item.value.quantidade;
             pHasItensTipoMedida.valorUnitario= produto.precoVenda;
-
+            pHasItensTipoMedida.itensTipoMedida= produto.medida.itensTipoMedida[0];
             var dominiosSelecionados = item.value.dominiosFormArray.map((v, i) => v ? this.dominios[i] : null).filter(v => v !== null);
 
             console.log("dominios selecionados");
@@ -327,14 +328,15 @@ export class ProdutoCadastrarComponent implements OnInit {
         });
 
         this.itensTipoMedida.forEach((itemTipoMedida, i) =>{
-            this.produtoHasItensTipoMedidaFormArray.insert(i,
+            this.pHITipoMedida.insert(i,
                 this.formBuilder.group({
-                    quantidade: i,
+                    codigo: itemTipoMedida.codigo,
+                    quantidade: ['', Validators.required],
                     dominiosFormArray: this.dominiosFormArray
                 }));
         });
-        console.log(this.produtoHasItensTipoMedidaFormArray);
-        this.produtoForm.setControl('produtoHasItensTipoMedidaFormArray', this.produtoHasItensTipoMedidaFormArray);
+        console.log(this.pHITipoMedida);
+        this.produtoForm.setControl('pHITipoMedida', this.pHITipoMedida);
     }
 
     private mergeDominios(selecionados: Dominio[]): Dominio[]{
@@ -345,7 +347,7 @@ export class ProdutoCadastrarComponent implements OnInit {
                   dominio.checked = true;
               }
           });
-          dominioChecked.includes(dominio, i);
+          dominioChecked.push(dominio);
       });
       console.log("dominioChecked");
       console.log(dominioChecked);
