@@ -92,11 +92,11 @@
               </tr>
               </thead>
               <tbody>
-              <tr *ngFor="let item of produto.medida.itensTipoMedida" scope="row">
-                <td>{{item.valor}}</td>
-                <td>{{item.valor}}</td>
+              <tr *ngFor="let item of produto.produtoHasItensTipoMedida" scope="row">
+                <td>{{item.itensTipoMedida.valor}}</td>
+                <td>{{item.quantidade}}</td>
                 <td>
-                  <label *ngFor="let dominio of produto.dominios">
+                  <label *ngFor="let dominio of item.dominios">
                     <input type="checkbox">{{dominio.nome}}
                   </label>
                 </td>

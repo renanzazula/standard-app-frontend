@@ -247,9 +247,9 @@
                             </td>
                             <td>{{f.peso.value}}</td>
                             <td>
-                                <label formArrayName="dominiosFormArray" *ngFor="let dominio of dominios, let id = index">
-                                    <input type="checkbox" [formControlName]="id">{{dominio.nome}}
-                                </label>
+                                <div formArrayName="dominiosFormArray" *ngFor="let dominio of dominios, let x = index">
+                                    <input type="checkbox" formControlName="{{x}}">{{dominio.nome}}
+                                </div>
                             </td>
                         </tr>
                     </tbody>
