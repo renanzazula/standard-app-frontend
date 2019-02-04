@@ -75,21 +75,23 @@ export class ProdutoCadastrarComponent implements OnInit {
         private dominioService: DominioService
     ) {
         this.produtoForm = this.formBuilder.group({
-            barCode: ['', Validators.required],
-            nome: ['', Validators.required],
-            descricao: ['', Validators.required],
-            precoCusto: ['', Validators.required],
-            porcentagem: ['', Validators.required],
-            precoVenda: ['', Validators.required],
-            porcentagemDesconto: ['', Validators.required],
+            barCode: ['',   [Validators.required, Validators.maxLength(100)]],
+            nome: ['',      [Validators.required, Validators.maxLength(100)]],
+            descricao: ['', [Validators.required, Validators.maxLength(150)]],
+
+            precoCusto:  ['', Validators.required],
+            porcentagem: ['', [Validators.required, Validators.min(0), Validators.max(100)]],
+            precoVenda:  ['', Validators.required],
+            porcentagemDesconto: ['', [Validators.required, Validators.min(0), Validators.max(100)]],
             desconto: ['', Validators.required],
             precoOferta: ['', Validators.required],
             peso: ['', Validators.required],
+
             fornecedor: ['', Validators.required],
             medida: ['', Validators.required],
             categoria: ['', Validators.required],
             subcategoria: ['', Validators.required],
-            marca: ['', Validators.required],
+            marca: [''],
             pHITipoMedida: this.formBuilder.array([])
         });
     }

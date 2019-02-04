@@ -46,8 +46,8 @@ export class DominioCadastrarComponent implements OnInit {
     ) {
         this.dominioForm = this.formBuilder.group({
             codigo: [''],
-            nome: ['', Validators.required],
-            descricao: ['', Validators.required]
+            nome: ['', [Validators.required, Validators.maxLength(45)]],
+            descricao: ['', [Validators.required, Validators.maxLength(45)]]
         });
     }
 

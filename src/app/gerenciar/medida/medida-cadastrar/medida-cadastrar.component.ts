@@ -49,12 +49,12 @@ export class MedidaCadastrarComponent implements OnInit {
     ) {
         this.medidaForm = new FormGroup({
             codigo: new FormControl(''),
-            nome: new FormControl('', Validators.required),
-            descricao: new FormControl('', Validators.required),
+            nome: new FormControl('', [Validators.required,Validators.maxLength(45)]),
+            descricao: new FormControl('', [Validators.required,Validators.maxLength(45)]),
             categoria: new FormControl('', Validators.required),
             subcategoria: new FormControl({value: '', disabled: true}, Validators.required),
             marca: new FormControl('', Validators.required),
-            valor: new FormControl(''),
+            valor: new FormControl('', Validators.required),
         });
 
 
@@ -153,12 +153,12 @@ export class MedidaCadastrarComponent implements OnInit {
     onCancelar() {
         this.medidaForm = new FormGroup({
             codigo: new FormControl(''),
-            nome: new FormControl('', Validators.required),
-            descricao: new FormControl('', Validators.required),
+            nome: new FormControl('', [Validators.required,Validators.maxLength(45)]),
+            descricao: new FormControl('', [Validators.required,Validators.maxLength(45)]),
             categoria: new FormControl('', Validators.required),
             subcategoria: new FormControl({value: '', disabled: true}, Validators.required),
             marca: new FormControl('', Validators.required),
-            valor: new FormControl(''),
+            valor: new FormControl('', Validators.required),
         });
 
         this.itensTipoMedida = [];

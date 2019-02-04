@@ -2,7 +2,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {AppComponent} from './app.component';
 import {HttpClientModule} from '@angular/common/http';
-import {FormsModule, NgControl, ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {DashboardComponent} from './dashboard/dashboard.component';
 import {HeaderComponent} from './header/header.component';
 import {MenuComponent} from "./menu/menu.component";
@@ -46,6 +46,7 @@ import {ProdutoListarComponent} from './gerenciar/produto/produto-listar/produto
 import {ProdutoComponent} from "./gerenciar/produto/produto.component";
 import {ProdutoService} from "./service/produto/produto.service";
 import {CollapseControlDirective} from "./directives/collapse-control-directive";
+import {CurrencyMaskModule} from "ng2-currency-mask";
 
 
 @NgModule({
@@ -92,6 +93,7 @@ import {CollapseControlDirective} from "./directives/collapse-control-directive"
         MatDialogModule,
         BrowserAnimationsModule,
         routing,
+        CurrencyMaskModule,
     ],
     entryComponents: [DialogComponent],
     providers: [AlertaService, MarcaService,

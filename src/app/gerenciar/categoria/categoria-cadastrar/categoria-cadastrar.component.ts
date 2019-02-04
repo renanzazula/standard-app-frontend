@@ -36,8 +36,8 @@ export class CategoriaCadastrarComponent implements OnInit {
         this.mergeCheckbox([]);
         this.categoriaForm = this.formBuilder.group({
             codigo: [''],
-            nome: ['', Validators.required],
-            descricao: ['', Validators.required],
+            nome: ['', [Validators.required,Validators.maxLength(45)]],
+            descricao: ['', [Validators.required, Validators.maxLength(45)]],
             subcategorias: this.checkboxArray
         });
     }

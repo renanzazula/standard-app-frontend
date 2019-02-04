@@ -27,8 +27,12 @@ export class ProdutoListarComponent implements OnInit {
     this.get();
   }
 
-  onCollaps(index: number) {
-
+  onCollaps(index: number, event) {
+    if(event.target.textContent==="-"){
+        event.target.textContent="+";
+    }else{
+        event.target.textContent="-";
+    }
     this.expandedIndex = index === this.expandedIndex ? -1 : index;
   }
 

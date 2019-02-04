@@ -47,9 +47,9 @@ export class FormasdepagamentoCadastrarComponent implements OnInit {
     ) {
         this.formasdepagamentoForm = this.formBuilder.group({
             codigo: [''],
-            nome: ['', Validators.required],
-            descricao: ['', Validators.required],
-            porcentagemDesconto: ['0', Validators.required],
+            nome: ['', [Validators.required, Validators.maxLength(45)]],
+            descricao: ['', [Validators.required, Validators.maxLength(45)]],
+            porcentagemDesconto: ['0', [Validators.required, Validators.max(100), Validators.min(0)]],
         });
     }
 

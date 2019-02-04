@@ -15,6 +15,7 @@
                        [ngClass]="{ 'is-invalid': submitted && f.nome.errors }"/>
                 <div *ngIf="submitted && f.nome.errors" class="invalid-feedback">
                     <div *ngIf="f.nome.errors.required">Nome é obrigatório</div>
+                    <div *ngIf="f.nome.errors.maxlength">O campo deve conter no máximo 45 caracteres</div>
                 </div>
             </div>
             <div class="form-group">
@@ -23,6 +24,7 @@
                           [ngClass]="{ 'is-invalid': submitted && f.descricao.errors }"></textarea>
                 <div *ngIf="submitted && f.descricao.errors" class="invalid-feedback">
                     <div *ngIf="f.descricao.errors.required">Descrição é obrigatório</div>
+                    <div *ngIf="f.descricao.errors.maxlength">O campo deve conter no máximo 45 caracteres</div>
                 </div>
             </div>
         </div>

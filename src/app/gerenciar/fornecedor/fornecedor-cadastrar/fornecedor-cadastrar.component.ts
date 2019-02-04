@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 
@@ -47,8 +47,8 @@ export class FornecedorCadastrarComponent implements OnInit {
   ) {
     this.fornecedorForm = this.formBuilder.group({
       codigo: [''],
-      nome: ['', Validators.required],
-      descricao: ['', Validators.required] 
+      nome: ['', Validators.required, Validators.maxLength(45)],
+      descricao: ['', Validators.required, Validators.maxLength(45)]
     });
   }
 

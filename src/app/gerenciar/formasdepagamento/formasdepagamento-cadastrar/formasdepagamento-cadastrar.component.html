@@ -25,11 +25,13 @@
         </div>
       </div>
       <div class="form-group">
-        <label for="porcentagemDesconto">Nome</label>
+        <label for="porcentagemDesconto">Porcentagem de desconto</label>
         <input type="text" formControlName="porcentagemDesconto" class="form-control"
                [ngClass]="{ 'is-invalid': submitted && f.porcentagemDesconto.errors }"/>
         <div *ngIf="submitted && f.porcentagemDesconto.errors" class="invalid-feedback">
-          <div *ngIf="f.nome.errors.required">Porcentagem de Desconto é obrigatório</div>
+          <div *ngIf="f.porcentagemDesconto.errors.required">Porcentagem de desconto é obrigatório</div>
+          <div *ngIf="f.porcentagemDesconto.errors.max">Valor máximo permitido é 100%</div>
+          <div *ngIf="f.porcentagemDesconto.errors.max">Valor mínimo permitido é 0%</div>
         </div>
       </div>
     </div>
