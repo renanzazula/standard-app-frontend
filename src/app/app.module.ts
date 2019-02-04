@@ -47,6 +47,7 @@ import {ProdutoComponent} from "./gerenciar/produto/produto.component";
 import {ProdutoService} from "./service/produto/produto.service";
 import {CollapseControlDirective} from "./directives/collapse-control-directive";
 import {CurrencyMaskModule} from "ng2-currency-mask";
+import {FileSelectDirective} from "ng2-file-upload";
 
 
 @NgModule({
@@ -83,7 +84,8 @@ import {CurrencyMaskModule} from "ng2-currency-mask";
         DominioListarComponent,
         ProdutoCadastrarComponent,
         ProdutoListarComponent,
-        ProdutoComponent
+        ProdutoComponent,
+        FileSelectDirective
     ],
     imports: [
         BrowserModule,

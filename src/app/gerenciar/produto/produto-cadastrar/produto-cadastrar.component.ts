@@ -21,12 +21,15 @@ import {DominioService} from "../../../service/dominio/dominio.service";
 import {Dominio} from "../../../model/dominio";
 import {Produto} from "../../../model/produto";
 import {ProdutoHasItensTipoMedida} from "../../../model/produtoHasItensTipoMedida";
+import {FileUploader} from "ng2-file-upload";
 
 @Component({
     selector: 'app-produto-cadastrar',
     templateUrl: './produto-cadastrar.component.html'
 })
 export class ProdutoCadastrarComponent implements OnInit {
+
+    public uploader: FileUploader = new FileUploader({url: '', itemAlias: 'photo'});
 
     nome_page: string = 'Produto';
     listar_page: string = 'produto/listar';
@@ -75,12 +78,13 @@ export class ProdutoCadastrarComponent implements OnInit {
         private dominioService: DominioService
     ) {
         this.produtoForm = this.formBuilder.group({
+            image: [Image],
             barCode: ['',   [Validators.required, Validators.maxLength(100)]],
             nome: ['',      [Validators.required, Validators.maxLength(100)]],
             descricao: ['', [Validators.required, Validators.maxLength(150)]],
 
             precoCusto:  ['', Validators.required],
-            porcentagem: ['', [Validators.required, Validators.min(0), Validators.max(100)]],
+            porcentagem: ['', [Validators.required, Validators.maxLength(5)]],
             precoVenda:  ['', Validators.required],
             porcentagemDesconto: ['', [Validators.required, Validators.min(0), Validators.max(100)]],
             desconto: ['', Validators.required],
@@ -135,7 +139,11 @@ export class ProdutoCadastrarComponent implements OnInit {
             }, (error) => console.log(error)
         );
 
-
+        this.uploader.onAfterAddingFile = (file) => { file.withCredentials = false; };
+        this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
+            console.log('ImageUpload:uploaded:', item, status, response);
+            alert('File uploaded successfully');
+        };
 
     }
 

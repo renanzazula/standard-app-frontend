@@ -4,8 +4,26 @@
     </div>
     <form [formGroup]="produtoForm" [ngSwitch]="update">
         <div class="card-body">
-
             <div class="form-group">
+                <div class="form-row">
+                    <div class="col-md-10 mb-10">
+                        <div class="form-group">
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" name="photo" id="photoFileUpload" ng2FileSelect [uploader]="uploader" />
+                                <label class="custom-file-label" for="photoFileUpload">Choose file</label>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2 mb-2">
+                        <div class="form-group">
+                            <button type="button" class="btn btn-secondary"
+                                    (click)="uploader.uploadAll()"
+                                    [disabled]="!uploader.getNotUploadedItems().length">Upload an Image
+                            </button>
+                        </div>
+                    </div>
+                </div>
                 <div class="form-row">
                     <div class="col-md-4 mb-4">
                         <div class="form-group">
