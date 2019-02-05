@@ -21,7 +21,6 @@ import {DominioService} from "../../../service/dominio/dominio.service";
 import {Dominio} from "../../../model/dominio";
 import {Produto} from "../../../model/produto";
 import {ProdutoHasItensTipoMedida} from "../../../model/produtoHasItensTipoMedida";
-import {FileUploader} from "ng2-file-upload";
 
 @Component({
     selector: 'app-produto-cadastrar',
@@ -29,7 +28,9 @@ import {FileUploader} from "ng2-file-upload";
 })
 export class ProdutoCadastrarComponent implements OnInit {
 
-    public uploader: FileUploader = new FileUploader({url: '', itemAlias: 'photo'});
+    selectedFiles: FileList;
+    currentFileUpload: File;
+    progress: { percentage: number } = { percentage: 0 };
 
     nome_page: string = 'Produto';
     listar_page: string = 'produto/listar';
@@ -75,7 +76,8 @@ export class ProdutoCadastrarComponent implements OnInit {
         private categoriaService: CategoriaService,
         private subcategoriaService: SubCategoriaService,
         private marcaService: MarcaService,
-        private dominioService: DominioService
+        private dominioService: DominioService,
+
     ) {
         this.produtoForm = this.formBuilder.group({
             image: [Image],
@@ -139,13 +141,8 @@ export class ProdutoCadastrarComponent implements OnInit {
             }, (error) => console.log(error)
         );
 
-        this.uploader.onAfterAddingFile = (file) => { file.withCredentials = false; };
-        this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
-            console.log('ImageUpload:uploaded:', item, status, response);
-            alert('File uploaded successfully');
-        };
 
-    }
+   }
 
     get f() {
         return this.produtoForm.controls;
@@ -211,7 +208,7 @@ export class ProdutoCadastrarComponent implements OnInit {
 
         console.log(produto);
 
-        this.produtoService.cadastrar(produto)
+        this.produtoService.cadastrar(produto, this.selectedFiles.item(0))
             .pipe(first())
             .subscribe(
                 data => {
@@ -367,6 +364,14 @@ export class ProdutoCadastrarComponent implements OnInit {
       console.log(dominioChecked);
       return dominioChecked;
     }
+
+    selectFile(event) {
+
+        this.selectedFiles = event.target.files;
+        console.log(this.selectedFiles);
+    }
+
+
 
 }
 

@@ -31,6 +31,7 @@ export class Produto {
     dataCadastro: string;
     horaCadastro: string;
     status: string;
+    imagem: Blob;
 
     produtoHasItensTipoMedida: ProdutoHasItensTipoMedida[];
 
