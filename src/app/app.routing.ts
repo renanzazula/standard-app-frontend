@@ -23,6 +23,8 @@ import {DominioComponent} from "./gerenciar/dominio/dominio.component";
 import {ProdutoListarComponent} from "./gerenciar/produto/produto-listar/produto-listar.component";
 import {ProdutoCadastrarComponent} from "./gerenciar/produto/produto-cadastrar/produto-cadastrar.component";
 import {ProdutoComponent} from "./gerenciar/produto/produto.component";
+import {VendaComponent} from "./gerenciar/venda/venda.component";
+import {VandaAddProdutoComponent} from "./gerenciar/venda/vanda-add-produto/vanda-add-produto.component";
 
 const appRoutes: Routes = [
     {
@@ -73,7 +75,11 @@ const appRoutes: Routes = [
             {path: ':codigo/editar', component: ProdutoCadastrarComponent},
             {path: 'listar', component: ProdutoListarComponent}
         ]
-    },
+    },{
+    path: 'venda', component: ProdutoComponent, children: [
+      {path: 'venda-add-produto', component: VandaAddProdutoComponent}
+    ]
+  },
     // otherwise redirect to home
     {path: '**', redirectTo: ""}
 ];

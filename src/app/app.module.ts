@@ -48,6 +48,8 @@ import {ProdutoService} from "./service/produto/produto.service";
 import {CollapseControlDirective} from "./directives/collapse-control-directive";
 import {CurrencyMaskModule} from "ng2-currency-mask";
 import {FileSelectDirective} from "ng2-file-upload";
+import { VendaComponent } from './gerenciar/venda/venda.component';
+import { VandaAddProdutoComponent } from './gerenciar/venda/vanda-add-produto/vanda-add-produto.component';
 
 
 @NgModule({
@@ -85,7 +87,9 @@ import {FileSelectDirective} from "ng2-file-upload";
         ProdutoCadastrarComponent,
         ProdutoListarComponent,
         ProdutoComponent,
-        FileSelectDirective
+        FileSelectDirective,
+        VendaComponent,
+        VandaAddProdutoComponent
     ],
     imports: [
         BrowserModule,

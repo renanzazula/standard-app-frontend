@@ -1,0 +1,99 @@
+<div class="card panel-default">
+  <div class="card-header">
+    <h3 class="card-title">{{nome_page}}</h3>
+  </div>
+  <form [formGroup]="vendaAddProdutos">
+    <div class="card-body">
+      <div class="form-group">
+        <div class="form-row">
+          <div class="col-md-2 mb-2">
+            <label for="codigoProduto">Código Produto</label>
+          </div>
+          <div class="col-md-8 mb-8">
+            <input type="text" formControlName="codigoProduto" class="form-control"/>
+          </div>
+          <div class="col-md-2 mb-2">
+            <button type="button" class="btn btn-secondary" (click)="addProduto()">+ Adicionar</button>
+          </div>
+        </div>
+        <br>
+        <div class="card panel-default">
+          <div class="card-body">
+            <div class="form-row">
+              <div class="col-md-12 mb-12">
+                <div class="table-responsive-sm">
+                  <table class="table table-bordered table-hover">
+                    <thead class="thead-dark">
+                    <tr>
+                      <th scope="col">Código</th>
+                      <th scope="col">Nome</th>
+                      <th scope="col">Quantidade</th>
+                      <th scope="col">Tamanho</th>
+                      <th scope="col">Preço</th>
+                      <th scope="col">SubTotal</th>
+                      <th scope="col">total iten</th>
+                      <th scope="col">#</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <br>
+        <div class="card panel-default">
+          <div class="card-body">
+            <div class="form-row">
+              <div class="col-md-8 mb-8">
+                  <label for="formadepagamento">Formas de pagamento</label>
+                  <select class="form-control" formControlName="formadepagamento"
+                          [ngClass]="{ 'is-invalid': submitted && f.formadepagamento.errors }">
+                      <option *ngFor="let formadepagamento of formasdepagamentos"
+                              [value]="stringify(formadepagamento)">{{formadepagamento.nome}}</option>
+                  </select>
+                  <div *ngIf="submitted && f.formadepagamentos.errors" class="invalid-feedback">
+                    <div *ngIf="f.formadepagamentos.errors.required">Forma de pagamento é obrigatório</div>
+                  </div>
+              </div>
+              <div class="col-md-4 mb-4">
+                <div class="card panel-default">
+                  <div class="card-body">
+                    <div class="form-row">
+                      <div class="col-md-2 mb-2">
+                        <label for="codigoProduto">Pagamento:</label>
+                      </div>
+                      <div class="col-md-2 mb-2">
+                        <input type="text" formControlName="codigoProduto" class="form-control"/>
+                      </div>
+                    </div>
+                    <div class="form-row">
+                      <div class="col-md-2 mb-2">
+                        <label for="codigoProduto">Troco:</label>
+                      </div>
+                      <div class="col-md-2 mb-2">
+                        <input type="text" formControlName="codigoProduto" class="form-control"/>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!---->
+  </form>
+</div>
