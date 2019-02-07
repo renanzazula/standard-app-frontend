@@ -50,6 +50,7 @@ import {CurrencyMaskModule} from "ng2-currency-mask";
 import {FileSelectDirective} from "ng2-file-upload";
 import { VendaComponent } from './gerenciar/venda/venda.component';
 import { VandaAddProdutoComponent } from './gerenciar/venda/vanda-add-produto/vanda-add-produto.component';
+import {DialogTableComponent} from "./mensagens/dialogTable/dialog.table.component";
 
 
 @NgModule({
@@ -63,6 +64,7 @@ import { VandaAddProdutoComponent } from './gerenciar/venda/vanda-add-produto/va
         MarcaListaComponent,
         MarcaCadastrarComponent,
         DialogComponent,
+        DialogTableComponent,
         AlertaComponent,
         MedidaComponent,
         MedidaListarComponent,
@@ -101,7 +103,7 @@ import { VandaAddProdutoComponent } from './gerenciar/venda/vanda-add-produto/va
         routing,
         CurrencyMaskModule,
     ],
-    entryComponents: [DialogComponent],
+    entryComponents: [DialogComponent, DialogTableComponent],
     providers: [AlertaService, MarcaService,
         MatDialog, MedidaService, CategoriaService,
         SubCategoriaService, FormasDePagamentoService,

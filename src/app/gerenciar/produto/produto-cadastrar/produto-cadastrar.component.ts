@@ -208,7 +208,7 @@ export class ProdutoCadastrarComponent implements OnInit {
 
         console.log(produto);
 
-        this.produtoService.cadastrar(produto, this.selectedFiles.item(0))
+        this.produtoService.cadastrar(produto)
             .pipe(first())
             .subscribe(
                 data => {

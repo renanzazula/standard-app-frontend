@@ -17,8 +17,12 @@ export class ProdutoService {
         return this.http.get(`${environment.apiUrl}/produto/${id}`);
     }
 
-    cadastrar(produto: Produto, file: File) {
-        return this.http.post(`${environment.apiUrl}/produto/${produto.codigo}`, produto);
+    getByBarcode(barcode: string){
+      return this.http.get(`${environment.apiUrl}/produto/addicionarProduto/${barcode}`);
+    }
+
+    cadastrar(produto: Produto) {
+        return this.http.post(`${environment.apiUrl}/produto`, produto);
     }
 
     alterar(produto: Produto) {
@@ -28,6 +32,7 @@ export class ProdutoService {
     excluir(id: number) {
         return this.http.delete(`${environment.apiUrl}/produto/${id}`);
     }
+
 
 
 }

@@ -1,0 +1,25 @@
+<div class="card panel-default" style="max-width: 48rem;">
+    <div class="card-header">{{data.cabecalho}}</div>
+    <div class="card-body">
+        <h5 class="card-title">Itens Medida</h5>
+        <div class="table-responsive-sm">
+          <table class="table table-bordered table-hover">
+            <thead class="thead-dark">
+              <tr scope="row">
+                <th scope="col">Código</th>
+                <th scope="col">Valor</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr scope="row" *ngFor="let item of data.produtoHasItensTipoMedida" (click)="onSelect(item)">
+                <td scope="col">{{item.itensTipoMedida.codigo}}</td>
+                <td scope="col">{{item.itensTipoMedida.valor}}</td>
+              </tr>
+            </tbody>
+          </table>
+      </div>
+      <div class="card-footer bg-transparent text-right">
+          <button type="button" class="btn btn-secondary btn-sm ml-1" (click)="onNoClick()">Cancelar</button>
+      </div>
+    </div>
+</div>

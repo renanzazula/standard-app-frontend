@@ -2,15 +2,15 @@
   <div class="card-header">
     <h3 class="card-title">{{nome_page}}</h3>
   </div>
-  <form [formGroup]="vendaAddProdutos">
+  <form [formGroup]="vendaAddProdutosFormGroup">
     <div class="card-body">
       <div class="form-group">
         <div class="form-row">
           <div class="col-md-2 mb-2">
-            <label for="codigoProduto">Código Produto</label>
+            <label for="barcode">Código de Barras</label>
           </div>
           <div class="col-md-8 mb-8">
-            <input type="text" formControlName="codigoProduto" class="form-control"/>
+            <input type="text" formControlName="barcode" class="form-control"/>
           </div>
           <div class="col-md-2 mb-2">
             <button type="button" class="btn btn-secondary" (click)="addProduto()">+ Adicionar</button>
@@ -36,13 +36,15 @@
                     </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                      <tr *ngFor="let itemProdutoVenda of vendaHasItemProduto">
+                        <td>{{itemProdutoVenda.produtoHasItensTipoMedida.codigo}}</td>
+                        <td>{{itemProdutoVenda.produtoHasItensTipoMedida.produto.nome}}</td>
+                        <td>
+                          <input type="text" class="form-control"/>
+                        </td>
+                        <td>{{itemProdutoVenda.produtoHasItensTipoMedida.itensTipoMedida.valor}}</td>
+                        <td>{{itemProdutoVenda.produtoHasItensTipoMedida.produto.precoVenda}}</td>
+                        <td>{{itemProdutoVenda.produtoHasItensTipoMedida.produto.precoVenda * itemProdutoVenda.quantidade}}</td>
                         <td></td>
                       </tr>
                     </tbody>
@@ -75,7 +77,7 @@
                         <label for="codigoProduto">Pagamento:</label>
                       </div>
                       <div class="col-md-2 mb-2">
-                        <input type="text" formControlName="codigoProduto" class="form-control"/>
+                        <input type="text" formControlName="pagamento" class="form-control"/>
                       </div>
                     </div>
                     <div class="form-row">
@@ -83,7 +85,7 @@
                         <label for="codigoProduto">Troco:</label>
                       </div>
                       <div class="col-md-2 mb-2">
-                        <input type="text" formControlName="codigoProduto" class="form-control"/>
+                        <input type="text" formControlName="troco" class="form-control"/>
                       </div>
                     </div>
                   </div>
