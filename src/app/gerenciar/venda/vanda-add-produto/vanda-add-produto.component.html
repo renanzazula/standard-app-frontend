@@ -9,7 +9,7 @@
                     <div class="form-group row">
                         <label for="barcode" class="col-md-0 col-form-label">Código de Barras</label>
                         <div class="col-md-8">
-                            <input type="text" class="form-control">
+                            <input type="text" class="form-control" formControlName="barcode">
                         </div>
                         <button type="button" class="btn  btn-secondary" style="width: 450px" (click)="addProduto()">+ Adicionar</button>
                     </div>
@@ -21,32 +21,54 @@
                     <div class="card-body">
                         <div class="form-row">
                             <div class="col-md-12 mb-12">
-                                <div class="table-responsive-sm">
+                                <div class="table-responsive-sm text-center">
                                     <table class="table table-bordered table-hover">
                                         <thead class="thead-dark">
                                         <tr>
-                                            <th scope="col">Código</th>
-                                            <th scope="col">Nome</th>
-                                            <th scope="col">Quantidade</th>
-                                            <th scope="col">Tamanho</th>
-                                            <th scope="col">Preço</th>
-                                            <th scope="col">SubTotal</th>
-                                            <th scope="col">total iten</th>
-                                            <th scope="col">#</th>
+                                            <th scope="col" style="width: 120px;">Código</th>
+                                            <th scope="col">Produto</th>
+                                            <th scope="col" style="width: 120px;">Quantidade</th>
+                                            <th scope="col" style="width: 120px;">Tamanho</th>
+                                            <th scope="col" style="width: 120px;">Preço</th>
+                                            <th scope="col" style="width: 120px;">Total Item</th>
+                                            <th scope="col" style="width: 80px;">&nbsp;</th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr *ngFor="let itemProdutoVenda of vendaHasItemProduto">
-                                            <td>{{itemProdutoVenda.produtoHasItensTipoMedida.codigo}}</td>
-                                            <td>{{itemProdutoVenda.produtoHasItensTipoMedida.produto.nome}}</td>
-                                            <td>
-                                                <input type="text" class="form-control"/>
-                                            </td>
-                                            <td>{{itemProdutoVenda.produtoHasItensTipoMedida.itensTipoMedida.valor}}</td>
-                                            <td>{{itemProdutoVenda.produtoHasItensTipoMedida.produto.precoVenda}}</td>
-                                            <td>{{itemProdutoVenda.produtoHasItensTipoMedida.produto.precoVenda * itemProdutoVenda.quantidade}}</td>
-                                            <td></td>
-                                        </tr>
+                                            <tr *ngFor="let itemProdutoVenda of vendaHasItemProduto; let i = index;">
+                                                <td style="vertical-align: middle;">
+                                                    {{itemProdutoVenda.produtoHasItensTipoMedida.codigo}}</td>
+                                                <td style="vertical-align: middle;">
+                                                    {{itemProdutoVenda.produtoHasItensTipoMedida.produto.nome}}</td>
+                                                <td>
+                                                    <input type="number" class="form-control" value="1"/>
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control"
+                                                           readonly
+                                                           style="width: 120px;"
+                                                           value="{{itemProdutoVenda.produtoHasItensTipoMedida.itensTipoMedida.valor}}"/>
+                                                    </td>
+                                                <td>
+                                                    <input type="text" class="form-control"
+                                                           readonly
+                                                           currencyMask
+                                                           style="width: 120px;"
+                                                           [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }"
+                                                           value="{{itemProdutoVenda.produtoHasItensTipoMedida.produto.precoVenda}}"/>
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control"
+                                                           readonly
+                                                           currencyMask
+                                                           style="width: 120px;"
+                                                           [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }"
+                                                           value="{{itemProdutoVenda.produtoHasItensTipoMedida.produto.precoVenda}}"/>
+                                                    </td>
+                                                <td>
+                                                    <button type="button" class="btn  btn-secondary" style="width: 50px" (click)="remover(i)">&nbsp;-&nbsp;</button>
+                                                </td>
+                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>
@@ -62,6 +84,7 @@
                                 <div class="col-md-12 mb-2">
                                     <label for="formadepagamento">Formas de pagamento</label>
                                     <select class="form-control" formControlName="formadepagamento"
+                                            (change)="onChangeCategoria($event.target.value)"
                                             [ngClass]="{ 'is-invalid': submitted && f.formadepagamento.errors }">
                                         <option *ngFor="let formadepagamento of formasdepagamentos"
                                                 [value]="stringify(formadepagamento)">{{formadepagamento.nome}}</option>
@@ -98,17 +121,17 @@
                     </div>
                     <div class="col-md-4">
                         <div class="card">
-                            <div class="card-body">
+                            <div class="card-body text-right">
                                 <div class="form-group row">
-                                    <label for="inputPassword" class="col-md-4 col-form-label">Subtotal:</label>
+                                    <label for="subtotal" class="col-md-4 col-form-label">Subtotal:</label>
                                     <div class="col-md-8">
-                                        <input type="subtotal" class="form-control">
+                                        <input type="subtotal" class="form-control" readonly>
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="desconto" class="col-md-4 col-form-label">Desconto%:</label>
                                     <div class="col-md-8">
-                                        <input type="number" class="form-control">
+                                        <input type="text" class="form-control" formControlName="desconto" readonly>
                                     </div>
                                 </div>
                                 <hr>
@@ -116,7 +139,7 @@
                                 <div class="form-group row">
                                     <label for="totalPagar" class="col-md-4 col-form-label">Total a pagar:</label>
                                     <div class="col-md-8">
-                                        <input type="number" class="form-control">
+                                        <input type="text" class="form-control" formControlName="totalPagar" readonly>
                                     </div>
                                 </div>
                             </div>
@@ -127,20 +150,29 @@
             <div class="card text-right">
                 <div class="card-body">
                     <div class="form-group row">
-                        <label for="inputPassword" class="col-md-10 col-form-label">Subtotal:</label>
+                        <label for="pagamento" class="col-md-10 col-form-label" >Pagamento:</label>
                         <div class="col-md-2">
-                            <input type="subtotal" class="form-control">
+                            <input type="text" class="form-control"
+                                   currencyMask
+                                   style="width: 120px;"
+                                   formControlName="pagamento"
+                                   [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }"/>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="desconto" class="col-md-10 col-form-label">Desconto%:</label>
+                        <label for="troco" class="col-md-10 col-form-label">Troco:</label>
                         <div class="col-md-2" style="width: 380.22px">
-                            <input type="number" class="form-control">
+                            <input type="text" class="form-control"
+                                   readonly
+                                   formControlName="troco">
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="card-footer bg-transparent text-right">
+            <button type="button" class="btn btn-secondary" (click)="onCadastrar()">Avançar</button>
+            <button type="button" class="btn btn-secondary ml-1" (click)="onCancelar()">Cancelar</button>
+        </div>
     </form>
-
 </div>

@@ -1,6 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import {Subcategoria} from "../../../model/subcategoria";
-import {SubCategoriaService} from "../../../service/subcategoria/sub-categoria.service";
+import {Component, OnInit} from '@angular/core';
 import {FormasDePagamentoService} from "../../../service/formasDePagamento/formas-de-pagamento.service";
 import {FormasDePagamento} from "../../../model/formasDePagamento";
 

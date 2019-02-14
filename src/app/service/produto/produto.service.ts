@@ -18,7 +18,7 @@ export class ProdutoService {
     }
 
     getByBarcode(barcode: string){
-      return this.http.get(`${environment.apiUrl}/produto/addicionarProduto/${barcode}`);
+      return this.http.get(`${environment.apiUrl}/produto/addicionarProduto/`+barcode);
     }
 
     cadastrar(produto: Produto) {
