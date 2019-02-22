@@ -31,7 +31,8 @@
                     <div class="col-md-8 mb-4">
                         <label>&nbsp;</label>
                         <label for="nome">Nome</label>
-                        <input type="text" formControlName="nome" class="form-control"
+                        <input type="text" formControlName="nome"
+                               class="form-control"
                                [ngClass]="{ 'is-invalid': submitted && f.nome.errors }"/>
                         <div *ngIf="submitted && f.nome.errors" class="invalid-feedback">
                             <div *ngIf="f.nome.errors.required">Nome é obrigatório</div>
@@ -55,12 +56,11 @@
                     <div class="col-md-4 mb-4">
                         <div class="form-group">
                             <label for="precoCusto">Preço de custo</label>
-                            <input currencyMask [(ngModel)]="precoCusto"
+                            <input currencyMask
                                    formControlName="precoCusto"
                                    class="form-control"
                                    [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }"
                                    [ngClass]="{ 'is-invalid': submitted && f.precoCusto.errors }"/>
-
                             <div *ngIf="submitted && f.precoCusto.errors" class="invalid-feedback">
                                 <div *ngIf="f.precoCusto.errors.required">Preço de custo é obrigatório</div>
                             </div>
@@ -79,7 +79,7 @@
                         <label>&nbsp;</label>
                         <label for="precoVenda">Preço de venda</label>
 
-                        <input currencyMask [(ngModel)]="precoVenda"
+                        <input currencyMask
                                formControlName="precoVenda"
                                class="form-control"
                                [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }"
@@ -107,8 +107,7 @@
                     <div class="col-md-4 mb-4">
                         <label>&nbsp;</label>
                         <label for="desconto">Valor de desconto</label>
-
-                        <input currencyMask [(ngModel)]="desconto"
+                        <input currencyMask
                                formControlName="desconto"
                                class="form-control"
                                [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }"
@@ -122,7 +121,7 @@
                         <label>&nbsp;</label>
                         <label for="precoOferta">Preço oferta</label>
 
-                        <input currencyMask [(ngModel)]="precoOferta"
+                        <input currencyMask
                                formControlName="precoOferta"
                                class="form-control"
                                [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }"

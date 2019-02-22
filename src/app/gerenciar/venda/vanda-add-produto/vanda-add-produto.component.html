@@ -22,7 +22,14 @@
                         <div class="form-row">
                             <div class="col-md-12 mb-12">
                                 <div class="table-responsive-sm text-center">
-                                    <table class="table table-bordered table-hover">
+                                    <table class="table table-bordered" *ngIf="vendaHasItemProduto.length ===0" scope="row">
+                                        <tbody>
+                                        <tr>
+                                            <td class="col text-center" colspan="4">{{nunhum_encontrado}}</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    <table class="table table-bordered table-hover" *ngIf="vendaHasItemProduto.length !==0">
                                         <thead class="thead-dark">
                                         <tr>
                                             <th scope="col" style="width: 120px;">Código</th>
@@ -84,7 +91,8 @@
                                 <div class="col-md-12 mb-2">
                                     <label for="formadepagamento">Formas de pagamento</label>
                                     <select class="form-control" formControlName="formadepagamento"
-                                            (change)="onChangeCategoria($event.target.value)"
+                                            [disableControl]="vendaHasItemProduto.length === 0"
+                                            (change)="onChangeFormapagamento($event.target.value)"
                                             [ngClass]="{ 'is-invalid': submitted && f.formadepagamento.errors }">
                                         <option *ngFor="let formadepagamento of formasdepagamentos"
                                                 [value]="stringify(formadepagamento)">{{formadepagamento.nome}}</option>
@@ -103,7 +111,13 @@
                                         <div class="form-group row">
                                             <label for="pagamento" class="col-md-3 col-form-label">Pagamento:</label>
                                             <div class="col-md-9">
-                                                <input type="text" formControlName="pagamento" class="form-control"/>
+                                                <input type="text" class="form-control"
+                                                       currencyMask
+                                                       style="width: 120px;"
+                                                       formControlName="pagamento"
+                                                       [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }"
+                                                       (keyup)="calculaTroco()"
+                                                />
                                             </div>
                                         </div>
                                     </div>
@@ -111,7 +125,12 @@
                                         <div class="form-group row">
                                             <label for="troco" class="col-md-2 col-form-label">Troco:</label>
                                             <div class="col-md-10">
-                                                <input type="text" formControlName="troco" class="form-control"/>
+                                                <input type="text" class="form-control"
+                                                       readonly
+                                                       currencyMask
+                                                       style="width: 120px;"
+                                                       formControlName="troco"
+                                                       [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }"/>
                                             </div>
                                         </div>
                                     </div>
@@ -125,13 +144,21 @@
                                 <div class="form-group row">
                                     <label for="subtotal" class="col-md-4 col-form-label">Subtotal:</label>
                                     <div class="col-md-8">
-                                        <input type="subtotal" class="form-control" readonly>
+                                        <input type="text" class="form-control"
+                                               readonly
+                                               currencyMask
+                                               formControlName="subtotal"
+                                               [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }"/>
+
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="desconto" class="col-md-4 col-form-label">Desconto%:</label>
                                     <div class="col-md-8">
-                                        <input type="text" class="form-control" formControlName="desconto" readonly>
+                                        <input type="text" class="form-control"
+                                               readonly
+                                               style="text-align: right"
+                                               formControlName="desconto"/>
                                     </div>
                                 </div>
                                 <hr>
@@ -139,7 +166,11 @@
                                 <div class="form-group row">
                                     <label for="totalPagar" class="col-md-4 col-form-label">Total a pagar:</label>
                                     <div class="col-md-8">
-                                        <input type="text" class="form-control" formControlName="totalPagar" readonly>
+                                        <input type="text" class="form-control"
+                                               readonly
+                                               currencyMask
+                                               formControlName="totalPagar"
+                                               [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }"/>
                                     </div>
                                 </div>
                             </div>
@@ -150,21 +181,25 @@
             <div class="card text-right">
                 <div class="card-body">
                     <div class="form-group row">
-                        <label for="pagamento" class="col-md-10 col-form-label" >Pagamento:</label>
+                        <label for="valorPago" class="col-md-10 col-form-label" >Valor pago:</label>
                         <div class="col-md-2">
                             <input type="text" class="form-control"
+                                   readonly
                                    currencyMask
-                                   style="width: 120px;"
-                                   formControlName="pagamento"
+                                   style="width: 260px;color: red; font-weight: bold"
+                                   formControlName="valorPago"
                                    [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }"/>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="troco" class="col-md-10 col-form-label">Troco:</label>
-                        <div class="col-md-2" style="width: 380.22px">
+                        <label for="valorPendente" class="col-md-10 col-form-label">Valor pendente:</label>
+                        <div class="col-md-2">
                             <input type="text" class="form-control"
                                    readonly
-                                   formControlName="troco">
+                                   currencyMask
+                                   style="width: 260px;color: red; font-weight: bold"
+                                   formControlName="valorPendente"
+                                   [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }"/>
                         </div>
                     </div>
                 </div>

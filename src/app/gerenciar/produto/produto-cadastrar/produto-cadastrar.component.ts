@@ -174,9 +174,6 @@ export class ProdutoCadastrarComponent implements OnInit {
         produto.marca        = JSON.parse(this.produtoForm.controls.marca.value);
 
         const pFormArray = this.produtoForm.controls.pHITipoMedida as FormArray;
-
-        console.log("pFormArray");
-        console.log(pFormArray);
         const produtoHasItensTipoMedidaAux: ProdutoHasItensTipoMedida[] = [];
 
         pFormArray.controls.forEach((item, index)=>{
@@ -186,27 +183,15 @@ export class ProdutoCadastrarComponent implements OnInit {
             pHasItensTipoMedida.valorUnitario= produto.precoVenda;
             pHasItensTipoMedida.itensTipoMedida=produto.medida.itensTipoMedida[index];
 
-            console.log(item.value.dominiosFormArray);
-
             const dominiosSelecionados = item.value.dominiosFormArray.map(
                 (v, i) => v ? this.dominios[i] : null).filter(v => v !== null);
 
-            console.log("dominios selecionados");
-            console.log(dominiosSelecionados);
             pHasItensTipoMedida.dominios = this.mergeDominios(dominiosSelecionados);
-
-            console.log("pHasItensTipoMedida");
-            console.log(pHasItensTipoMedida);
-
             produtoHasItensTipoMedidaAux.push(pHasItensTipoMedida);
         });
 
-        console.log("produtoHasItensTipoMedidaAux");
-        console.log(produtoHasItensTipoMedidaAux);
-
         produto.produtoHasItensTipoMedida = produtoHasItensTipoMedidaAux;
 
-        console.log(produto);
 
         this.produtoService.cadastrar(produto)
             .pipe(first())
@@ -369,6 +354,10 @@ export class ProdutoCadastrarComponent implements OnInit {
 
         this.selectedFiles = event.target.files;
         console.log(this.selectedFiles);
+    }
+
+    calcularPrecoVenda(){
+
     }
 
 

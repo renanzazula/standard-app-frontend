@@ -32,8 +32,8 @@ export class VandaAddProdutoComponent implements OnInit {
 
     message_registrado_sucesso = 'Registrado com sucesso!';
     messagem_erro = "Erro ao desativar " + this.nome_page + " ";
-
-
+    nunhum_encontrado = "Nenhuma produto encontrado!";
+    temProduto = false;
     submitted = false;
     vendaAddProdutosFormGroup: FormGroup;
     formasdepagamentos: FormasDePagamento[];
@@ -54,10 +54,13 @@ export class VandaAddProdutoComponent implements OnInit {
             codigo: [''],
             barcode: [''],
             formadepagamento: ['', Validators.required],
+            subtotal: [''],
             desconto: [''],
+            totalPagar: [''],
             pagamento: [''],
             troco: [''],
-            totalPagar: ['']
+            valorPago: [''],
+            valorPendente:['']
         });
     }
 
@@ -92,6 +95,9 @@ export class VandaAddProdutoComponent implements OnInit {
                 }
             });
             this.vendaAddProdutosFormGroup.controls.barcode.setValue("");
+            this.onChangeFormapagamento(this.vendaAddProdutosFormGroup.controls.formadepagamento.value);
+            this.calculaTroco();
+
         });
     }
 
@@ -103,12 +109,42 @@ export class VandaAddProdutoComponent implements OnInit {
         let v: VendaHasItemProduto = this.vendaHasItemProduto[index];
         this.totalItens = this.totalItens  - (v.valorUnitario * v.quantidade);
         this.vendaHasItemProduto.splice(index, 1);
+        this.onChangeFormapagamento(this.vendaAddProdutosFormGroup.controls.formadepagamento.value);
+        this.calculaTroco();
+        if( this.vendaHasItemProduto.length === 0 ){
+            this.vendaAddProdutosFormGroup.controls.totalPagar.setValue(0);
+            this.vendaAddProdutosFormGroup.controls.subtotal.setValue(0);
+            this.vendaAddProdutosFormGroup.controls.desconto.setValue(0);
+            this.vendaAddProdutosFormGroup.controls.pagamento.setValue(0);
+        }
     }
 
-    onChangeCategoria(value) {
-        var formadePagamento: FormasDePagamento = JSON.parse(value);
-        this.vendaAddProdutosFormGroup.controls.totalPagar.setValue( this.totalItens - ((formadePagamento.porcentagemDesconto/100) * this.totalItens));
-        this.vendaAddProdutosFormGroup.controls.desconto.setValue(formadePagamento.porcentagemDesconto);
+    onChangeFormapagamento(value) {
+        console.log("value:" + value);
+        if(value !== "" || value !== undefined || value !== null ){
+            var formadePagamento: FormasDePagamento = JSON.parse(value);
+            var totalpagar = this.totalItens - ((formadePagamento.porcentagemDesconto/100) * this.totalItens);
+            this.vendaAddProdutosFormGroup.controls.totalPagar.setValue(totalpagar);
+            this.vendaAddProdutosFormGroup.controls.subtotal.setValue(totalpagar);
+            this.vendaAddProdutosFormGroup.controls.desconto.setValue(formadePagamento.porcentagemDesconto);
+            this.vendaAddProdutosFormGroup.controls.pagamento.setValue(totalpagar);
+        }
+        this.calculaTroco();
     }
 
+    calculaTroco(){
+        var totalpagar = this.vendaAddProdutosFormGroup.controls.totalPagar.value;
+        var pagamento = this.vendaAddProdutosFormGroup.controls.pagamento.value;
+        var valorPago = 0;
+        if(pagamento >= totalpagar){
+            valorPago = pagamento - totalpagar;
+            this.vendaAddProdutosFormGroup.controls.troco.setValue(valorPago);
+            this.vendaAddProdutosFormGroup.controls.valorPendente.setValue(0);
+        }else{
+            valorPago = totalpagar - pagamento;
+            this.vendaAddProdutosFormGroup.controls.troco.setValue(0);
+            this.vendaAddProdutosFormGroup.controls.valorPendente.setValue(valorPago);
+        }
+        this.vendaAddProdutosFormGroup.controls.valorPago.setValue(pagamento);
+    }
 }

@@ -9,7 +9,7 @@ import {FormasDePagamento} from "../../../model/formasDePagamento";
 export class FormasdepagamentoListarComponent implements OnInit {
 
   page_nome = "Formas de Pagamento";
-  nunhum_encontrado = "Nenhuma sucategoria encontrada!";
+  nunhum_encontrado = "Nenhuma forma de pagamento encontrada!";
   formasdepagamentos: FormasDePagamento[] = [];
 
   constructor(private formasDePagamentoService: FormasDePagamentoService) {
