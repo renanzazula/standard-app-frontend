@@ -52,9 +52,9 @@ export class ProdutoCadastrarComponent implements OnInit {
     submitted = false;
     update = false;
 
-    temCategoria=false;
-    temSubcategoria=false;
-    temMarca=false;
+    temCategoria = false;
+    temSubcategoria = false;
+    temMarca = false;
 
     fornecedores: Fornecedor[];
     categorias: Categoria[];
@@ -77,17 +77,16 @@ export class ProdutoCadastrarComponent implements OnInit {
         private subcategoriaService: SubCategoriaService,
         private marcaService: MarcaService,
         private dominioService: DominioService,
-
     ) {
         this.produtoForm = this.formBuilder.group({
             image: [Image],
-            barCode: ['',   [Validators.required, Validators.maxLength(100)]],
-            nome: ['',      [Validators.required, Validators.maxLength(100)]],
+            barCode: ['', [Validators.required, Validators.maxLength(100)]],
+            nome: ['', [Validators.required, Validators.maxLength(100)]],
             descricao: ['', [Validators.required, Validators.maxLength(150)]],
 
-            precoCusto:  ['', Validators.required],
+            precoCusto: ['', Validators.required],
             porcentagem: ['', [Validators.required, Validators.maxLength(5)]],
-            precoVenda:  ['', Validators.required],
+            precoVenda: ['', Validators.required],
             porcentagemDesconto: ['', [Validators.required, Validators.min(0), Validators.max(100)]],
             desconto: ['', Validators.required],
             precoOferta: ['', Validators.required],
@@ -142,7 +141,7 @@ export class ProdutoCadastrarComponent implements OnInit {
         );
 
 
-   }
+    }
 
     get f() {
         return this.produtoForm.controls;
@@ -157,31 +156,31 @@ export class ProdutoCadastrarComponent implements OnInit {
         }
 
         var produto: Produto = new Produto();
-        produto.barCode      = this.produtoForm.controls.barCode.value;
-        produto.nome         = this.produtoForm.controls.nome.value;
-        produto.descricao    = this.produtoForm.controls.descricao.value;
-        produto.precoCusto   = this.produtoForm.controls.precoCusto.value;
-        produto.porcentagem  = this.produtoForm.controls.porcentagem.value;
-        produto.precoVenda   = this.produtoForm.controls.precoVenda.value;
+        produto.barCode = this.produtoForm.controls.barCode.value;
+        produto.nome = this.produtoForm.controls.nome.value;
+        produto.descricao = this.produtoForm.controls.descricao.value;
+        produto.precoCusto = this.produtoForm.controls.precoCusto.value;
+        produto.porcentagem = this.produtoForm.controls.porcentagem.value;
+        produto.precoVenda = this.produtoForm.controls.precoVenda.value;
         produto.porcentagemDesconto = this.produtoForm.controls.porcentagemDesconto.value;
-        produto.desconto     = this.produtoForm.controls.desconto.value;
-        produto.precoOferta  = this.produtoForm.controls.precoOferta.value;
-        produto.peso         = this.produtoForm.controls.peso.value;
-        produto.fornecedor   = JSON.parse(this.produtoForm.controls.fornecedor.value);
-        produto.medida       = JSON.parse(this.produtoForm.controls.medida.value);
-        produto.categoria    = JSON.parse(this.produtoForm.controls.categoria.value);
+        produto.desconto = this.produtoForm.controls.desconto.value;
+        produto.precoOferta = this.produtoForm.controls.precoOferta.value;
+        produto.peso = this.produtoForm.controls.peso.value;
+        produto.fornecedor = JSON.parse(this.produtoForm.controls.fornecedor.value);
+        produto.medida = JSON.parse(this.produtoForm.controls.medida.value);
+        produto.categoria = JSON.parse(this.produtoForm.controls.categoria.value);
         produto.subcategoria = JSON.parse(this.produtoForm.controls.subcategoria.value);
-        produto.marca        = JSON.parse(this.produtoForm.controls.marca.value);
+        produto.marca = JSON.parse(this.produtoForm.controls.marca.value);
 
         const pFormArray = this.produtoForm.controls.pHITipoMedida as FormArray;
         const produtoHasItensTipoMedidaAux: ProdutoHasItensTipoMedida[] = [];
 
-        pFormArray.controls.forEach((item, index)=>{
+        pFormArray.controls.forEach((item, index) => {
             var pHasItensTipoMedida = new ProdutoHasItensTipoMedida();
-            pHasItensTipoMedida.codigo= item.value.codigo;
-            pHasItensTipoMedida.quantidade= item.value.quantidade;
-            pHasItensTipoMedida.valorUnitario= produto.precoVenda;
-            pHasItensTipoMedida.itensTipoMedida=produto.medida.itensTipoMedida[index];
+            pHasItensTipoMedida.codigo = item.value.codigo;
+            pHasItensTipoMedida.quantidade = item.value.quantidade;
+            pHasItensTipoMedida.valorUnitario = produto.precoVenda;
+            pHasItensTipoMedida.itensTipoMedida = produto.medida.itensTipoMedida[index];
 
             const dominiosSelecionados = item.value.dominiosFormArray.map(
                 (v, i) => v ? this.dominios[i] : null).filter(v => v !== null);
@@ -293,38 +292,38 @@ export class ProdutoCadastrarComponent implements OnInit {
         const medida: Medida = JSON.parse(value);
         this.itensTipoMedida = medida.itensTipoMedida;
 
-        if(this.itensTipoMedida != undefined){
-            if(this.itensTipoMedida.length != 0){
-                if(this.itensTipoMedida[0].categoria != undefined) {
+        if (this.itensTipoMedida != undefined) {
+            if (this.itensTipoMedida.length != 0) {
+                if (this.itensTipoMedida[0].categoria != undefined) {
                     this.temCategoria = true;
                     this.produtoForm.get('categoria').setValue(this.stringify(this.itensTipoMedida[0].categoria));
-                }else{
+                } else {
                     this.temCategoria = false;
                 }
-                if(this.itensTipoMedida[0].subcategoria!= undefined) {
+                if (this.itensTipoMedida[0].subcategoria != undefined) {
                     this.temSubcategoria = true;
                     this.produtoForm.get('subcategoria').setValue(this.stringify(this.itensTipoMedida[0].subcategoria));
-                }else{
+                } else {
                     this.temSubcategoria = false;
                 }
-                if(this.itensTipoMedida[0].marca != undefined) {
+                if (this.itensTipoMedida[0].marca != undefined) {
                     this.temMarca = true;
                     this.produtoForm.get('marca').setValue(this.stringify(this.itensTipoMedida[0].marca));
-                }else{
+                } else {
                     this.temMarca = false;
                 }
-            }else{
+            } else {
                 this.temCategoria = false;
                 this.temSubcategoria = false;
                 this.temMarca = false;
             }
         }
 
-        this.dominios.forEach((dominio, i)=>{
+        this.dominios.forEach((dominio, i) => {
             dominiosFormArray.insert(i, new FormControl(false));
         });
 
-        this.itensTipoMedida.forEach((itemTipoMedida, i) =>{
+        this.itensTipoMedida.forEach((itemTipoMedida, i) => {
             pHITipoMedida.insert(i,
                 this.formBuilder.group({
                     codigo: itemTipoMedida.codigo,
@@ -336,18 +335,18 @@ export class ProdutoCadastrarComponent implements OnInit {
         this.produtoForm.setControl('pHITipoMedida', pHITipoMedida);
     }
 
-    private mergeDominios(selecionados: Dominio[]): Dominio[]{
-      var dominioChecked: Dominio[] = [];
-      this.dominios.forEach((dominio, i)=>{
-          selecionados.forEach((selecionado, h)=>{
-              if(selecionado.codigo === dominio.codigo){
-                  dominioChecked.push(dominio);
-              }
-          });
-      });
-      console.log("dominioChecked");
-      console.log(dominioChecked);
-      return dominioChecked;
+    private mergeDominios(selecionados: Dominio[]): Dominio[] {
+        var dominioChecked: Dominio[] = [];
+        this.dominios.forEach((dominio, i) => {
+            selecionados.forEach((selecionado, h) => {
+                if (selecionado.codigo === dominio.codigo) {
+                    dominioChecked.push(dominio);
+                }
+            });
+        });
+        console.log("dominioChecked");
+        console.log(dominioChecked);
+        return dominioChecked;
     }
 
     selectFile(event) {
@@ -356,11 +355,20 @@ export class ProdutoCadastrarComponent implements OnInit {
         console.log(this.selectedFiles);
     }
 
-    calcularPrecoVenda(){
-
+    calcularPrecoVenda() {
+        var porcentagem = (100 - this.produtoForm.controls.porcentagem.value);
+        var precoCusto = this.produtoForm.controls.precoCusto.value;
+        var precoVenda = (precoCusto / porcentagem);
+        var precoVendaFinal = (precoVenda * 100);
+        this.produtoForm.controls.precoVenda.setValue(precoVendaFinal);
     }
 
-
-
+    calculaDesconto(){
+        var precoCusto = this.produtoForm.controls.precoCusto.value;
+        var desconto = this.produtoForm.controls.porcentagemDesconto.value;
+        this.produtoForm.controls.desconto.setValue(((precoCusto*desconto)/100))
+        var precoVenda = this.produtoForm.controls.precoVenda.value;
+        this.produtoForm.controls.precoOferta.setValue(precoVenda - desconto);
+    }
 }
 
