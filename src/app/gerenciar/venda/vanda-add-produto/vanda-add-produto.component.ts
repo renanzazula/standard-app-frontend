@@ -111,25 +111,24 @@ export class VandaAddProdutoComponent implements OnInit {
         this.vendaHasItemProduto.splice(index, 1);
         this.onChangeFormapagamento(this.vendaAddProdutosFormGroup.controls.formadepagamento.value);
         this.calculaTroco();
-        if( this.vendaHasItemProduto.length === 0 ){
-            this.vendaAddProdutosFormGroup.controls.totalPagar.setValue(0);
-            this.vendaAddProdutosFormGroup.controls.subtotal.setValue(0);
-            this.vendaAddProdutosFormGroup.controls.desconto.setValue(0);
-            this.vendaAddProdutosFormGroup.controls.pagamento.setValue(0);
-        }
     }
 
     onChangeFormapagamento(value) {
         console.log("value:" + value);
-        if(value !== "" || value !== undefined || value !== null ){
+        if( this.vendaHasItemProduto.length === 0){
+          this.vendaAddProdutosFormGroup.controls.totalPagar.setValue(0);
+          this.vendaAddProdutosFormGroup.controls.subtotal.setValue(0);
+          this.vendaAddProdutosFormGroup.controls.desconto.setValue(0);
+          this.vendaAddProdutosFormGroup.controls.pagamento.setValue(0);
+        } else if(!!value && value !== undefined && value !== null ){
             var formadePagamento: FormasDePagamento = JSON.parse(value);
             var totalpagar = this.totalItens - ((formadePagamento.porcentagemDesconto/100) * this.totalItens);
             this.vendaAddProdutosFormGroup.controls.totalPagar.setValue(totalpagar);
             this.vendaAddProdutosFormGroup.controls.subtotal.setValue(totalpagar);
             this.vendaAddProdutosFormGroup.controls.desconto.setValue(formadePagamento.porcentagemDesconto);
             this.vendaAddProdutosFormGroup.controls.pagamento.setValue(totalpagar);
+            this.vendaAddProdutosFormGroup.controls.valorPago.setValue(totalpagar);
         }
-        this.calculaTroco();
     }
 
     calculaTroco(){
@@ -147,4 +146,26 @@ export class VandaAddProdutoComponent implements OnInit {
         }
         this.vendaAddProdutosFormGroup.controls.valorPago.setValue(pagamento);
     }
+
+  onAvancar(){
+    this.submitted = true;
+
+    // stop here if form is invalid
+    if (this.vendaAddProdutosFormGroup.invalid) {
+      return;
+    }
+
+    var venda
+    // this.subcategoriaService.cadastrar(this.subcategoriaForm.value)
+    //   .pipe(first())
+    //   .subscribe(
+    //     data => {
+    //       this.alertaService.success(this.message_registrado_sucesso, true);
+    //       this.router.navigate([this.listar_page]);
+    //     },
+    //     error => {
+    //       this.alertaService.error(error);
+    //     });
+  }
+
 }

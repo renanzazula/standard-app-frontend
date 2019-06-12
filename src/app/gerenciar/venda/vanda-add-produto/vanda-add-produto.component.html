@@ -97,8 +97,8 @@
                                         <option *ngFor="let formadepagamento of formasdepagamentos"
                                                 [value]="stringify(formadepagamento)">{{formadepagamento.nome}}</option>
                                     </select>
-                                    <div *ngIf="submitted && f.formadepagamentos.errors" class="invalid-feedback">
-                                        <div *ngIf="f.formadepagamentos.errors.required">Forma de pagamento é obrigatório</div>
+                                    <div *ngIf="submitted && f.formadepagamento.errors" class="invalid-feedback">
+                                        <div *ngIf="f.formadepagamento.errors.required">Forma de pagamento é obrigatório</div>
                                     </div>
                                 </div>
                             </div>
@@ -206,7 +206,7 @@
             </div>
         </div>
         <div class="card-footer bg-transparent text-right">
-            <button type="button" class="btn btn-secondary" (click)="onCadastrar()">Avançar</button>
+            <button type="button" class="btn btn-secondary" (click)="onAvancar()">Avançar</button>
             <button type="button" class="btn btn-secondary ml-1" (click)="onCancelar()">Cancelar</button>
         </div>
     </form>

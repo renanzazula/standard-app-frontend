@@ -40,7 +40,7 @@ export class ProdutoListarComponent implements OnInit {
 get() {
     this.produtoService.consultar().subscribe(
         (produto: Produto[]) => {
-            this.produtos = produto;
+          this.produtos = produto;
         }, (error) => console.log(error)
     );
   }
