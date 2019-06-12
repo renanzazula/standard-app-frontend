@@ -48,9 +48,10 @@ import {ProdutoService} from "./service/produto/produto.service";
 import {CollapseControlDirective} from "./directives/collapse-control-directive";
 import {CurrencyMaskModule} from "ng2-currency-mask";
 import {FileSelectDirective} from "ng2-file-upload";
-import { VendaComponent } from './gerenciar/venda/venda.component';
-import { VandaAddProdutoComponent } from './gerenciar/venda/vanda-add-produto/vanda-add-produto.component';
+import {VendaComponent} from './gerenciar/venda/venda.component';
+import {VandaAddProdutoComponent} from './gerenciar/venda/vanda-add-produto/vanda-add-produto.component';
 import {DialogTableComponent} from "./mensagens/dialogTable/dialog.table.component";
+import {VendaService} from "./service/venda/venda.service";
 
 
 @NgModule({
@@ -107,7 +108,7 @@ import {DialogTableComponent} from "./mensagens/dialogTable/dialog.table.compone
     providers: [AlertaService, MarcaService,
         MatDialog, MedidaService, CategoriaService,
         SubCategoriaService, FormasDePagamentoService,
-        FornecedorService, DominioService, ProdutoService],
+        FornecedorService, DominioService, ProdutoService, VendaService],
     bootstrap: [AppComponent]
 })
 export class AppModule {

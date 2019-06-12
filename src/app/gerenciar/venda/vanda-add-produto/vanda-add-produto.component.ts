@@ -10,6 +10,9 @@ import {ProdutoService} from "../../../service/produto/produto.service";
 import {ProdutoHasItensTipoMedida} from "../../../model/produtoHasItensTipoMedida";
 import {Produto} from "../../../model/produto";
 import {DialogTableComponent} from "../../../mensagens/dialogTable/dialog.table.component";
+import {VendaService} from "../../../service/venda/venda.service";
+import {first} from "rxjs/operators";
+import {Venda} from "../../../model/venda";
 
 @Component({
     selector: 'app-vanda-add-produto',
@@ -18,6 +21,7 @@ import {DialogTableComponent} from "../../../mensagens/dialogTable/dialog.table.
 export class VandaAddProdutoComponent implements OnInit {
 
     nome_page: string = 'Venda';
+    venda_confirmar:  string = 'venda/confirmar';
     listar_page: string = 'venda/listar';
 
     mensagem_excluir = "Deseja realmente efeteuar a exclusão?";
@@ -48,7 +52,8 @@ export class VandaAddProdutoComponent implements OnInit {
         private alertaService: AlertaService,
         private dialogComponente: MatDialog,
         private formasdepagamentoService: FormasDePagamentoService,
-        private produtoService: ProdutoService
+        private produtoService: ProdutoService,
+        private vendaService: VendaService
     ) {
         this.vendaAddProdutosFormGroup = this.formBuilder.group({
             codigo: [''],
@@ -151,21 +156,34 @@ export class VandaAddProdutoComponent implements OnInit {
     this.submitted = true;
 
     // stop here if form is invalid
-    if (this.vendaAddProdutosFormGroup.invalid) {
-      return;
-    }
+    // if (this.vendaAddProdutosFormGroup.invalid) {
+    //   return;
+    // }
+    //
 
-    var venda
-    // this.subcategoriaService.cadastrar(this.subcategoriaForm.value)
-    //   .pipe(first())
-    //   .subscribe(
-    //     data => {
-    //       this.alertaService.success(this.message_registrado_sucesso, true);
-    //       this.router.navigate([this.listar_page]);
-    //     },
-    //     error => {
-    //       this.alertaService.error(error);
-    //     });
+    console.log("value:" + this.vendaAddProdutosFormGroup.controls);
+
+
+    var venda: Venda = new Venda();
+    venda.formaDePagamento = JSON.parse(this.vendaAddProdutosFormGroup.controls.formadepagamento.value);
+    venda.subtotal = this.vendaAddProdutosFormGroup.controls.subtotal.value;
+    venda.desconto = this.vendaAddProdutosFormGroup.controls.desconto.value;
+    venda.totalPagar = this.vendaAddProdutosFormGroup.controls.totalPagar.value;
+    venda.pagamento = this.vendaAddProdutosFormGroup.controls.pagamento.value;
+    venda.troco = this.vendaAddProdutosFormGroup.controls.troco.value;
+    venda.valorPago = this.vendaAddProdutosFormGroup.controls.valorPago.value;
+    venda.valorPendente = this.vendaAddProdutosFormGroup.controls.valorPendente.value;
+    venda.vendaHasItemProduto = this.vendaHasItemProduto;
+
+    this.vendaService.avancar(venda)
+      .pipe(first())
+      .subscribe(
+        data => {
+          this.router.navigate([this.listar_page]);
+        },
+        error => {
+          this.alertaService.error(error);
+        });
   }
 
 }
