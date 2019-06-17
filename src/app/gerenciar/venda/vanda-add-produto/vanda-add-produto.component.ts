@@ -40,7 +40,7 @@ export class VandaAddProdutoComponent implements OnInit {
     temProduto = false;
     submitted = false;
     vendaAddProdutosFormGroup: FormGroup;
-    formasdepagamentos: FormasDePagamento[];
+    formasDePagamentos: FormasDePagamento[];
     vendaHasItemProduto: VendaHasItemProduto[] = [];
     barcode: string;
     totalItens: number = 0;
@@ -58,7 +58,7 @@ export class VandaAddProdutoComponent implements OnInit {
         this.vendaAddProdutosFormGroup = this.formBuilder.group({
             codigo: [''],
             barcode: [''],
-            formadepagamento: ['', Validators.required],
+            formasDePagamento: ['', Validators.required],
             subtotal: [''],
             desconto: [''],
             totalPagar: [''],
@@ -72,7 +72,7 @@ export class VandaAddProdutoComponent implements OnInit {
     ngOnInit() {
         this.formasdepagamentoService.consultar().subscribe(
             (formasDePagamento: any[]) => {
-                this.formasdepagamentos = formasDePagamento;
+                this.formasDePagamentos = formasDePagamento;
             }, (error) => console.log(error)
         );
     }
@@ -100,7 +100,7 @@ export class VandaAddProdutoComponent implements OnInit {
                 }
             });
             this.vendaAddProdutosFormGroup.controls.barcode.setValue("");
-            this.onChangeFormapagamento(this.vendaAddProdutosFormGroup.controls.formadepagamento.value);
+            this.onChangeFormapagamento(this.vendaAddProdutosFormGroup.controls.formasDePagamento.value);
             this.calculaTroco();
 
         });
@@ -114,7 +114,7 @@ export class VandaAddProdutoComponent implements OnInit {
         let v: VendaHasItemProduto = this.vendaHasItemProduto[index];
         this.totalItens = this.totalItens  - (v.valorUnitario * v.quantidade);
         this.vendaHasItemProduto.splice(index, 1);
-        this.onChangeFormapagamento(this.vendaAddProdutosFormGroup.controls.formadepagamento.value);
+        this.onChangeFormapagamento(this.vendaAddProdutosFormGroup.controls.formasDePagamento.value);
         this.calculaTroco();
     }
 
@@ -165,7 +165,7 @@ export class VandaAddProdutoComponent implements OnInit {
 
 
     var venda: Venda = new Venda();
-    venda.formaDePagamento = JSON.parse(this.vendaAddProdutosFormGroup.controls.formadepagamento.value);
+    venda.formaDePagamento = JSON.parse(this.vendaAddProdutosFormGroup.controls.formasDePagamento.value);
     venda.subtotal = this.vendaAddProdutosFormGroup.controls.subtotal.value;
     venda.desconto = this.vendaAddProdutosFormGroup.controls.desconto.value;
     venda.totalPagar = this.vendaAddProdutosFormGroup.controls.totalPagar.value;
@@ -185,5 +185,10 @@ export class VandaAddProdutoComponent implements OnInit {
           this.alertaService.error(error);
         });
   }
+
+  get f() {
+    return this.vendaAddProdutosFormGroup.controls;
+  }
+
 
 }

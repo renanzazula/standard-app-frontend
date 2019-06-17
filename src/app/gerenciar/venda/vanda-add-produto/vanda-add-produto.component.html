@@ -89,16 +89,16 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="col-md-12 mb-2">
-                                    <label for="formadepagamento">Formas de pagamento</label>
-                                    <select class="form-control" formControlName="formadepagamento"
+                                    <label for="formasDePagamento">Formas de pagamento</label>
+                                    <select class="form-control" formControlName="formasDePagamento"
                                             [disableControl]="vendaHasItemProduto.length === 0"
                                             (change)="onChangeFormapagamento($event.target.value)"
-                                            [ngClass]="{ 'is-invalid': submitted && f.formadepagamento.errors }">
-                                        <option *ngFor="let formadepagamento of formasdepagamentos"
-                                                [value]="stringify(formadepagamento)">{{formadepagamento.nome}}</option>
+                                            [ngClass]="{ 'is-invalid': submitted && f.formasDePagamento.errors }">
+                                        <option *ngFor="let formasDePagamento of formasDePagamentos"
+                                                [value]="stringify(formasDePagamento)">{{formasDePagamento.nome}}</option>
                                     </select>
-                                    <div *ngIf="submitted && f.formadepagamento.errors" class="invalid-feedback">
-                                        <div *ngIf="f.formadepagamento.errors.required">Forma de pagamento é obrigatório</div>
+                                    <div *ngIf="submitted && f.formasDePagamento.errors" class="invalid-feedback">
+                                        <div *ngIf="f.formasDePagamento.errors.required">Forma de pagamento é obrigatório</div>
                                     </div>
                                 </div>
                             </div>
