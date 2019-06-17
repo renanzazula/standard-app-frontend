@@ -52,6 +52,7 @@ import {VendaComponent} from './gerenciar/venda/venda.component';
 import {VandaAddProdutoComponent} from './gerenciar/venda/vanda-add-produto/vanda-add-produto.component';
 import {DialogTableComponent} from "./mensagens/dialogTable/dialog.table.component";
 import {VendaService} from "./service/venda/venda.service";
+import {VendaConfirmarComponent} from "./gerenciar/venda/venda-confirmar/venda-confirmar.component";
 
 
 @NgModule({
@@ -92,7 +93,8 @@ import {VendaService} from "./service/venda/venda.service";
         ProdutoComponent,
         FileSelectDirective,
         VendaComponent,
-        VandaAddProdutoComponent
+        VandaAddProdutoComponent,
+        VendaConfirmarComponent
     ],
     imports: [
         BrowserModule,

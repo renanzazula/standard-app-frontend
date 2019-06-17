@@ -23,65 +23,67 @@ import {DominioComponent} from "./gerenciar/dominio/dominio.component";
 import {ProdutoListarComponent} from "./gerenciar/produto/produto-listar/produto-listar.component";
 import {ProdutoCadastrarComponent} from "./gerenciar/produto/produto-cadastrar/produto-cadastrar.component";
 import {ProdutoComponent} from "./gerenciar/produto/produto.component";
-import {VendaComponent} from "./gerenciar/venda/venda.component";
 import {VandaAddProdutoComponent} from "./gerenciar/venda/vanda-add-produto/vanda-add-produto.component";
+import {VendaConfirmarComponent} from "./gerenciar/venda/venda-confirmar/venda-confirmar.component";
+import {VendaComponent} from "./gerenciar/venda/venda.component";
 
 const appRoutes: Routes = [
-    {
-        path: 'marca', component: MarcaComponent, children: [
-            {path: 'cadastrar', component: MarcaCadastrarComponent},
-            {path: ':codigo/editar', component: MarcaCadastrarComponent},
-            {path: 'listar', component: MarcaListaComponent},
-        ]
-    },{
-        path: 'medida', component: MedidaComponent, children: [
-            {path: 'cadastrar', component: MedidaCadastrarComponent},
-            {path: ':codigo/editar', component: MedidaCadastrarComponent},
-            {path: 'listar', component: MedidaListarComponent},
-        ]
-    },{
-        path: 'categoria', component: CategoriaComponent, children: [
-            {path: 'cadastrar', component: CategoriaCadastrarComponent},
-            {path: ':codigo/editar', component: CategoriaCadastrarComponent},
-            {path: 'listar', component: CategoriaListarComponent}
-        ]
-    },{
-        path: 'subcategoria', component: SubcategoriaComponent, children: [
-            {path: 'cadastrar', component: SubcategoriaCadastrarComponent},
-            {path: ':codigo/editar', component: SubcategoriaCadastrarComponent},
-            {path: 'listar', component: SubcategoriaListarComponent}
-        ]
-    },{
-        path: 'formasdepagamento', component: FormasdepagamentoComponent, children: [
-            {path: 'cadastrar', component: FormasdepagamentoCadastrarComponent},
-            {path: ':codigo/editar', component: FormasdepagamentoCadastrarComponent},
-            {path: 'listar', component: FormasdepagamentoListarComponent}
-        ]
-    },{
-        path: 'fornecedor', component: FornecedorComponent, children: [
-            {path: 'cadastrar', component: FornecedorCadastrarComponent},
-            {path: ':codigo/editar', component: FornecedorCadastrarComponent},
-            {path: 'listar', component: FornecedorListarComponent}
-        ]
-    },{
-        path: 'dominio', component: DominioComponent, children: [
-            {path: 'cadastrar', component: DominioCadastrarComponent},
-            {path: ':codigo/editar', component: DominioCadastrarComponent},
-            {path: 'listar', component: DominioListarComponent}
-        ]
-    },{
-        path: 'produto', component: ProdutoComponent, children: [
-            {path: 'cadastrar', component: ProdutoCadastrarComponent},
-            {path: ':codigo/editar', component: ProdutoCadastrarComponent},
-            {path: 'listar', component: ProdutoListarComponent}
-        ]
-    },{
-    path: 'venda', component: ProdutoComponent, children: [
-      {path: 'venda-add-produto', component: VandaAddProdutoComponent}
+  {
+    path: 'marca', component: MarcaComponent, children: [
+      {path: 'cadastrar', component: MarcaCadastrarComponent},
+      {path: ':codigo/editar', component: MarcaCadastrarComponent},
+      {path: 'listar', component: MarcaListaComponent},
+    ]
+  }, {
+    path: 'medida', component: MedidaComponent, children: [
+      {path: 'cadastrar', component: MedidaCadastrarComponent},
+      {path: ':codigo/editar', component: MedidaCadastrarComponent},
+      {path: 'listar', component: MedidaListarComponent},
+    ]
+  }, {
+    path: 'categoria', component: CategoriaComponent, children: [
+      {path: 'cadastrar', component: CategoriaCadastrarComponent},
+      {path: ':codigo/editar', component: CategoriaCadastrarComponent},
+      {path: 'listar', component: CategoriaListarComponent}
+    ]
+  }, {
+    path: 'subcategoria', component: SubcategoriaComponent, children: [
+      {path: 'cadastrar', component: SubcategoriaCadastrarComponent},
+      {path: ':codigo/editar', component: SubcategoriaCadastrarComponent},
+      {path: 'listar', component: SubcategoriaListarComponent}
+    ]
+  }, {
+    path: 'formasdepagamento', component: FormasdepagamentoComponent, children: [
+      {path: 'cadastrar', component: FormasdepagamentoCadastrarComponent},
+      {path: ':codigo/editar', component: FormasdepagamentoCadastrarComponent},
+      {path: 'listar', component: FormasdepagamentoListarComponent}
+    ]
+  }, {
+    path: 'fornecedor', component: FornecedorComponent, children: [
+      {path: 'cadastrar', component: FornecedorCadastrarComponent},
+      {path: ':codigo/editar', component: FornecedorCadastrarComponent},
+      {path: 'listar', component: FornecedorListarComponent}
+    ]
+  }, {
+    path: 'dominio', component: DominioComponent, children: [
+      {path: 'cadastrar', component: DominioCadastrarComponent},
+      {path: ':codigo/editar', component: DominioCadastrarComponent},
+      {path: 'listar', component: DominioListarComponent}
+    ]
+  }, {
+    path: 'produto', component: ProdutoComponent, children: [
+      {path: 'cadastrar', component: ProdutoCadastrarComponent},
+      {path: ':codigo/editar', component: ProdutoCadastrarComponent},
+      {path: 'listar', component: ProdutoListarComponent}
+    ]
+  }, {
+    path: 'venda', component: VendaComponent, children: [
+      {path: 'venda-add-produto', component: VandaAddProdutoComponent},
+      {path: ':codigo/confirmar', component: VendaConfirmarComponent}
     ]
   },
-    // otherwise redirect to home
-    {path: '**', redirectTo: ""}
+  // otherwise redirect to home
+  {path: '**', redirectTo: ""}
 ];
 
 export const routing = RouterModule.forRoot(appRoutes);

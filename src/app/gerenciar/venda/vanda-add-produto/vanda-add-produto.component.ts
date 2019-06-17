@@ -15,154 +15,149 @@ import {first} from "rxjs/operators";
 import {Venda} from "../../../model/venda";
 
 @Component({
-    selector: 'app-vanda-add-produto',
-    templateUrl: './vanda-add-produto.component.html'
+  selector: 'app-vanda-add-produto',
+  templateUrl: './vanda-add-produto.component.html'
 })
 export class VandaAddProdutoComponent implements OnInit {
 
-    nome_page: string = 'Venda';
-    venda_confirmar:  string = 'venda/confirmar';
-    listar_page: string = 'venda/listar';
+  nome_page: string = 'Venda';
 
-    mensagem_excluir = "Deseja realmente efeteuar a exclusão?";
-    cabecalho_excluir = "Excluir?";
-    tipo_excluir = "danger";
-    message_desativado_sucesso = this.nome_page + ' foi desativada com sucesso!';
 
-    cabecalho_alterar = "Editar?";
-    mensagem_alterar = "Deseja realmente efeteuar a edição?";
-    tipo_alterar = "warning";
-    message_alterado_sucesso = 'Alterado com sucesso!';
+  mensagem_excluir = "Deseja realmente efeteuar a exclusão?";
+  cabecalho_excluir = "Excluir?";
+  tipo_excluir = "danger";
+  message_desativado_sucesso = this.nome_page + ' foi desativada com sucesso!';
 
-    message_registrado_sucesso = 'Registrado com sucesso!';
-    messagem_erro = "Erro ao desativar " + this.nome_page + " ";
-    nunhum_encontrado = "Nenhuma produto encontrado!";
-    temProduto = false;
-    submitted = false;
-    vendaAddProdutosFormGroup: FormGroup;
-    formasDePagamentos: FormasDePagamento[];
-    vendaHasItemProduto: VendaHasItemProduto[] = [];
-    barcode: string;
-    totalItens: number = 0;
+  cabecalho_alterar = "Editar?";
+  mensagem_alterar = "Deseja realmente efeteuar a edição?";
+  tipo_alterar = "warning";
+  message_alterado_sucesso = 'Alterado com sucesso!';
 
-    constructor(
-        private router: Router,
-        private activatedRoute: ActivatedRoute,
-        private formBuilder: FormBuilder,
-        private alertaService: AlertaService,
-        private dialogComponente: MatDialog,
-        private formasdepagamentoService: FormasDePagamentoService,
-        private produtoService: ProdutoService,
-        private vendaService: VendaService
-    ) {
-        this.vendaAddProdutosFormGroup = this.formBuilder.group({
-            codigo: [''],
-            barcode: [''],
-            formasDePagamento: ['', Validators.required],
-            subtotal: [''],
-            desconto: [''],
-            totalPagar: [''],
-            pagamento: [''],
-            troco: [''],
-            valorPago: [''],
-            valorPendente:['']
-        });
-    }
+  message_registrado_sucesso = 'Registrado com sucesso!';
+  messagem_erro = "Erro ao desativar " + this.nome_page + " ";
+  nunhum_encontrado = "Nenhuma produto encontrado!";
+  temProduto = false;
+  submitted = false;
+  vendaAddProdutosFormGroup: FormGroup;
+  formasDePagamentos: FormasDePagamento[];
+  vendaHasItemProduto: VendaHasItemProduto[] = [];
+  barcode: string;
+  totalItens: number = 0;
 
-    ngOnInit() {
-        this.formasdepagamentoService.consultar().subscribe(
-            (formasDePagamento: any[]) => {
-                this.formasDePagamentos = formasDePagamento;
-            }, (error) => console.log(error)
-        );
-    }
+  constructor(
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private formBuilder: FormBuilder,
+    private alertaService: AlertaService,
+    private dialogComponente: MatDialog,
+    private formasdepagamentoService: FormasDePagamentoService,
+    private produtoService: ProdutoService,
+    private vendaService: VendaService
+  ) {
+    this.vendaAddProdutosFormGroup = this.formBuilder.group({
+      codigo: [''],
+      barcode: [''],
+      formasDePagamento: ['', Validators.required],
+      subtotal: [''],
+      desconto: [''],
+      totalPagar: [''],
+      pagamento: [''],
+      troco: [''],
+      valorPago: [''],
+      valorPendente: ['']
+    });
+  }
 
-    addProduto() {
-        this.produtoService.getByBarcode(this.vendaAddProdutosFormGroup.controls.barcode.value).subscribe((p: Produto) => {
-            const dialogRef = this.dialogComponente.open(DialogTableComponent, {
-                data: {
-                    cabecalho: "Medida",
-                    codigo: "",
-                    nome: "",
-                    mensagem: "",
-                    tipo: "warning",
-                    produtoHasItensTipoMedida: p.produtoHasItensTipoMedida
-                }
-            });
-            dialogRef.afterClosed().subscribe((result: ProdutoHasItensTipoMedida) => {
-                if (result != null) {
-                    let v = new VendaHasItemProduto();
-                    v.quantidade = 1;
-                    v.valorUnitario = p.precoVenda;
-                    v.produtoHasItensTipoMedida = result;
-                    this.totalItens = this.totalItens + p.precoVenda;
-                    this.vendaHasItemProduto.push(v);
-                }
-            });
-            this.vendaAddProdutosFormGroup.controls.barcode.setValue("");
-            this.onChangeFormapagamento(this.vendaAddProdutosFormGroup.controls.formasDePagamento.value);
-            this.calculaTroco();
+  ngOnInit() {
+    this.formasdepagamentoService.consultar().subscribe(
+      (formasDePagamento: any[]) => {
+        this.formasDePagamentos = formasDePagamento;
+      }, (error) => console.log(error)
+    );
+  }
 
-        });
-    }
-
-    stringify(o: any): string {
-        return JSON.stringify(o);
-    }
-
-    remover(index){
-        let v: VendaHasItemProduto = this.vendaHasItemProduto[index];
-        this.totalItens = this.totalItens  - (v.valorUnitario * v.quantidade);
-        this.vendaHasItemProduto.splice(index, 1);
-        this.onChangeFormapagamento(this.vendaAddProdutosFormGroup.controls.formasDePagamento.value);
-        this.calculaTroco();
-    }
-
-    onChangeFormapagamento(value) {
-        console.log("value:" + value);
-        if( this.vendaHasItemProduto.length === 0){
-          this.vendaAddProdutosFormGroup.controls.totalPagar.setValue(0);
-          this.vendaAddProdutosFormGroup.controls.subtotal.setValue(0);
-          this.vendaAddProdutosFormGroup.controls.desconto.setValue(0);
-          this.vendaAddProdutosFormGroup.controls.pagamento.setValue(0);
-        } else if(!!value && value !== undefined && value !== null ){
-            var formadePagamento: FormasDePagamento = JSON.parse(value);
-            var totalpagar = this.totalItens - ((formadePagamento.porcentagemDesconto/100) * this.totalItens);
-            this.vendaAddProdutosFormGroup.controls.totalPagar.setValue(totalpagar);
-            this.vendaAddProdutosFormGroup.controls.subtotal.setValue(totalpagar);
-            this.vendaAddProdutosFormGroup.controls.desconto.setValue(formadePagamento.porcentagemDesconto);
-            this.vendaAddProdutosFormGroup.controls.pagamento.setValue(totalpagar);
-            this.vendaAddProdutosFormGroup.controls.valorPago.setValue(totalpagar);
+  addProduto() {
+    this.produtoService.getByBarcode(this.vendaAddProdutosFormGroup.controls.barcode.value).subscribe((p: Produto) => {
+      const dialogRef = this.dialogComponente.open(DialogTableComponent, {
+        data: {
+          cabecalho: "Medida",
+          codigo: "",
+          nome: "",
+          mensagem: "",
+          tipo: "warning",
+          produtoHasItensTipoMedida: p.produtoHasItensTipoMedida
         }
-    }
-
-    calculaTroco(){
-        var totalpagar = this.vendaAddProdutosFormGroup.controls.totalPagar.value;
-        var pagamento = this.vendaAddProdutosFormGroup.controls.pagamento.value;
-        var valorPago = 0;
-        if(pagamento >= totalpagar){
-            valorPago = pagamento - totalpagar;
-            this.vendaAddProdutosFormGroup.controls.troco.setValue(valorPago);
-            this.vendaAddProdutosFormGroup.controls.valorPendente.setValue(0);
-        }else{
-            valorPago = totalpagar - pagamento;
-            this.vendaAddProdutosFormGroup.controls.troco.setValue(0);
-            this.vendaAddProdutosFormGroup.controls.valorPendente.setValue(valorPago);
+      });
+      dialogRef.afterClosed().subscribe((result: ProdutoHasItensTipoMedida) => {
+        if (result != null) {
+          let v = new VendaHasItemProduto();
+          v.quantidade = 1;
+          v.valorUnitario = p.precoVenda;
+          v.produtoHasItensTipoMedida = result;
+          this.totalItens = this.totalItens + p.precoVenda;
+          this.vendaHasItemProduto.push(v);
         }
-        this.vendaAddProdutosFormGroup.controls.valorPago.setValue(pagamento);
-    }
+      });
+      this.vendaAddProdutosFormGroup.controls.barcode.setValue("");
+      this.onChangeFormapagamento(this.vendaAddProdutosFormGroup.controls.formasDePagamento.value);
+      this.calculaTroco();
 
-  onAvancar(){
+    });
+  }
+
+  stringify(o: any): string {
+    return JSON.stringify(o);
+  }
+
+  remover(index) {
+    let v: VendaHasItemProduto = this.vendaHasItemProduto[index];
+    this.totalItens = this.totalItens - (v.valorUnitario * v.quantidade);
+    this.vendaHasItemProduto.splice(index, 1);
+    this.onChangeFormapagamento(this.vendaAddProdutosFormGroup.controls.formasDePagamento.value);
+    this.calculaTroco();
+  }
+
+  onChangeFormapagamento(value) {
+    console.log("value:" + value);
+    if (this.vendaHasItemProduto.length === 0) {
+      this.vendaAddProdutosFormGroup.controls.totalPagar.setValue(0);
+      this.vendaAddProdutosFormGroup.controls.subtotal.setValue(0);
+      this.vendaAddProdutosFormGroup.controls.desconto.setValue(0);
+      this.vendaAddProdutosFormGroup.controls.pagamento.setValue(0);
+    } else if (!!value && value !== undefined && value !== null) {
+      var formadePagamento: FormasDePagamento = JSON.parse(value);
+      var totalpagar = this.totalItens - ((formadePagamento.porcentagemDesconto / 100) * this.totalItens);
+      this.vendaAddProdutosFormGroup.controls.totalPagar.setValue(totalpagar);
+      this.vendaAddProdutosFormGroup.controls.subtotal.setValue(totalpagar);
+      this.vendaAddProdutosFormGroup.controls.desconto.setValue(formadePagamento.porcentagemDesconto);
+      this.vendaAddProdutosFormGroup.controls.pagamento.setValue(totalpagar);
+      this.vendaAddProdutosFormGroup.controls.valorPago.setValue(totalpagar);
+    }
+  }
+
+  calculaTroco() {
+    var totalpagar = this.vendaAddProdutosFormGroup.controls.totalPagar.value;
+    var pagamento = this.vendaAddProdutosFormGroup.controls.pagamento.value;
+    var valorPago = 0;
+    if (pagamento >= totalpagar) {
+      valorPago = pagamento - totalpagar;
+      this.vendaAddProdutosFormGroup.controls.troco.setValue(valorPago);
+      this.vendaAddProdutosFormGroup.controls.valorPendente.setValue(0);
+    } else {
+      valorPago = totalpagar - pagamento;
+      this.vendaAddProdutosFormGroup.controls.troco.setValue(0);
+      this.vendaAddProdutosFormGroup.controls.valorPendente.setValue(valorPago);
+    }
+    this.vendaAddProdutosFormGroup.controls.valorPago.setValue(pagamento);
+  }
+
+  onAvancar() {
     this.submitted = true;
 
     // stop here if form is invalid
-    // if (this.vendaAddProdutosFormGroup.invalid) {
-    //   return;
-    // }
-    //
-
-    console.log("value:" + this.vendaAddProdutosFormGroup.controls);
-
+    if (this.vendaAddProdutosFormGroup.invalid) {
+      return;
+    }
 
     var venda: Venda = new Venda();
     venda.formaDePagamento = JSON.parse(this.vendaAddProdutosFormGroup.controls.formasDePagamento.value);
@@ -178,10 +173,11 @@ export class VandaAddProdutoComponent implements OnInit {
     this.vendaService.avancar(venda)
       .pipe(first())
       .subscribe(
-        data => {
-          this.router.navigate([this.listar_page]);
-        },
-        error => {
+        (v: Venda) => {
+          alert(v);
+          venda = v;
+          this.router.navigate(["venda/" + v.codigo + "/confirmar"]);
+        }, error => {
           this.alertaService.error(error);
         });
   }
