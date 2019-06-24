@@ -8,7 +8,7 @@ import {ActivatedRoute} from "@angular/router";
   templateUrl: './venda-confirmar.component.html'
 })
 export class VendaConfirmarComponent implements OnInit {
-  nome_page: string = 'Confirmar dados Venda'
+
   venda: Venda;
 
   constructor(
@@ -20,8 +20,8 @@ export class VendaConfirmarComponent implements OnInit {
     const codigo = this.activatedRoute.snapshot.params['codigo'];
     this.vendaService.getVendaById(codigo).subscribe(
        (venda: Venda) => {
+         console.log(venda);
          this.venda = venda;
-         alert(venda);
     });
   }
 }
