@@ -26,6 +26,7 @@ import {ProdutoComponent} from "./gerenciar/produto/produto.component";
 import {VandaAddProdutoComponent} from "./gerenciar/venda/vanda-add-produto/vanda-add-produto.component";
 import {VendaConfirmarComponent} from "./gerenciar/venda/venda-confirmar/venda-confirmar.component";
 import {VendaComponent} from "./gerenciar/venda/venda.component";
+import {VendaImprimirComponent} from "./gerenciar/venda/venda-imprimir/venda-imprimir.component";
 
 const appRoutes: Routes = [
   {
@@ -79,7 +80,8 @@ const appRoutes: Routes = [
   }, {
     path: 'venda', component: VendaComponent, children: [
       {path: 'venda-add-produto', component: VandaAddProdutoComponent},
-      {path: ':codigo/confirmar', component: VendaConfirmarComponent}
+      {path: ':codigo/confirmar', component: VendaConfirmarComponent},
+      {path: ':codigo/imprimir', component: VendaImprimirComponent}
     ]
   },
   // otherwise redirect to home
