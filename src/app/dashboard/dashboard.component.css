@@ -1,0 +1,27 @@
+#gallery{
+    width:100%;
+    max-width:800px;
+    margin:0px auto;
+    overflow: hidden;
+}
+#gallery ul.wrapper{
+    list-style-type: none;
+    padding: 0px;
+    margin: 0px;
+}
+#gallery .wrapper li{
+    display:inline-block;
+}
+#gallery .wrapper li img{
+    width:100%;
+    height:auto!important;
+    vertical-align: bottom;
+    border:0;
+}
+.nav{text-align:center;}
+.fa{
+    cursor:pointer;
+    font-size:36px;
+}
+.fa.disabled{opacity:.3;cursor:default;}
+.fa + .fa{ margin-left:10px;}

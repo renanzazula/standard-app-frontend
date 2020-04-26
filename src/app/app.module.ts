@@ -9,13 +9,19 @@ import {MenuComponent} from "./menu/menu.component";
 import {MatDialog, MatDialogModule} from "@angular/material";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {AppRoutingModule} from "./app.routing";
+import { RightComponent } from './right/right.component';
+import { LeftComponent } from './left/left.component';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
     declarations: [
         AppComponent,
         DashboardComponent,
         MenuComponent,
-        HeaderComponent
+        HeaderComponent,
+        RightComponent,
+        LeftComponent,
+        FooterComponent
     ],
     imports: [
         BrowserModule,
