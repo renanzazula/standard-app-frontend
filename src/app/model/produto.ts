@@ -20,7 +20,7 @@ export class Produto {
     desconto: number;
     precoOferta: number;
     peso: number;
-    preco: number; // todo: validar se necessario
+    quantidadeTotalEstoque: number
 
     fornecedor: Fornecedor;
     medida: Medida;
@@ -28,19 +28,7 @@ export class Produto {
     subcategoria: Subcategoria;
     marca: Marca;
 
-    dataCadastro: string;
-    horaCadastro: string;
-    status: string;
-    imagem: Blob;
-
     produtoHasItensTipoMedida: ProdutoHasItensTipoMedida[];
-
-    // dominios: Dominio[];
-    // fornecedores: Fornecedor[];
-    // categorias: Categoria[];
-    // subcategorias: Subcategoria[];
-    // marcas: Marca[];
-    // medidas: Medida[];
 
     constructor() {
     }

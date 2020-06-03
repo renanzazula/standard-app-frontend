@@ -57,7 +57,7 @@
                                     <td>{{produto.categoria.nome}}</td>
                                     <td>{{produto.subcategoria.nome}}</td>
                                     <td>{{produto.marca.nome}}</td>
-                                    <td>0</td>
+                                    <td>{{produto.quantidadeTotalEstoque}}</td>
                                     <td>{{produto.precoVenda}}</td>
                                   </tr>
                                 </tbody>
@@ -99,13 +99,15 @@
                       <table class="table table-sm text-center" style="margin-bottom: 0rem;">
                         <thead class="thead-light">
                         <tr scope="row">
+                          <th class="col-sm-2">codigo</th>
                           <th class="col-sm-4">valor</th>
                           <th class="col-sm-4">Quantidade</th>
-                          <th class="col-sm-4">Flag Dominio</th>
+                          <th class="col-sm-2">Flag Dominio</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr *ngFor="let item of produto.produtoHasItensTipoMedida" scope="row">
+                          <td>{{item.itensTipoMedida.codigo}}</td>
                           <td>{{item.itensTipoMedida.valor}}</td>
                           <td>{{item.quantidade}}</td>
                           <td>

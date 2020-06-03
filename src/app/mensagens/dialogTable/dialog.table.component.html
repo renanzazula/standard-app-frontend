@@ -8,12 +8,14 @@
               <tr scope="row">
                 <th scope="col">Código</th>
                 <th scope="col">Valor</th>
+                <th scope="col">Estoque</th>
               </tr>
             </thead>
             <tbody>
               <tr scope="row" *ngFor="let item of data.produtoHasItensTipoMedida" (click)="onSelect(item)">
                 <td scope="col">{{item.itensTipoMedida.codigo}}</td>
                 <td scope="col">{{item.itensTipoMedida.valor}}</td>
+                <td scope="col">{{item.quantidade}}</td>
               </tr>
             </tbody>
           </table>

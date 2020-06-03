@@ -256,6 +256,7 @@
                 <table class="table table-bordered table-hover">
                     <thead class="thead-dark">
                         <tr>
+                            <th scope="col">codigo</th>
                             <th scope="col">Valor</th>
                             <th scope="col">Preço</th>
                             <th scope="col">Quantidade</th>
@@ -265,6 +266,7 @@
                     </thead>
                     <tbody formArrayName="pHITipoMedida">
                         <tr *ngFor="let item of itensTipoMedida, let i = index" scope="row" formGroupName="{{i}}">
+                          <td>{{item.codigo}}</td>
                             <td>{{item.valor}}</td>
                             <td>{{f.precoVenda.value}}</td>
                             <td>
