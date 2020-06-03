@@ -48,7 +48,8 @@
                                                 <td style="vertical-align: middle;">
                                                     {{itemProdutoVenda.produtoHasItensTipoMedida.produto.nome}}</td>
                                                 <td>
-                                                    <input type="number" class="form-control" value="1"/>
+                                                    <input type="number" class="form-control" value="{{itemProdutoVenda.quantidade}}"
+                                                       (change)="onChangeUpdateQuantidadeItemVenda($event.target.value, i)"/>
                                                 </td>
                                                 <td>
                                                     <input type="text" class="form-control"

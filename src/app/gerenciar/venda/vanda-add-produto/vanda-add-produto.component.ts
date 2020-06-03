@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {FormArray, FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import {AlertaService} from "../../../service/mensagens/alerta/alerta.service";
 import {MatDialog} from "@angular/material";
@@ -13,6 +13,7 @@ import {DialogTableComponent} from "../../../mensagens/dialogTable/dialog.table.
 import {VendaService} from "../../../service/venda/venda.service";
 import {first} from "rxjs/operators";
 import {Venda} from "../../../model/venda";
+import {forEach} from "@angular/router/src/utils/collection";
 
 @Component({
   selector: 'app-vanda-add-produto',
@@ -170,6 +171,8 @@ export class VandaAddProdutoComponent implements OnInit {
     venda.valorPendente = this.vendaAddProdutosFormGroup.controls.valorPendente.value;
     venda.vendaHasItemProduto = this.vendaHasItemProduto;
 
+    console.log(venda);
+
     this.vendaService.avancar(venda)
       .pipe(first())
       .subscribe(
@@ -186,5 +189,12 @@ export class VandaAddProdutoComponent implements OnInit {
     return this.vendaAddProdutosFormGroup.controls;
   }
 
+  onChangeUpdateQuantidadeItemVenda(value, index) {
+    let v: VendaHasItemProduto = this.vendaHasItemProduto[index];
+    v.quantidade = value;
+    this.totalItens = this.totalItens - (v.valorUnitario * v.quantidade);
+    this.onChangeFormapagamento(this.vendaAddProdutosFormGroup.controls.formasDePagamento.value);
+    this.calculaTroco();
+  }
 
 }
