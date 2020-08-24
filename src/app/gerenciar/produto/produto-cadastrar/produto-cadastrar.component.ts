@@ -356,19 +356,17 @@ export class ProdutoCadastrarComponent implements OnInit {
     }
 
     calcularPrecoVenda() {
-        var porcentagem = (100 - this.produtoForm.controls.porcentagem.value);
-        var precoCusto = this.produtoForm.controls.precoCusto.value;
-        var precoVenda = (precoCusto / porcentagem);
-        var precoVendaFinal = (precoVenda * 100);
-        this.produtoForm.controls.precoVenda.setValue(precoVendaFinal);
+      console.log("calcularPrecoVenda")
+      var precoVendaFinal = this.produtoService.calcularPrecoVenda(this.produtoForm.controls.porcentagem.value,  this.produtoForm.controls.precoCusto.value)
+      this.produtoForm.controls.precoVenda.setValue(precoVendaFinal);
     }
 
     calculaDesconto(){
-        var precoCusto = this.produtoForm.controls.precoCusto.value;
-        var desconto = this.produtoForm.controls.porcentagemDesconto.value;
-        this.produtoForm.controls.desconto.setValue(((precoCusto*desconto)/100))
-        var precoVenda = this.produtoForm.controls.precoVenda.value;
-        this.produtoForm.controls.precoOferta.setValue(precoVenda - desconto);
+      console.log("calculaDesconto")
+      var porcentagemDesconto = this.produtoForm.controls.porcentagemDesconto.value;
+      var precoCusto = this.produtoForm.controls.precoCusto.value;
+      var precoVenda = this.produtoForm.controls.precoVenda.value;
+      this.produtoForm.controls.precoOferta.setValue(this.produtoService.calcularDesconto(porcentagemDesconto, precoCusto, precoVenda));
     }
 }
 

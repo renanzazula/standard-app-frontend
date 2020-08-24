@@ -18,7 +18,7 @@ export class ProdutoService {
     }
 
     getByBarcode(barcode: string){
-      return this.http.get(`${environment.apiUrl}/produto/addicionarProduto/`+barcode);
+      return this.http.get(`${environment.apiUrl}/produto/addicionarProduto/${barcode}`);
     }
 
     cadastrar(produto: Produto) {
@@ -32,6 +32,15 @@ export class ProdutoService {
     excluir(id: number) {
         return this.http.delete(`${environment.apiUrl}/produto/${id}`);
     }
+
+    calcularDesconto(porcentagem: number, valor: number, precoVenda: number) {
+      return this.http.get(`${environment.apiUrl}/produto/calcular/desconto/${porcentagem}/${valor}/${precoVenda}`);
+    }
+
+    calcularPrecoVenda(porcentagem: number, precoCusto: number) {
+      return this.http.get(`${environment.apiUrl}/calcular/precoVenda/${porcentagem}/${precoCusto}`);
+    }
+
 
 
 
