@@ -10,26 +10,26 @@ export class SubCategoriaService {
     }
 
     consultar() {
-        return this.http.get<Subcategoria[]>(`${environment.apiUrl}/subcategoria`);
+        return this.http.get<Subcategoria[]>(`${environment.apiPrivateUrl}/subcategoria`);
     }
 
     getById(id: number) {
-        return this.http.get(`${environment.apiUrl}/subcategoria/${id}`);
+        return this.http.get(`${environment.apiPrivateUrl}/subcategoria/${id}`);
     }
 
     cadastrar(subcategoria: Subcategoria) {
-        return this.http.post(`${environment.apiUrl}/subcategoria`, subcategoria);
+        return this.http.post(`${environment.apiPrivateUrl}/subcategoria`, subcategoria);
     }
 
     alterar(subcategoria: Subcategoria) {
-        return this.http.put(`${environment.apiUrl}/subcategoria/${subcategoria.codigo}`, subcategoria);
+        return this.http.put(`${environment.apiPrivateUrl}/subcategoria/${subcategoria.codigo}`, subcategoria);
     }
 
     excluir(id: number) {
-        return this.http.delete(`${environment.apiUrl}/subcategoria/${id}`);
+        return this.http.delete(`${environment.apiPrivateUrl}/subcategoria/${id}`);
     }
 
     getSubcategoriaByCategoriaId(id: number) {
-        return this.http.get(`${environment.apiUrl}/subcategoria/categoria/${id}`);
+        return this.http.get(`${environment.apiPrivateUrl}/subcategoria/categoria/${id}`);
     }
 }

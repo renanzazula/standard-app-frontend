@@ -10,14 +10,14 @@ export class VendaService {
   }
 
   avancar(venda: Venda) {
-    return this.http.post(`${environment.apiUrl}/venda/create`, venda);
+    return this.http.post(`${environment.apiPrivateUrl}/venda/create`, venda);
   }
 
   confirmar(venda: Venda) {
-    return this.http.post(`${environment.apiUrl}/venda/confirmar`, venda);
+    return this.http.post(`${environment.apiPrivateUrl}/venda/confirmar`, venda);
   }
 
   getVendaById(codigo: number) {
-    return this.http.get(`${environment.apiUrl}/venda/${codigo}/confirmar`);
+    return this.http.get(`${environment.apiPrivateUrl}/venda/${codigo}/confirmar`);
   }
 }

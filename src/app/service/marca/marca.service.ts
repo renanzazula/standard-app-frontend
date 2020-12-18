@@ -10,23 +10,23 @@ export class MarcaService {
   constructor(private http: HttpClient) { }
 
   consultar() {
-    return this.http.get<Marca[]>(`${environment.apiUrl}/marca`);
+    return this.http.get<Marca[]>(`${environment.apiPrivateUrl}/marca`);
   }
 
   getById(id: number) {
-    return this.http.get(`${environment.apiUrl}/marca/${id}`);
+    return this.http.get(`${environment.apiPrivateUrl}/marca/${id}`);
   }
 
   cadastrar(marca: Marca) {
-    return this.http.post(`${environment.apiUrl}/marca`, marca);
+    return this.http.post(`${environment.apiPrivateUrl}/marca`, marca);
   }
 
   alterar(marca: Marca) {
-    return this.http.put(`${environment.apiUrl}/marca/${marca.codigo}`, marca);
+    return this.http.put(`${environment.apiPrivateUrl}/marca/${marca.codigo}`, marca);
   }
 
   excluir(id: number) {
-    return this.http.delete(`${environment.apiUrl}/marca/${id}`);
+    return this.http.delete(`${environment.apiPrivateUrl}/marca/${id}`);
   }
 
 }

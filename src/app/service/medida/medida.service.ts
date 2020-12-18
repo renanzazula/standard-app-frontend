@@ -10,23 +10,23 @@ export class MedidaService {
     }
 
     consultar() {
-        return this.http.get<Medida[]>(`${environment.apiUrl}/medida`);
+        return this.http.get<Medida[]>(`${environment.apiPrivateUrl}/medida`);
     }
 
     getById(id: number) {
-        return this.http.get(`${environment.apiUrl}/medida/${id}`);
+        return this.http.get(`${environment.apiPrivateUrl}/medida/${id}`);
     }
 
     cadastrar(medida: Medida) {
-        return this.http.post(`${environment.apiUrl}/medida`, medida);
+        return this.http.post(`${environment.apiPrivateUrl}/medida`, medida);
     }
 
     alterar(medida: Medida) {
-        return this.http.put(`${environment.apiUrl}/medida/${medida.codigo}`, medida);
+        return this.http.put(`${environment.apiPrivateUrl}/medida/${medida.codigo}`, medida);
     }
 
     excluir(id: number) {
-        return this.http.delete(`${environment.apiUrl}/medida/${id}`);
+        return this.http.delete(`${environment.apiPrivateUrl}/medida/${id}`);
     }
 
 }

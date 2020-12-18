@@ -1,7 +1,7 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {AppComponent} from './app.component';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {DashboardComponent} from './dashboard/dashboard.component';
 import {HeaderComponent} from './header/header.component';
@@ -54,6 +54,10 @@ import {DialogTableComponent} from "./mensagens/dialogTable/dialog.table.compone
 import {VendaService} from "./service/venda/venda.service";
 import {VendaConfirmarComponent} from "./gerenciar/venda/venda-confirmar/venda-confirmar.component";
 import {VendaImprimirComponent} from './gerenciar/venda/venda-imprimir/venda-imprimir.component';
+import {LoginComponent} from "./gerenciar/login/login.component";
+import {BasicAuthInterceptor} from "./helpers/basic-auth.interceptor";
+import {ErrorInterceptor} from "./helpers/error.interceptor";
+import {fakeBackendProvider} from "./helpers/fake-backend";
 
 
 @NgModule({
@@ -96,7 +100,8 @@ import {VendaImprimirComponent} from './gerenciar/venda/venda-imprimir/venda-imp
     VendaComponent,
     VandaAddProdutoComponent,
     VendaConfirmarComponent,
-    VendaImprimirComponent
+    VendaImprimirComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -109,13 +114,18 @@ import {VendaImprimirComponent} from './gerenciar/venda/venda-imprimir/venda-imp
     CurrencyMaskModule,
   ],
   entryComponents: [DialogComponent, DialogTableComponent],
-  providers: [AlertaService, MarcaService,
-    MatDialog, MedidaService, CategoriaService,
+  providers: [AlertaService, MarcaService, MatDialog, MedidaService, CategoriaService,
     SubCategoriaService, FormasDePagamentoService,
-    FornecedorService, DominioService, ProdutoService, VendaService],
-  bootstrap: [AppComponent]
+    FornecedorService, DominioService, ProdutoService, VendaService,
+
+    {provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}],
+
+  bootstrap: [AppComponent],
 })
 export class AppModule {
 
 
 }
+
+

@@ -1,16 +1,17 @@
 <app-header></app-header>
-<app-menu></app-menu>
+<app-menu *ngIf="isAuthenticated"></app-menu>
+
 <div class="jumbotron">
-    <div class="container-fluid">
-        <app-alerta></app-alerta>
-        <router-outlet></router-outlet>
-    </div>
+  <div class="container-fluid">
+    <app-alerta *ngIf="isAuthenticated"></app-alerta>
+    <router-outlet></router-outlet>
+  </div>
 </div>
 <div class="text-center">
-    <p>
-    </p>
-    © 2019 Standard App Co.
-    <p>
-    </p>
+  <p>
+  </p>
+  © 2019 Standard App Co.
+  <p>
+  </p>
 </div>
 

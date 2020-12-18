@@ -10,22 +10,22 @@ export class FornecedorService {
   constructor(private http: HttpClient) { }
 
   consultar() {
-    return this.http.get<Fornecedor[]>(`${environment.apiUrl}/fornecedor`);
+    return this.http.get<Fornecedor[]>(`${environment.apiPrivateUrl}/fornecedor`);
   }
 
   getById(id: number) {
-    return this.http.get(`${environment.apiUrl}/fornecedor/${id}`);
+    return this.http.get(`${environment.apiPrivateUrl}/fornecedor/${id}`);
   }
 
   cadastrar(formasDepagamento: Fornecedor) {
-    return this.http.post(`${environment.apiUrl}/fornecedor`, formasDepagamento);
+    return this.http.post(`${environment.apiPrivateUrl}/fornecedor`, formasDepagamento);
   }
 
   alterar(formasDepagamento: Fornecedor) {
-    return this.http.put(`${environment.apiUrl}/fornecedor/${formasDepagamento.codigo}`, formasDepagamento);
+    return this.http.put(`${environment.apiPrivateUrl}/fornecedor/${formasDepagamento.codigo}`, formasDepagamento);
   }
 
   excluir(id: number) {
-    return this.http.delete(`${environment.apiUrl}/fornecedor/${id}`);
+    return this.http.delete(`${environment.apiPrivateUrl}/fornecedor/${id}`);
   }
 }

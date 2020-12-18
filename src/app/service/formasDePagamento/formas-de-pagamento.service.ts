@@ -11,22 +11,22 @@ export class FormasDePagamentoService {
   constructor(private http: HttpClient) { }
 
   consultar() {
-    return this.http.get<FormasDePagamento[]>(`${environment.apiUrl}/formasDePagamento`);
+    return this.http.get<FormasDePagamento[]>(`${environment.apiPrivateUrl}/formasDePagamento`);
   }
 
   getById(id: number) {
-    return this.http.get(`${environment.apiUrl}/formasDePagamento/${id}`);
+    return this.http.get(`${environment.apiPrivateUrl}/formasDePagamento/${id}`);
   }
 
   cadastrar(formasDepagamento: FormasDePagamento) {
-    return this.http.post(`${environment.apiUrl}/formasDePagamento`, formasDepagamento);
+    return this.http.post(`${environment.apiPrivateUrl}/formasDePagamento`, formasDepagamento);
   }
 
   alterar(formasDepagamento: FormasDePagamento) {
-    return this.http.put(`${environment.apiUrl}/formasDePagamento/${formasDepagamento.codigo}`, formasDepagamento);
+    return this.http.put(`${environment.apiPrivateUrl}/formasDePagamento/${formasDepagamento.codigo}`, formasDepagamento);
   }
 
   excluir(id: number) {
-    return this.http.delete(`${environment.apiUrl}/formasDePagamento/${id}`);
+    return this.http.delete(`${environment.apiPrivateUrl}/formasDePagamento/${id}`);
   }
 }

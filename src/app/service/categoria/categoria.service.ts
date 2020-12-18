@@ -11,22 +11,22 @@ export class CategoriaService {
     }
 
     consultar() {
-        return this.http.get<Categoria[]>(`${environment.apiUrl}/categoria`);
+        return this.http.get<Categoria[]>(`${environment.apiPrivateUrl}/categoria`);
     }
 
     getById(id: number) {
-        return this.http.get(`${environment.apiUrl}/categoria/${id}`);
+        return this.http.get(`${environment.apiPrivateUrl}/categoria/${id}`);
     }
 
     cadastrar(categoria: Categoria) {
-        return this.http.post(`${environment.apiUrl}/categoria`, categoria);
+        return this.http.post(`${environment.apiPrivateUrl}/categoria`, categoria);
     }
 
     alterar(categoria: Categoria) {
-        return this.http.put(`${environment.apiUrl}/categoria/${categoria.codigo}`, categoria);
+        return this.http.put(`${environment.apiPrivateUrl}/categoria/${categoria.codigo}`, categoria);
     }
 
     excluir(id: number) {
-        return this.http.delete(`${environment.apiUrl}/categoria/${id}`);
+        return this.http.delete(`${environment.apiPrivateUrl}/categoria/${id}`);
     }
 }

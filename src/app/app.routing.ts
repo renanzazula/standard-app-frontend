@@ -27,6 +27,9 @@ import {VandaAddProdutoComponent} from "./gerenciar/venda/vanda-add-produto/vand
 import {VendaConfirmarComponent} from "./gerenciar/venda/venda-confirmar/venda-confirmar.component";
 import {VendaComponent} from "./gerenciar/venda/venda.component";
 import {VendaImprimirComponent} from "./gerenciar/venda/venda-imprimir/venda-imprimir.component";
+import {DashboardComponent} from "./dashboard/dashboard.component";
+import {LoginComponent} from "./gerenciar/login/login.component";
+import {AuthGuard} from "./guards/auth.guard";
 
 const appRoutes: Routes = [
   {
@@ -83,6 +86,10 @@ const appRoutes: Routes = [
       {path: ':codigo/confirmar', component: VendaConfirmarComponent},
       {path: ':codigo/imprimir', component: VendaImprimirComponent}
     ]
+  }, {
+    path: '', component: DashboardComponent, canActivate: [AuthGuard]
+  },{
+    path: 'login', component: LoginComponent
   },
   // otherwise redirect to home
   {path: '**', redirectTo: ""}

@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {User} from "../model/user";
+import {UserService} from "../service/user/user.service";
+import {first} from "rxjs/operators";
 
 @Component({
   selector: 'app-dashboard',
@@ -7,9 +10,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor() { }
+  users: User[] = [];
+
+  constructor(private userService: UserService) { }
 
   ngOnInit() {
+    this.userService.getAll().pipe(first()).subscribe(users => {
+      this.users = users;
+    });
   }
-
 }

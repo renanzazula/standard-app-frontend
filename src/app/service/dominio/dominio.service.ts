@@ -10,22 +10,22 @@ export class DominioService {
   constructor(private http: HttpClient) { }
 
   consultar() {
-    return this.http.get<Dominio[]>(`${environment.apiUrl}/dominios`);
+    return this.http.get<Dominio[]>(`${environment.apiPrivateUrl}/dominios`);
   }
 
   getById(id: number) {
-    return this.http.get(`${environment.apiUrl}/dominios/${id}`);
+    return this.http.get(`${environment.apiPrivateUrl}/dominios/${id}`);
   }
 
   cadastrar(dominio: Dominio) {
-    return this.http.post(`${environment.apiUrl}/dominios`, dominio);
+    return this.http.post(`${environment.apiPrivateUrl}/dominios`, dominio);
   }
 
   alterar(dominio: Dominio) {
-    return this.http.put(`${environment.apiUrl}/dominios/${dominio.codigo}`, dominio);
+    return this.http.put(`${environment.apiPrivateUrl}/dominios/${dominio.codigo}`, dominio);
   }
 
   excluir(id: number) {
-    return this.http.delete(`${environment.apiUrl}/dominios/${id}`);
+    return this.http.delete(`${environment.apiPrivateUrl}/dominios/${id}`);
   }
 }
