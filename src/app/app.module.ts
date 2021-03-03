@@ -8,14 +8,23 @@ import {HeaderComponent} from './header/header.component';
 import {MenuComponent} from "./menu/menu.component";
 import {MatDialog, MatDialogModule} from "@angular/material";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {AppRoutingModule} from "./app.routing";
+
+import {ManagementProjectComponent} from './management-project/management-project.component';
+import {ProjectListComponent} from './management-project/project-list/project-list.component';
+import {ProjectNewComponent} from './management-project/project-new/project-new.component';
+
+import {routing} from "./app.routing";
+
 
 @NgModule({
     declarations: [
         AppComponent,
         DashboardComponent,
         MenuComponent,
-        HeaderComponent
+        HeaderComponent,
+        ManagementProjectComponent,
+        ProjectListComponent,
+        ProjectNewComponent
     ],
     imports: [
         BrowserModule,
@@ -24,7 +33,7 @@ import {AppRoutingModule} from "./app.routing";
         ReactiveFormsModule,
         MatDialogModule,
         BrowserAnimationsModule,
-        AppRoutingModule
+        routing
     ],
     entryComponents: [],
     providers: [MatDialog],
