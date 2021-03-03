@@ -1,3 +1,42 @@
-<p>
-  project-list works!
-</p>
+<div class="card">
+  <div class="card-header">
+    <h3 class="card-title">Project Management</h3>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive-sm">
+      <table class="table table-bordered table-hover">
+        <thead class="thead-dark">
+        <tr>
+          <th scope="col">Id</th>
+          <th scope="col">Name</th>
+          <th scope="col">Status</th>
+          <th scope="col">Create by</th>
+          <th scope="col">Create on</th>
+          <th scope="col">Update by</th>
+          <th scope="col">Update on</th>
+          <th scope="col">Editar</th>
+        </tr>
+        </thead>
+        <tbody>
+          <tr *ngIf="projects.length ===0" scope="row">
+            <td class="col text-center" colspan="8">No data available!</td>
+          </tr>
+          <tr *ngFor="let project of projects" scope="row">
+            <td>{{project.id}}</td>
+            <td>{{project.name}}</td>
+            <td>{{project.status}}</td>
+            <td>{{project.createBy}}</td>
+            <td>{{project.createOn}}</td>
+            <td>{{project.updateBy}}</td>
+            <td>{{project.updateOn}}</td>
+            <td>
+              <label [routerLink]="['/management/project', project.id, 'update']">editar</label>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+

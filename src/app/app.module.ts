@@ -14,6 +14,7 @@ import {ProjectListComponent} from './management-project/project-list/project-li
 import {ProjectNewComponent} from './management-project/project-new/project-new.component';
 
 import {routing} from "./app.routing";
+import {ManagementProjectService} from "./services/management-project.service";
 
 
 @NgModule({
@@ -36,7 +37,7 @@ import {routing} from "./app.routing";
         routing
     ],
     entryComponents: [],
-    providers: [MatDialog],
+    providers: [MatDialog, ManagementProjectService],
     bootstrap: [AppComponent]
 })
 export class AppModule {
