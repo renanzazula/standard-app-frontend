@@ -9,22 +9,22 @@ export class ManagementProjectService {
   constructor(private http: HttpClient) { }
 
   get(){
-    return this.http.get<ProjectModule[]>(`${environment.apiUrl}/project/management`);
+    return this.http.get<ProjectModule[]>(`${environment.apiUrl}/project`);
   }
 
   getById(id:string){
-    return this.http.get<ProjectModule[]>(`${environment.apiUrl}/project/management/${id}`);
+    return this.http.get<ProjectModule[]>(`${environment.apiUrl}/project/${id}`);
   }
 
   new(project: ProjectModule){
-    return this.http.post(`${environment.apiUrl}/project/management`, project);
+    return this.http.post(`${environment.apiUrl}/project`, project);
   }
 
   update(project: ProjectModule){
-    return this.http.put(`${environment.apiUrl}/project/management/${project.id}`, project);
+    return this.http.put(`${environment.apiUrl}/project/${project.id}`, project);
   }
 
   updateStatus(project: ProjectModule){
-    return this.http.post(`${environment.apiUrl}/project/management/${project.id}`, project);
+    return this.http.post(`${environment.apiUrl}/project/${project.id}`, project);
   }
 }

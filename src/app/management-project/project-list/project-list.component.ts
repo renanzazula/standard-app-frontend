@@ -20,17 +20,17 @@ export class ProjectListComponent implements OnInit {
 
   ngOnInit() {
 
-    var p = new ProjectModule();
-    p.id="0";
-    p.name="name";
-    p.status="online";
-    p.createBy="create By";
-    p.createOn="create On";
-    p.updateBy="update By";
-    p.updateOn="update On";
-
-
-    this.projects.push(p);
+    // var p = new ProjectModule();
+    // p.id="0";
+    // p.name="name";
+    // p.status="online";
+    // p.createBy="create By";
+    // p.createOn="create On";
+    // p.updateBy="update By";
+    // p.updateOn="update On";
+    //
+    //
+    // this.projects.push(p);
 
     this.projectsChange.subscribe(
       () => {
@@ -41,11 +41,11 @@ export class ProjectListComponent implements OnInit {
   }
 
   get(){
-    // this.managementProjectService.get().subscribe(
-    //   (project: any[]) => {
-    //     this.projects = project;
-    //   }, (error) => console.log(error)
-    // );
+    this.managementProjectService.get().subscribe(
+      (project: any[]) => {
+        this.projects = project;
+      }, (error) => console.log(error)
+    );
   }
 
 }

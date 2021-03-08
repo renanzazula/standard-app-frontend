@@ -1,3 +1,3 @@
-# standard-app-frontend
+# Maap-Admin
 
-standard-app-frontend
+maap-admin
