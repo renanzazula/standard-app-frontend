@@ -1,5 +1,5 @@
-import {VendaHasItemProduto} from "./vendaHasItemProduto";
-import {FormasDePagamento} from "./formasDePagamento";
+import { VendaHasItemProduto } from './vendaHasItemProduto';
+import { FormasDePagamento } from './formasDePagamento';
 
 export class Venda {
 

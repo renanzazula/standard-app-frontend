@@ -1,4 +1,4 @@
-import {ProdutoHasItensTipoMedida} from "./produtoHasItensTipoMedida";
+import { ProdutoHasItensTipoMedida } from './produtoHasItensTipoMedida';
 
 export class VendaHasItemProduto {
   constructor() {

@@ -1,9 +1,9 @@
-import {Subcategoria} from "./subcategoria";
-import {Marca} from "./marca";
-import {Categoria} from "./categoria";
-import {Medida} from "./medida";
-import {Fornecedor} from "./fornecedor";
-import {ProdutoHasItensTipoMedida} from "./produtoHasItensTipoMedida";
+import { Subcategoria } from './subcategoria';
+import { Marca } from './marca';
+import { Categoria } from './categoria';
+import { Medida } from './medida';
+import { Fornecedor } from './fornecedor';
+import { ProdutoHasItensTipoMedida } from './produtoHasItensTipoMedida';
 
 export class Produto {
 

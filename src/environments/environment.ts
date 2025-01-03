@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  apiPrivateUrl: 'http://localhost:8080/private/v1',
-  apiPublicUrl: 'http://localhost:8080/public/v1'
+  apiPrivateUrl: 'http://localhost:8080/standard/private/api/v1',
+  apiPublicUrl: 'http://localhost:8080/standard/public/api/v1'
 };
 
 

@@ -1,46 +1,55 @@
-import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {map} from 'rxjs/operators';
-import {environment} from "../../../../environments/environment";
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
+import { catchError, map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
-@Injectable({providedIn: 'root'})
+@Injectable({
+  providedIn: 'root',
+})
 export class AuthenticationService {
+  constructor(private http: HttpClient, private router: Router) {}
 
-  isLoggedin: boolean = false;
-
-  constructor(private http: HttpClient) {
-  }
-
-  login(username: string, password: string) {
-
-    return this.http.post<any>(`${environment.apiPublicUrl}/users/authenticate`, {username, password})
-      .pipe(map(user => {
-        // login successful if there's a user in the response
-        if (user) {
-          // store user details and basic auth credentials in local storage
-          // to keep user logged in between page refreshes
-          user.authdata = window.btoa(username + ':' + password);
-          localStorage.setItem('currentUser', JSON.stringify(user));
+  login(username: string, password: string): Observable<any> {
+    return this.http
+      .post<any>(
+        `${environment.apiPublicUrl}/authentication/login`,
+        { username, password },
+        {
+          observe: 'response', // Get full HTTP response
+          withCredentials: true, // Include credentials
         }
+      )
+      .pipe(
+        map((response) => {
+          if (response.status === 200) {
+            // Handle successful login
+            const expiration = new Date().getTime() + 30 * 60 * 1000; // 30 minutes session timeout
+            localStorage.setItem('sessionExpiration', new Date(expiration).toISOString());
 
-        return user;
-      }));
+            const csrfToken = response.headers.get('X-CSRF-TOKEN');
+            if (csrfToken) {
+              localStorage.setItem('csrfToken', csrfToken);
+              localStorage.setItem('currentUser', JSON.stringify(response.body));
+            } else {
+              throw new Error('CSRF token not provided');
+            }
+
+            return response.body;
+          } else {
+            throw new Error(`Unexpected response status: ${response.status}`);
+          }
+        }),
+        catchError((error) => {
+          console.error('Login error:', error);
+          throw new Error(error);
+        })
+      );
   }
 
-  logout() {
-    // remove user from local storage to log user out
-    localStorage.removeItem('currentUser');
-    this.isLoggedin = false;
+  logout(): void {
+    localStorage.clear();
+    this.router.navigate(['/login']);
   }
-
-  isLoggedIn() {
-    debugger;
-    if (localStorage.getItem("auth_token") == null) {
-      this.isLoggedin = false;
-      return this.isLoggedin;
-    } else {
-      return true;
-    }
-  }
-
 }

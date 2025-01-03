@@ -1,6 +1,6 @@
-import {Dominio} from "./dominio";
-import {ItensTipoMedida} from "./ItensTipoMedida";
-import {Produto} from "./produto";
+import { Dominio } from './dominio';
+import { ItensTipoMedida } from './ItensTipoMedida';
+import { Produto } from './produto';
 
 export class ProdutoHasItensTipoMedida {
 

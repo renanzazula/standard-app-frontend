@@ -1,13 +1,11 @@
-import {Component, OnInit} from '@angular/core';
-import {Router, ActivatedRoute} from '@angular/router';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {first} from 'rxjs/operators';
-import {AuthenticationService} from "../../service/security/authentication/authentication.service";
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthenticationService } from '../../service/security/authentication/authentication.service';
 
 
 @Component({
-  selector: 'app-login',
-  templateUrl: 'login.component.html'
+  selector: 'app-login', templateUrl: 'login.component.html',
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
@@ -16,11 +14,8 @@ export class LoginComponent implements OnInit {
   returnUrl: string;
   error = '';
 
-  constructor(
-    private formBuilder: FormBuilder,
-    private route: ActivatedRoute,
-    private router: Router,
-    private authenticationService: AuthenticationService) {
+  constructor(private formBuilder: FormBuilder, private route: ActivatedRoute,
+              private router: Router, private authenticationService: AuthenticationService) {
   }
 
   // convenience getter for easy access to form fields
@@ -30,8 +25,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
-      username: ['', Validators.required],
-      password: ['', Validators.required]
+      username: ['', Validators.required], password: ['', Validators.required],
     });
 
     // reset login status
@@ -50,15 +44,17 @@ export class LoginComponent implements OnInit {
     }
 
     this.loading = true;
-    this.authenticationService.login(this.f.username.value, this.f.password.value)
-      .pipe(first())
-      .subscribe(
-        data => {
-          this.router.navigate([this.returnUrl]);
-        },
-        error => {
-          this.error = error;
-          this.loading = false;
-        });
+
+    this.authenticationService.login(this.f.username.value, this.f.password.value).subscribe({
+      next: (user) => {
+        console.log('Login successful:', user);
+        this.error = null; // Clear any previous errors
+        this.router.navigate([this.returnUrl]); // Navigate to the dashboard or another page
+      }, error: (error) => {
+        console.error('Login failed:', error);
+        this.error = 'Invalid username or password';
+        this.loading = false;
+      },
+    });
   }
 }

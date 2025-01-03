@@ -1,7 +1,7 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
-import {DialogTableDataInterface} from "./dialog.table-data.interface";
-import {ProdutoHasItensTipoMedida} from "../../model/produtoHasItensTipoMedida";
+import { Component, Inject, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { DialogTableDataInterface } from './dialog.table-data.interface';
+import { ProdutoHasItensTipoMedida } from '../../model/produtoHasItensTipoMedida';
 
 @Component({
     selector: 'app-dialog.table',

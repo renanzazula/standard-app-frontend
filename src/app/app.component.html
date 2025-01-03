@@ -1,9 +1,8 @@
 <app-header></app-header>
-<app-menu *ngIf="isAuthenticated"></app-menu>
+<app-menu></app-menu>
 
 <div class="jumbotron">
   <div class="container-fluid">
-    <app-alerta *ngIf="isAuthenticated"></app-alerta>
     <router-outlet></router-outlet>
   </div>
 </div>

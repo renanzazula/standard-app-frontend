@@ -1,4 +1,4 @@
-import {ProdutoHasItensTipoMedida} from "../../model/produtoHasItensTipoMedida";
+import { ProdutoHasItensTipoMedida } from '../../model/produtoHasItensTipoMedida';
 
 export interface DialogTableDataInterface {
     cabecalho: string // Exclusao - danger , edicao - alert

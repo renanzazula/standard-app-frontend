@@ -1,8 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import {first} from "rxjs/operators";
-import {UserService} from "./service/user/user.service";
-import {User} from "./model/user";
-import {AuthenticationService} from "./service/security/authentication/authentication.service";
+import { Component, OnInit } from '@angular/core';
+import { UserService } from './service/user/user.service';
+import { User } from './model/user';
+import { AuthenticationService } from './service/security/authentication/authentication.service';
+import { SessionManagerService } from './helpers/session-manager.service';
 
 @Component({
   selector: 'app-root',
@@ -12,25 +12,27 @@ import {AuthenticationService} from "./service/security/authentication/authentic
 export class AppComponent implements OnInit {
 
   users: User[] = [];
-  isAuthenticated: boolean;
+  isAuthenticated = false;
 
   constructor(private userService: UserService,
-              private authenticationService: AuthenticationService) {
+              private authenticationService: AuthenticationService,
+              private sessionManager: SessionManagerService) {
   }
 
   ngOnInit() {
-    this.userService.getAll().pipe(first()).subscribe(users => {
-      this.users = users;
-    });
-    this.isLoggedIn();
+
+    // this.userService.getAll().pipe(first()).subscribe(users => {
+    //   this.users = users;
+    // });
+    // this.isLoggedIn();
   }
 
   Logout() {
-    this.authenticationService.logout();
+    // this.authenticationService.logout();
   }
 
   isLoggedIn() {
-    this.isAuthenticated = this.authenticationService.isLoggedIn();
+  //  this.isAuthenticated = this.authenticationService.isAuthenticated();
   }
 
 }

@@ -1,7 +1,7 @@
-import {ItensTipoMedida} from "./ItensTipoMedida";
-import {Categoria} from "./categoria";
-import {Subcategoria} from "./subcategoria";
-import {Marca} from "./marca";
+import { ItensTipoMedida } from './ItensTipoMedida';
+import { Categoria } from './categoria';
+import { Subcategoria } from './subcategoria';
+import { Marca } from './marca';
 
 export class Medida {
     codigo: number;

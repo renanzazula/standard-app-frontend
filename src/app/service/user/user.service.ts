@@ -1,15 +1,65 @@
 import { Injectable } from '@angular/core';
+import { User } from '../../model/user';
+import { Observable, throwError } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import {User} from "../../model/user";
-import {environment} from "../../../environments/environment";
+import { catchError, map } from 'rxjs/operators';
+import { environment } from '../../../environments/environment';
+import { Router } from '@angular/router';
 
 
-
-@Injectable({ providedIn: 'root' })
+@Injectable({
+  providedIn: 'root',
+})
 export class UserService {
-  constructor(private http: HttpClient) { }
 
-  getAll() {
-    return this.http.get<User[]>(`${environment.apiPrivateUrl}/users`);
+  constructor(private http: HttpClient, private router: Router) {
   }
+
+  getCurrentUser(): Observable<User> {
+    const currentUserData = localStorage.getItem('currentUser');
+
+    if (!currentUserData) {
+      // Redirect to login page if no user is found
+      console.warn('No current user found in localStorage. Redirecting to login...');
+      this.router.navigate(['/login']);
+    }
+
+    try {
+      // Parse the JSON and extract the username
+      const { username } = JSON.parse(currentUserData);
+
+      if (!username) {
+        throw new Error('Username not found in current user data');
+      }
+
+      return this.http
+        .get(`${environment.apiPublicUrl}/users/${username}`, { withCredentials: true })
+        .pipe(
+          map((response: any) => {
+            // Transform the HTTP response into a User object
+            return {
+              id: response.id,
+              username: response.username,
+              firstName: response.firstName,
+              lastName: response.lastName,
+              accountNonExpired: response.accountNonExpired,
+              accountNonLocked: response.accountNonLocked,
+              credentialsNonExpired: response.credentialsNonExpired,
+              enabled: response.enabled,
+              authorities: response.authorities || [],
+            } as User;
+          }),
+          catchError((error) => {
+            console.error('Error fetching current user:', error);
+            this.router.navigate(['/login']);
+            return throwError(() => error);
+          })
+        );
+    } catch (error) {
+      console.error('Error parsing current user data:', error);
+      this.router.navigate(['/login']);
+      return throwError(() => new Error('Invalid current user data'));
+    }
+  }
+
 }

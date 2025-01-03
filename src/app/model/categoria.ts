@@ -1,4 +1,4 @@
-import {Subcategoria} from "./subcategoria";
+import { Subcategoria } from './subcategoria';
 
 export class Categoria {
 
