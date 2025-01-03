@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
 
-    // stop here if form is invalid
+    // Stop here if form is invalid
     if (this.loginForm.invalid) {
       return;
     }
@@ -48,13 +48,26 @@ export class LoginComponent implements OnInit {
     this.authenticationService.login(this.f.username.value, this.f.password.value).subscribe({
       next: (user) => {
         console.log('Login successful:', user);
-        this.error = null; // Clear any previous errors
-        this.router.navigate([this.returnUrl]); // Navigate to the dashboard or another page
-      }, error: (error) => {
+        this.error = null;
+        this.loading = false; // Reset loading state
+        localStorage.setItem('currentUser', JSON.stringify(user)); // Optional: Store user data
+        this.router.navigate([this.returnUrl]); // Navigate to the desired page
+      },
+      error: (error) => {
         console.error('Login failed:', error);
-        this.error = 'Invalid username or password';
+
+        // Handle error cases
+        if (error.status === 401) {
+          this.error = 'Invalid username or password';
+        } else if (error.status === 500) {
+          this.error = 'Server error, please try again later';
+        } else {
+          this.error = 'An unexpected error occurred';
+        }
+
         this.loading = false;
       },
     });
   }
+
 }

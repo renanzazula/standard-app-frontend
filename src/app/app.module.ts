@@ -121,7 +121,7 @@ import { AuthInterceptor } from './helpers/auth.interceptor';
   providers: [AlertaService, MarcaService, MatDialog, MedidaService, CategoriaService,
     SubCategoriaService, FormasDePagamentoService,
     FornecedorService, DominioService, ProdutoService, VendaService,
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: CsrfInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}],
 

@@ -18,22 +18,25 @@ export class UserService {
   getCurrentUser(): Observable<User> {
     const currentUserData = localStorage.getItem('currentUser');
 
+    console.log(currentUserData);
+
     if (!currentUserData) {
       // Redirect to login page if no user is found
       console.warn('No current user found in localStorage. Redirecting to login...');
       this.router.navigate(['/login']);
+
     }
 
     try {
       // Parse the JSON and extract the username
-      const { username } = JSON.parse(currentUserData);
+      const { username: user } = JSON.parse(currentUserData);
 
-      if (!username) {
+      if (!user) {
         throw new Error('Username not found in current user data');
       }
 
       return this.http
-        .get(`${environment.apiPublicUrl}/users/${username}`, { withCredentials: true })
+        .get(`${environment.apiPrivateUrl}/users/${user}`, { withCredentials: true })
         .pipe(
           map((response: any) => {
             // Transform the HTTP response into a User object

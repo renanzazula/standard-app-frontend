@@ -10,9 +10,6 @@ export class AuthGuard implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     // Check session expiration
-
-    console.log('xxx');
-
     const expiration = localStorage.getItem('sessionExpiration');
     if (expiration) {
       const now = new Date().getTime();
