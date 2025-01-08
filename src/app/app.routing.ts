@@ -1,94 +1,90 @@
-﻿import { RouterModule, Routes } from '@angular/router';
-import { MarcaCadastrarComponent } from './gerenciar/marca/marca-cadastrar/marca-cadastrar.component';
-import { MarcaListaComponent } from './gerenciar/marca/marca-lista/marca-lista.component';
-import { MarcaComponent } from './gerenciar/marca/marca.component';
-import { MedidaComponent } from './gerenciar/medida/medida.component';
-import { MedidaListarComponent } from './gerenciar/medida/medida-listar/medida-listar.component';
-import { MedidaCadastrarComponent } from './gerenciar/medida/medida-cadastrar/medida-cadastrar.component';
-import { CategoriaListarComponent } from './gerenciar/categoria/categoria-listar/categoria-listar.component';
-import { CategoriaComponent } from './gerenciar/categoria/categoria.component';
-import { CategoriaCadastrarComponent } from './gerenciar/categoria/categoria-cadastrar/categoria-cadastrar.component';
-import { SubcategoriaComponent } from './gerenciar/subcategoria/subcategoria.component';
-import { SubcategoriaListarComponent } from './gerenciar/subcategoria/subcategoria-listar/subcategoria-listar.component';
-import { SubcategoriaCadastrarComponent } from './gerenciar/subcategoria/subcategoria-cadastrar/subcategoria-cadastrar.component';
-import { FormasdepagamentoComponent } from './gerenciar/formasdepagamento/formasdepagamento.component';
-import {
-  FormasdepagamentoCadastrarComponent,
-} from './gerenciar/formasdepagamento/formasdepagamento-cadastrar/formasdepagamento-cadastrar.component';
-import {
-  FormasdepagamentoListarComponent,
-} from './gerenciar/formasdepagamento/formasdepagamento-listar/formasdepagamento-listar.component';
-import { FornecedorListarComponent } from './gerenciar/fornecedor/fornecedor-listar/fornecedor-listar.component';
-import { FornecedorCadastrarComponent } from './gerenciar/fornecedor/fornecedor-cadastrar/fornecedor-cadastrar.component';
-import { FornecedorComponent } from './gerenciar/fornecedor/fornecedor.component';
-import { DominioListarComponent } from './gerenciar/dominio/dominio-listar/dominio-listar.component';
-import { DominioCadastrarComponent } from './gerenciar/dominio/dominio-cadastrar/dominio-cadastrar.component';
-import { DominioComponent } from './gerenciar/dominio/dominio.component';
-import { ProdutoListarComponent } from './gerenciar/produto/produto-listar/produto-listar.component';
-import { ProdutoCadastrarComponent } from './gerenciar/produto/produto-cadastrar/produto-cadastrar.component';
-import { ProdutoComponent } from './gerenciar/produto/produto.component';
-import { VandaAddProdutoComponent } from './gerenciar/venda/vanda-add-produto/vanda-add-produto.component';
-import { VendaConfirmarComponent } from './gerenciar/venda/venda-confirmar/venda-confirmar.component';
-import { VendaComponent } from './gerenciar/venda/venda.component';
-import { VendaImprimirComponent } from './gerenciar/venda/venda-imprimir/venda-imprimir.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { LoginComponent } from './gerenciar/login/login.component';
-import { AuthGuard } from './guards/auth.guard';
+﻿import {RouterModule, Routes} from '@angular/router';
+import {PaymentMethodComponent} from './gerenciar/paymentMethod/paymentMethod.component';
+import {PaymentMethodSaveComponent,} from './gerenciar/paymentMethod/paymentMethod-save/paymentMethod-save.component';
+import {DomainSaveComponent} from './gerenciar/domain/domain-save/domain-save.component';
+import {DomainComponent} from './gerenciar/domain/domain.component';
+import {OrderConfirmComponent} from './gerenciar/order/order-confirm/order-confirm.component';
+import {OrderComponent} from './gerenciar/order/order.component';
+import {OrderPrintComponent} from './gerenciar/order/order-print/order-print.component';
+import {DashboardComponent} from './dashboard/dashboard.component';
+import {LoginComponent} from './gerenciar/login/login.component';
+import {AuthGuard} from './guards/auth.guard';
+import {BrandComponent} from './gerenciar/brand/brand.component';
+import {BrandSaveComponent} from './gerenciar/brand/brand-save/brand-save.component';
+import {BrandListComponent} from './gerenciar/brand/brand-list/brand-list.component';
+import {MeasureListComponent} from './gerenciar/measure/measure-list/measure-list.component';
+import {MeasureSaveComponent} from './gerenciar/measure/measure-save/measure-save.component';
+import {MeasureComponent} from './gerenciar/measure/measure.component';
+import {CategoryComponent} from './gerenciar/category/category.component';
+import {CategoryListComponent} from './gerenciar/category/category-list/category-list.component';
+import {CategorySaveComponent} from './gerenciar/category/category-save/category-save.component';
+import {OrderAddProductComponent} from './gerenciar/order/order-add-product/order-add-product.component';
+import {DomainListComponent} from './gerenciar/domain/domain-list/domain-list.component';
+import {SubcategoryComponent} from './gerenciar/subcategory/subcategory.component';
+import {SubcategorySaveComponent} from './gerenciar/subcategory/subcategory-save/subcategory-save.component';
+import {SubcategoryListComponent} from './gerenciar/subcategory/subcategory-list/subcategory-list.component';
+import {PaymentMethodListComponent} from './gerenciar/paymentMethod/paymentMethod-list/paymentMethod-list.component';
+import {ProviderComponent} from './gerenciar/provider/provider.component';
+import {ProviderSaveComponent} from './gerenciar/provider/provider-save/provider-save.component';
+import {ProviderListComponent} from './gerenciar/provider/provider-list/provider-list.component';
+import {ProductComponent} from './gerenciar/product/product.component';
+import {ProductSaveComponent} from './gerenciar/product/product-save/product-save.component';
+import {ProductListComponent} from './gerenciar/product/produto-listar/product-list.component';
 
 const appRoutes: Routes = [
   {
-    path: 'marca', component: MarcaComponent, children: [
-      {path: 'cadastrar', component: MarcaCadastrarComponent},
-      {path: ':codigo/editar', component: MarcaCadastrarComponent},
-      {path: 'listar', component: MarcaListaComponent},
+    path: 'brand', component: BrandComponent, children: [
+      {path: 'save', component: BrandSaveComponent},
+      {path: ':id/edit', component: BrandSaveComponent},
+      {path: 'list', component: BrandListComponent},
     ]
   }, {
-    path: 'medida', component: MedidaComponent, children: [
-      {path: 'cadastrar', component: MedidaCadastrarComponent},
-      {path: ':codigo/editar', component: MedidaCadastrarComponent},
-      {path: 'listar', component: MedidaListarComponent},
+    path: 'measure', component: MeasureComponent, children: [
+      {path: 'save', component: MeasureSaveComponent},
+      {path: ':id/edit', component: MeasureSaveComponent},
+      {path: 'list', component: MeasureListComponent},
     ]
   }, {
-    path: 'categoria', component: CategoriaComponent, children: [
-      {path: 'cadastrar', component: CategoriaCadastrarComponent},
-      {path: ':codigo/editar', component: CategoriaCadastrarComponent},
-      {path: 'listar', component: CategoriaListarComponent}
+    path: 'category', component: CategoryComponent, children: [
+      {path: 'save', component: CategorySaveComponent},
+      {path: ':id/edit', component: CategorySaveComponent},
+      {path: 'list', component: CategoryListComponent}
     ]
   }, {
-    path: 'subcategoria', component: SubcategoriaComponent, children: [
-      {path: 'cadastrar', component: SubcategoriaCadastrarComponent},
-      {path: ':codigo/editar', component: SubcategoriaCadastrarComponent},
-      {path: 'listar', component: SubcategoriaListarComponent}
+    path: 'subcategory', component: SubcategoryComponent, children: [
+      {path: 'save', component: SubcategorySaveComponent},
+      {path: ':id/edit', component: SubcategorySaveComponent},
+      {path: 'list', component: SubcategoryListComponent}
     ]
   }, {
-    path: 'formasdepagamento', component: FormasdepagamentoComponent, children: [
-      {path: 'cadastrar', component: FormasdepagamentoCadastrarComponent},
-      {path: ':codigo/editar', component: FormasdepagamentoCadastrarComponent},
-      {path: 'listar', component: FormasdepagamentoListarComponent}
+    path: 'paymentMethod', component: PaymentMethodComponent, children: [
+      {path: 'save', component: PaymentMethodSaveComponent},
+      {path: ':id/edit', component: PaymentMethodSaveComponent},
+      {path: 'list', component: PaymentMethodListComponent}
     ]
   }, {
-    path: 'fornecedor', component: FornecedorComponent, children: [
-      {path: 'cadastrar', component: FornecedorCadastrarComponent},
-      {path: ':codigo/editar', component: FornecedorCadastrarComponent},
-      {path: 'listar', component: FornecedorListarComponent}
+    path: 'provider', component: ProviderComponent, children: [
+      {path: 'save', component: ProviderSaveComponent},
+      {path: ':id/edit', component: ProviderSaveComponent},
+      {path: 'list', component: ProviderListComponent}
     ]
   }, {
-    path: 'dominio', component: DominioComponent, children: [
-      {path: 'cadastrar', component: DominioCadastrarComponent},
-      {path: ':codigo/editar', component: DominioCadastrarComponent},
-      {path: 'listar', component: DominioListarComponent}
+    path: 'domain', component: DomainComponent, children: [
+      {path: 'save', component: DomainSaveComponent},
+      {path: ':id/edit', component: DomainSaveComponent},
+      {path: 'list', component: DomainListComponent}
     ]
   }, {
-    path: 'produto', component: ProdutoComponent, children: [
-      {path: 'cadastrar', component: ProdutoCadastrarComponent},
-      {path: ':codigo/editar', component: ProdutoCadastrarComponent},
-      {path: 'listar', component: ProdutoListarComponent}
+    path: 'product',     component: ProductComponent, children: [
+      {path: 'save',     component: ProductSaveComponent},
+      {path: ':id/edit', component: ProductSaveComponent},
+      {path: 'list',     component: ProductListComponent}
     ]
   }, {
-    path: 'venda', component: VendaComponent, children: [
-      {path: 'venda-add-produto', component: VandaAddProdutoComponent},
-      {path: ':codigo/confirmar', component: VendaConfirmarComponent},
-      {path: ':codigo/imprimir', component: VendaImprimirComponent}
+    path: 'venda', component: OrderComponent, children: [
+      {path: 'venda-add-product', component: OrderAddProductComponent},
+      {path: ':id/confirmar', component: OrderConfirmComponent},
+      {path: ':id/imprimir', component: OrderPrintComponent}
     ]
   }, {
     path: '', component: DashboardComponent, canActivate: [AuthGuard]

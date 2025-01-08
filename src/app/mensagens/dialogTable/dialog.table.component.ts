@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { DialogTableDataInterface } from './dialog.table-data.interface';
-import { ProdutoHasItensTipoMedida } from '../../model/produtoHasItensTipoMedida';
+import { ProductHasItemsTypeMeasure } from '../../model/productHasItemsTypeMeasure';
 
 @Component({
     selector: 'app-dialog.table',
@@ -21,9 +21,9 @@ export class DialogTableComponent implements OnInit {
         this.dialogRef.close();
     }
 
-    onSelect(produtoHasItensTipoMedida : ProdutoHasItensTipoMedida){
+    onSelect(productHasItemsTypeMeasure : ProductHasItemsTypeMeasure){
       console.log("onSelect");
-      console.log(produtoHasItensTipoMedida);
-      this.dialogRef.close(produtoHasItensTipoMedida);
+      console.log(productHasItemsTypeMeasure);
+      this.dialogRef.close(productHasItemsTypeMeasure);
     }
 }

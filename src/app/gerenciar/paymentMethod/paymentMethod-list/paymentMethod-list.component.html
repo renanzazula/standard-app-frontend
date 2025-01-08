@@ -1,0 +1,30 @@
+<div class="card">
+  <div class="card-header">
+    <h3 class="card-title">Search {{page_nome}}</h3>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive-sm">
+      <table class="table table-bordered table-hover">
+        <thead class="thead-dark">
+        <tr>
+          <th scope="col">Id</th>
+          <th scope="col">Name</th>
+          <th scope="col">Description</th>
+          <th scope="col">Porcentagem de Desconto%</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngIf="paymentMethods.length ===0" scope="row">
+          <td class="col text-center" colspan="4">{{nunhum_encontrado}}</td>
+        </tr>
+        <tr *ngFor="let paymentMethod of paymentMethods" scope="row" [routerLink]="['/paymentMethod', paymentMethod.id, 'edit']">
+          <td>{{paymentMethod.id}}</td>
+          <td>{{paymentMethod.name}}</td>
+          <td>{{paymentMethod.description}}</td>
+          <td>{{paymentMethod.discountPercent}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

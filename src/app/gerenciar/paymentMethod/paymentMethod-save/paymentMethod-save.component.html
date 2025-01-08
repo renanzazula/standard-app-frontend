@@ -1,0 +1,47 @@
+<div class="card panel-default">
+  <div class="card-header">
+    <h3 class="card-title">Save {{nome_page}}</h3>
+  </div>
+  <form [formGroup]="paymentMethodForm" [ngSwitch]="update">
+    <div class="card-body">
+      <div class="form-group" *ngSwitchCase="true">
+        <label for="id">Id</label>
+        <input type="text" formControlName="id" class="form-control" readonly/>
+      </div>
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" formControlName="name" class="form-control"
+               [ngClass]="{ 'is-invalid': submitted && f.name.errors }"/>
+        <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+          <div *ngIf="f.name.errors.required">Name is required</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea type="text" formControlName="description" class="form-control"
+                  [ngClass]="{ 'is-invalid': submitted && f.description.errors }"></textarea>
+        <div *ngIf="submitted && f.description.errors" class="invalid-feedback">
+          <div *ngIf="f.description.errors.required">Description is required</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="discountPercent">Discount percentage</label>
+        <input type="text" formControlName="discountPercent" class="form-control"
+               [ngClass]="{ 'is-invalid': submitted && f.discountPercent.errors }"/>
+        <div *ngIf="submitted && f.discountPercent.errors" class="invalid-feedback">
+          <div *ngIf="f.discountPercent.errors.required">Discount percentage is required</div>
+          <div *ngIf="f.discountPercent.errors.max">Maximum allowed value is 100%</div>
+          <div *ngIf="f.discountPercent.errors.max">Minimum allowed value is 0%</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-footer bg-transparent text-right">
+      <button *ngSwitchCase="true"  type="button" class="btn btn-secondary" (click)="onUpdate()">Update</button>
+      <button *ngSwitchCase="true"  type="button" class="btn btn-secondary ml-1" (click)="onDelete(paymentMethodForm.value)">Delete</button>
+      <button *ngSwitchCase="false" type="button" class="btn btn-secondary" (click)="onSave()">Save
+      </button>
+      <button type="button" class="btn btn-secondary ml-1" (click)="onCancel()">Cancel</button>
+    </div>
+  </form>
+</div>
+<br>

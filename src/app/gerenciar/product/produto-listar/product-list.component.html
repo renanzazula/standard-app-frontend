@@ -1,0 +1,130 @@
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">Search {{page_nome}}</h3>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive-sm">
+        <div class="table-responsive-sm">
+          <table class="table table-bordered" *ngIf="products.length ===0" scope="row">
+            <tbody>
+            <tr>
+              <td class="col text-center" colspan="4">{{nunhum_encontrado}}</td>
+            </tr>
+            </tbody>
+          </table>
+          <div class="card mb-3" *ngFor="let product of products; let i = index;">
+            <div class="card-body">
+              <table class="table table-sm" style="margin-bottom: 0rem;">
+                <thead class="thead-dark">
+                <tr scope="row">
+                  <th class="col-sm-2">
+                    {{product.id}} - {{product.barCode}} - {{product.name}}
+                  </th>
+                  <th class="col-sm-2" style="text-align: right; margin-right: 5rem;">
+                    <button type="button" class="btn btn-secondary btn-sm" style="padding: 1px 32px;" (click)="onCollaps(i, $event)">+</button>
+                  </th>
+                </tr>
+                </thead>
+                <tbody>
+                  <tr scope="row">
+                    <td colspan="2">
+                      <table class="table table-sm" style="margin-bottom: 0rem;">
+                        <tbody>
+                          <tr scope="row">
+                            <td style="text-align: center">
+                              <img src="https://assets.adidas.com/images/h_600,f_auto,q_auto:sensitive,fl_lossy/2f488fe90ddf43fdbe77a8c100ca2bb3_9366/POD-S3_1_Shoes_Black_AQ1059_01_standard.jpg"
+                                   alt="{{product.name}}" class="img-fluid" style="height: 90px; width: 90px;">
+                            </td>
+                            <td>
+                              <table class="table table-sm">
+                                <thead class="thead-light">
+                                  <tr scope="row">
+                                    <th class="col-sm-1">Id de Barras</th>
+                                    <th class="col-sm-2">Name</th>
+                                    <th class="col-sm-1">Provider</th>
+                                    <th class="col-sm-1">Categoria</th>
+                                    <th class="col-sm-1">Subcategoria</th>
+                                    <th class="col-sm-1">Brand</th>
+                                    <th class="col-sm-1">Estoque</th>
+                                    <th class="col-sm-1">Preço Venda</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr scope="row">
+                                    <td>{{product.barCode}}</td>
+                                    <td>{{product.name}}</td>
+                                    <td>{{product.provider.name}}</td>
+                                    <td>{{product.category.name}}</td>
+                                    <td>{{product.subcategory.name}}</td>
+                                    <td>{{product.brand.name}}</td>
+                                    <td>{{product.totalStockQuantity}}</td>
+                                    <td>{{product.price}}</td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </td>
+                  </tr>
+                  <tr scope="row" *ngIf="i === expandedIndex">
+                    <td colspan="2">
+                      <table class="table table-sm text-center" style="margin-bottom: 0rem;">
+                        <thead class="thead-light">
+                          <tr scope="row">
+                            <th class="col-sm-2">Cost Price</th>
+                            <th class="col-sm-2">Percent</th>
+                            <th class="col-sm-2">Price</th>
+                            <th class="col-sm-2">Discount Percent</th>
+                            <th class="col-sm-2">Discount</th>
+                            <th class="col-sm-2">Sale Price</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr scope="row">
+                            <td>{{product.costPrice}}</td>
+                            <td>{{product.percent}}</td>
+                            <td>{{product.price}}</td>
+                            <td>{{product.discountPercent}}</td>
+                            <td>{{product.discount}}</td>
+                            <td>{{product.salePrice}}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </td>
+                  </tr>
+                  <tr scope="row" *ngIf="i === expandedIndex">
+                    <td colspan="2">
+                      <table class="table table-sm text-center" style="margin-bottom: 0rem;">
+                        <thead class="thead-light">
+                        <tr scope="row">
+                          <th class="col-sm-2">id</th>
+                          <th class="col-sm-4">Amount</th>
+                          <th class="col-sm-4">Quantity</th>
+                          <th class="col-sm-2">Flag Domain</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let item of product.productHasItemsTypeMeasure" scope="row">
+                          <td>{{item.itemsTypeMeasure.id}}</td>
+                          <td>{{item.itemsTypeMeasure.amount}}</td>
+                          <td>{{item.quantity}}</td>
+                          <td>
+                            <label *ngFor="let domain of item.domains">
+                              <input type="checkbox">{{domain.name}}
+                            </label>
+                          </td>
+                        </tr>
+                        </tbody>
+                      </table>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>

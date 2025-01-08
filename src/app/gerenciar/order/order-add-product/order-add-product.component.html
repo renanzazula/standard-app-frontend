@@ -1,0 +1,214 @@
+<div class="card panel-default">
+    <div class="card-header">
+        <h3 class="card-title">{{nome_page}}</h3>
+    </div>
+    <form [formGroup]="vendaAddProdutosFormGroup">
+        <div class="card-body">
+            <div class="card">
+                <div class="card-body">
+                    <div class="form-group row">
+                        <label for="barcode" class="col-md-0 col-form-label">Id de Barras</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" formControlName="barcode">
+                        </div>
+                        <button type="button" class="btn  btn-secondary" style="width: 450px" (click)="addProduto()">+ Add</button>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="form-group">
+                <div class="card panel-default">
+                    <div class="card-body">
+                        <div class="form-row">
+                            <div class="col-md-12 mb-12">
+                                <div class="table-responsive-sm text-center">
+                                    <table class="table table-bordered" *ngIf="OrderHasItemTypeMeasure.length ===0" scope="row">
+                                        <tbody>
+                                        <tr>
+                                            <td class="col text-center" colspan="4">{{nunhum_encontrado}}</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    <table class="table table-bordered table-hover" *ngIf="OrderHasItemTypeMeasure.length !==0">
+                                        <thead class="thead-dark">
+                                        <tr>
+                                            <th scope="col" style="width: 120px;">Id</th>
+                                            <th scope="col">Product</th>
+                                            <th scope="col" style="width: 120px;">Quantidade</th>
+                                            <th scope="col" style="width: 120px;">Tamanho</th>
+                                            <th scope="col" style="width: 120px;">Preço</th>
+                                            <th scope="col" style="width: 120px;">Total Item</th>
+                                            <th scope="col" style="width: 80px;">&nbsp;</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let itemProdutoVenda of OrderHasItemTypeMeasure; let i = index;">
+                                                <td style="vertical-align: middle;">
+                                                    {{itemProdutoVenda.productHasItemsTypeMeasure.product.barCode}}</td>
+                                                <td style="vertical-align: middle;">
+                                                    {{itemProdutoVenda.productHasItemsTypeMeasure.product.name}}</td>
+                                                <td>
+                                                    <input type="number" class="form-control" value="{{itemProdutoVenda.quantity}}"
+                                                       (change)="onChangeUpdateQuantidadeItemVenda($event.target.value, i)"/>
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control"
+                                                           readonly
+                                                           style="width: 120px;"
+                                                           value="{{itemProdutoVenda.productHasItemsTypeMeasure.itemsTypeMeasure.valor}}"/>
+                                                    </td>
+                                                <td>
+                                                    <input type="text" class="form-control"
+                                                           readonly
+                                                           currencyMask
+                                                           style="width: 120px;"
+                                                           [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }"
+                                                           value="{{itemProdutoVenda.productHasItemsTypeMeasure.product.price}}"/>
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control"
+                                                           readonly
+                                                           currencyMask
+                                                           style="width: 120px;"
+                                                           [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }"
+                                                           value="{{itemProdutoVenda.productHasItemsTypeMeasure.product.price}}"/>
+                                                    </td>
+                                                <td>
+                                                    <button type="button" class="btn  btn-secondary" style="width: 50px" (click)="remover(i)">&nbsp;-&nbsp;</button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="form-row">
+                    <div class="col-md-8 mb-2">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="col-md-12 mb-2">
+                                    <label for="formasDePagamento">Formas de payment</label>
+                                    <select class="form-control" formControlName="formasDePagamento"
+                                            [disableControl]="OrderHasItemTypeMeasure.length === 0"
+                                            (change)="onChangeFormapagamento($event.target.value)"
+                                            [ngClass]="{ 'is-invalid': submitted && f.formasDePagamento.errors }">
+                                        <option *ngFor="let formasDePagamento of formasDePagamentos"
+                                                [value]="stringify(formasDePagamento)">{{formasDePagamento.name}}</option>
+                                    </select>
+                                    <div *ngIf="submitted && f.formasDePagamento.errors" class="invalid-feedback">
+                                        <div *ngIf="f.formasDePagamento.errors.required">Forma de payment is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="form-row">
+                                    <div class="col-md-6 mb-2">
+                                        <div class="form-group row">
+                                            <label for="payment" class="col-md-3 col-form-label">Pagamento:</label>
+                                            <div class="col-md-9">
+                                                <input type="text" class="form-control"
+                                                       currencyMask
+                                                       style="width: 120px;"
+                                                       formControlName="payment"
+                                                       [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }"
+                                                       (keyup)="calculaTroco()"
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-2">
+                                        <div class="form-group row">
+                                            <label for="change" class="col-md-2 col-form-label">Troco:</label>
+                                            <div class="col-md-10">
+                                                <input type="text" class="form-control"
+                                                       readonly
+                                                       currencyMask
+                                                       style="width: 120px;"
+                                                       formControlName="change"
+                                                       [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-body text-right">
+                                <div class="form-group row">
+                                    <label for="subtotal" class="col-md-4 col-form-label">Subtotal:</label>
+                                    <div class="col-md-8">
+                                        <input type="text" class="form-control"
+                                               readonly
+                                               currencyMask
+                                               formControlName="subtotal"
+                                               [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }"/>
+
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="discount" class="col-md-4 col-form-label">Desconto%:</label>
+                                    <div class="col-md-8">
+                                        <input type="text" class="form-control"
+                                               readonly
+                                               style="text-align: right"
+                                               formControlName="discount"/>
+                                    </div>
+                                </div>
+                                <hr>
+                                <br>
+                                <div class="form-group row">
+                                    <label for="totalPaid" class="col-md-4 col-form-label">Total a pagar:</label>
+                                    <div class="col-md-8">
+                                        <input type="text" class="form-control"
+                                               readonly
+                                               currencyMask
+                                               formControlName="totalPaid"
+                                               [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card text-right">
+                <div class="card-body">
+                    <div class="form-group row">
+                        <label for="paidAmount" class="col-md-10 col-form-label" >Valor pago:</label>
+                        <div class="col-md-2">
+                            <input type="text" class="form-control"
+                                   readonly
+                                   currencyMask
+                                   style="width: 260px;color: red; font-weight: bold"
+                                   formControlName="paidAmount"
+                                   [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }"/>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="pendingAmount" class="col-md-10 col-form-label">Valor pendente:</label>
+                        <div class="col-md-2">
+                            <input type="text" class="form-control"
+                                   readonly
+                                   currencyMask
+                                   style="width: 260px;color: red; font-weight: bold"
+                                   formControlName="pendingAmount"
+                                   [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer bg-transparent text-right">
+            <button type="button" class="btn btn-secondary" (click)="onAvancar()">Avançar</button>
+            <button type="button" class="btn btn-secondary ml-1" (click)="onCancel()">Cancel</button>
+        </div>
+    </form>
+</div>

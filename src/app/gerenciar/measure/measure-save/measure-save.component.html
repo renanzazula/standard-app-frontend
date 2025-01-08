@@ -1,0 +1,138 @@
+<div class="card panel-default">
+    <div class="card-header">
+        <h3 class="card-title">Save Measure</h3>
+    </div>
+    <form [formGroup]="measureForm" [ngSwitch]="update">
+        <div class="card-body">
+            <div class="form-group" *ngSwitchCase="true">
+                <label for="id">Id</label>
+                <input type="text" formControlName="id" class="form-control" readonly/>
+            </div>
+
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" formControlName="name" class="form-control"
+                       [ngClass]="{ 'is-invalid': submitted && f.name.errors }"/>
+                <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+                    <div *ngIf="f.name.errors.required">Name is required</div>
+                    <div *ngIf="f.description.errors.maxlength">The field must contain a maximum of 45 characters</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea type="text" formControlName="description" class="form-control"
+                          [ngClass]="{ 'is-invalid': submitted && f.description.errors }"></textarea>
+                <div *ngIf="submitted && f.description.errors" class="invalid-feedback">
+                    <div *ngIf="f.description.errors.required">Description is required</div>
+                    <div *ngIf="f.description.errors.maxlength">The field must contain a maximum of 45 characters</div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="form-row">
+                    <div class="col-md-8 mb-4">
+                        <label for="category">Category</label>
+                        <select class="form-control" formControlName="category"
+                                (change)="onChange($event.target.value)"
+                                [ngClass]="{ 'is-invalid': submitted && f.category.errors }">
+                            <option *ngFor="let c of categories" [value]="stringify(c)">{{c.name}}</option>
+                        </select>
+                        <div *ngIf="submitted && f.category.errors" class="invalid-feedback">
+                            <div *ngIf="f.category.errors.required">Category is required</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <label>&nbsp;</label>
+                        <button type="button" class="btn btn-secondary form-control" routerLink="/category/cadastrar">
+                            Nova Categoria
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="form-row">
+                    <div class="col-md-8 mb-4">
+                        <label for="subcategory">Subcategory</label>
+                        <select class="form-control" formControlName="subcategory"
+                                [ngClass]="{ 'is-invalid': submitted && f.subcategory.errors}"
+                                [disableControl]="disable">
+                            <option *ngFor="let subcategory of subcategories"
+                                    [value]="stringify(subcategory)">{{subcategory.name}}</option>
+                        </select>
+                        <div *ngIf="submitted && f.subcategory.errors" class="invalid-feedback">
+                            <div *ngIf="f.subcategory.errors.required">Subcategory is required</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <label>&nbsp;</label>
+                        <button type="button" class="btn btn-secondary form-control"
+                                routerLink="/subcategory/cadastrar">New Subcategory
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="form-row">
+                    <div class="col-md-8 mb-4">
+                        <label for="brand">Brand</label>
+                        <select class="form-control" formControlName="brand"
+                                [ngClass]="{ 'is-invalid': submitted && f.brand.errors }">
+                            <option *ngFor="let brand of brands" [value]="stringify(brand)">{{brand.name}}</option>
+                        </select>
+                        <div *ngIf="submitted && f.brand.errors" class="invalid-feedback">
+                            <div *ngIf="f.brand.errors.required">Brand is required</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <label>&nbsp;</label>
+                        <button type="button" class="btn btn-secondary form-control" routerLink="/brand/cadastrar">Nova
+                            Brand
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card panel-default">
+                <div class="card-header">
+                    <h6 class="card-title">Measure</h6>
+                </div>
+                <div class="card-body">
+                    <div class="form-group row">
+                        <div class="col-md-9 mb-2">
+                            <input type="text" class="form-control" placeholder="valor" formControlName="valor"/>
+                        </div>
+                        <div class="col-md-3 mb-2">
+                            <button type="button" class="btn btn-secondary form-control" (click)="onAdd()">+ Add
+                                Measure
+                            </button>
+                        </div>
+                    </div>
+                    <div class="table-responsive-sm">
+                        <table class="table table-bordered table-hover">
+                            <thead class="thead-dark">
+                            <tr>
+                                <th scope="col ">Measure</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let itemsTypeMeasure of itemsTypeMeasure; let i = index" [attr.data-index]="i" scope="row" (click)="onRemove(i)">
+                                    <td>{{itemsTypeMeasure.amount}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer bg-transparent text-right">
+                <button *ngSwitchCase="true" type="button" class="btn btn-secondary" (click)="onUpdate()">Update</button>
+                <button *ngSwitchCase="true" type="button" class="btn btn-secondary ml-1" (click)="onDelete(measureForm.value)">Delete</button>
+                <button *ngSwitchCase="false" type="button" class="btn btn-secondary" (click)="onSave()">Save</button>
+                <button type="button" class="btn btn-secondary ml-1" (click)="onCancel()">Cancel</button>
+            </div>
+        </div>
+    </form>
+</div>
+<br>
+

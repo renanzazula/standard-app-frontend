@@ -1,27 +1,27 @@
 <div class="card panel-default" style="width: 60rem;">
     <div class="card-header">{{data.cabecalho}}</div>
     <div class="card-body">
-        <h5 class="card-title">Itens Medida</h5>
+        <h5 class="card-title">Itens Measure</h5>
         <div class="table-responsive-sm">
           <table class="table table-bordered table-hover">
             <thead class="thead-dark">
               <tr scope="row">
-                <th scope="col">Código</th>
+                <th scope="col">Id</th>
                 <th scope="col">Valor</th>
                 <th scope="col">Estoque</th>
               </tr>
             </thead>
             <tbody>
-              <tr scope="row" *ngFor="let item of data.produtoHasItensTipoMedida" (click)="onSelect(item)">
-                <td scope="col">{{item.itensTipoMedida.codigo}}</td>
-                <td scope="col">{{item.itensTipoMedida.valor}}</td>
-                <td scope="col">{{item.quantidade}}</td>
+              <tr scope="row" *ngFor="let item of data.productHasItemsTypeMeasure" (click)="onSelect(item)">
+                <td scope="col">{{item.itemsTypeMeasure.id}}</td>
+                <td scope="col">{{item.itemsTypeMeasure.amount}}</td>
+                <td scope="col">{{item.quantity}}</td>
               </tr>
             </tbody>
           </table>
       </div>
       <div class="card-footer bg-transparent text-right">
-          <button type="button" class="btn btn-secondary btn-sm ml-1" (click)="onNoClick()">Cancelar</button>
+          <button type="button" class="btn btn-secondary btn-sm ml-1" (click)="onNoClick()">Cancel</button>
       </div>
     </div>
 </div>

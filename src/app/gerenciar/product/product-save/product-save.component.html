@@ -1,0 +1,294 @@
+<div class="card panel-default">
+    <div class="card-header">
+        <h3 class="card-title">Save {{nome_page}}</h3>
+    </div>
+    <form [formGroup]="productForm" [ngSwitch]="update">
+        <div class="card-body">
+            <div class="form-group">
+                <div class="form-row">
+                    <!--<div class="col-md-10 mb-10">-->
+                        <!--<div class="form-group">-->
+                            <!--<div class="custom-file">-->
+                                <!--<input type="file" class="custom-file-input" (change)="selectFile($event)"/>-->
+                                <!--<label class="custom-file-label">Choose file</label>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+
+                </div>
+                <div class="form-row">
+                    <div class="col-md-4 mb-4">
+                        <div class="form-group">
+                            <label for="barCode">Id de Barras</label>
+                            <input type="text" formControlName="barCode" class="form-control"
+                                   [ngClass]="{ 'is-invalid': submitted && f.barCode.errors }"/>
+                            <div *ngIf="submitted && f.barCode.errors" class="invalid-feedback">
+                                <div *ngIf="f.barCode.errors.required">Id de Barras is required</div>
+                                <div *ngIf="f.barCode.errors.maxlength">O campo deve conter no máximo 100 caracteres</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-8 mb-4">
+                        <label>&nbsp;</label>
+                        <label for="name">Name</label>
+                        <input type="text" formControlName="name"
+                               class="form-control"
+                               [ngClass]="{ 'is-invalid': submitted && f.name.errors }"/>
+                        <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+                            <div *ngIf="f.name.errors.required">Name is required</div>
+                            <div *ngIf="f.name.errors.maxlength">O campo deve conter no máximo 100 caracteres</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea type="text" formControlName="description" class="form-control"
+                              [ngClass]="{ 'is-invalid': submitted && f.description.errors }"></textarea>
+                    <div *ngIf="submitted && f.description.errors" class="invalid-feedback">
+                        <div *ngIf="f.description.errors.required">Description is required</div>
+                        <div *ngIf="f.description.errors.maxlength">O campo deve conter no máximo 150 caracteres</div>
+                    </div>
+                </div>
+            </div>
+            <!---->
+            <div class="form-group">
+                <div class="form-row">
+                    <div class="col-md-4 mb-4">
+                        <div class="form-group">
+                            <label for="costPrice">Preço de custo</label>
+                            <input currencyMask
+                                   formControlName="costPrice"
+                                   class="form-control"
+                                   [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }"
+                                   [ngClass]="{ 'is-invalid': submitted && f.costPrice.errors }"/>
+                            <div *ngIf="submitted && f.costPrice.errors" class="invalid-feedback">
+                                <div *ngIf="f.costPrice.errors.required">Preço de custo is required</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <label>&nbsp;</label>
+                        <label for="percent">Porcentagem</label>
+                        <input type="number" formControlName="percent" class="form-control"
+                               [ngClass]="{ 'is-invalid': submitted && f.percent.errors }"
+                                (keyup)="calculateOrderAmount()"/>
+                        <div *ngIf="submitted && f.percent.errors" class="invalid-feedback">
+                            <div *ngIf="f.percent.errors.required">Porcentagem is required</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <label>&nbsp;</label>
+                        <label for="price">Preço de venda</label>
+
+                        <input currencyMask
+                               formControlName="price"
+                               class="form-control"
+                               [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }"
+                               [ngClass]="{ 'is-invalid': submitted && f.price.errors }"/>
+
+                        <div *ngIf="submitted && f.price.errors" class="invalid-feedback">
+                            <div *ngIf="f.price.errors.required">Preço de venda is required</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!---->
+            <div class="form-group">
+                <div class="form-row">
+                    <div class="col-md-4 mb-4">
+                        <div class="form-group">
+                            <label for="discountPercent">Discount percentage</label>
+                            <input type="number" formControlName="discountPercent" class="form-control" (keyup)="calculateDiscount()"
+                                   [ngClass]="{ 'is-invalid': submitted && f.discountPercent.errors }"/>
+                            <div *ngIf="submitted && f.discountPercent.errors" class="invalid-feedback">
+                                <div *ngIf="f.discountPercent.errors.required">Discount percentage is required</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <label>&nbsp;</label>
+                        <label for="discount">Valor de discount</label>
+                        <input currencyMask
+                               formControlName="discount"
+                               class="form-control"
+                               [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }"
+                               [ngClass]="{ 'is-invalid': submitted && f.discount.errors }"/>
+
+                        <div *ngIf="submitted && f.discount.errors" class="invalid-feedback">
+                            <div *ngIf="f.discount.errors.required">Valor de discount is required</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <label>&nbsp;</label>
+                        <label for="salePrice">Preço oferta</label>
+
+                        <input currencyMask
+                               formControlName="salePrice"
+                               class="form-control"
+                               [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }"
+                               [ngClass]="{ 'is-invalid': submitted && f.salePrice.errors }"/>
+
+                        <div *ngIf="submitted && f.salePrice.errors" class="invalid-feedback">
+                            <div *ngIf="f.salePrice.errors.required">Preço oferta is required</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="peso">Peso</label>
+                    <input type="number" formControlName="peso" class="form-control"
+                              [ngClass]="{ 'is-invalid': submitted && f.peso.errors }"/>
+                    <div *ngIf="submitted && f.peso.errors" class="invalid-feedback">
+                        <div *ngIf="f.peso.errors.required">Peso is required</div>
+                    </div>
+                </div>
+            </div>
+            <!---->
+            <div class="form-group">
+                <div class="form-row">
+                    <div class="col-md-8 mb-4">
+                        <label for="provider">Provider</label>
+                        <select class="form-control" formControlName="provider"
+                                [ngClass]="{ 'is-invalid': submitted && f.provider.errors }">
+                            <option *ngFor="let provider of providers" [value]="stringify(provider)">{{provider.name}}</option>
+                        </select>
+                        <div *ngIf="submitted && f.provider.errors" class="invalid-feedback">
+                            <div *ngIf="f.provider.errors.required">Provider is required</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <label>&nbsp;</label>
+                        <button type="button" class="btn btn-secondary form-control" routerLink="/provider/cadastrar">Novo
+                            Provider
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!---->
+            <div class="form-group">
+                <div class="form-row">
+                    <div class="col-md-8 mb-4">
+                        <label for="measure">Measure</label>
+                        <select class="form-control" formControlName="measure"
+                                (change)="onChangeMeasure($event.target.value)"
+                                [ngClass]="{ 'is-invalid': submitted && f.measure.errors }">
+                            <option *ngFor="let measure of measures" [value]="stringify(measure)">{{measure.name}}</option>
+                        </select>
+                        <div *ngIf="submitted && f.measure.errors" class="invalid-feedback">
+                            <div *ngIf="f.measure.errors.required">Measure is required</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <label>&nbsp;</label>
+                        <button type="button" class="btn btn-secondary form-control" routerLink="/provider/cadastrar">Nova
+                            Measure
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!---->
+            <div class="form-group">
+                <div class="form-row">
+                    <div class="col-md-8 mb-4">
+                        <label for="category">Category</label>
+                        <select class="form-control" formControlName="category"
+                                (change)="onChangeCategory($event.target.value)"
+                                [disableControl]="temCategoria"
+                                [ngClass]="{ 'is-invalid': submitted && f.category.errors }">
+                            <option *ngFor="let c of categories" [value]="stringify(c)">{{c.name}}</option>
+                        </select>
+                        <div *ngIf="submitted && f.category.errors" class="invalid-feedback">
+                            <div *ngIf="f.category.errors.required">Category is required</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <label>&nbsp;</label>
+                        <button type="button" class="btn btn-secondary form-control" routerLink="/category/cadastrar">
+                            Nova Categoria
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="form-row">
+                    <div class="col-md-8 mb-4">
+                        <label for="subcategory">Subcategory</label>
+                        <select class="form-control" formControlName="subcategory"
+                                [ngClass]="{ 'is-invalid': submitted && f.subcategory.errors}"
+                                [disableControl]="temSubcategoria">
+                            <option *ngFor="let subcategory of subcategories"
+                                    [value]="stringify(subcategory)">{{subcategory.name}}</option>
+                        </select>
+                        <div *ngIf="submitted && f.subcategory.errors" class="invalid-feedback">
+                            <div *ngIf="f.subcategory.errors.required">Subcategory is required</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <label>&nbsp;</label>
+                        <button type="button" class="btn btn-secondary form-control"
+                                routerLink="/subcategory/cadastrar">Nova Subcategory
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="form-row">
+                    <div class="col-md-8 mb-4">
+                        <label for="brand">Brand</label>
+                        <select class="form-control" formControlName="brand"
+                                [disableControl]="temMarca"
+                                [ngClass]="{ 'is-invalid': submitted && f.brand.errors }">
+                            <option *ngFor="let brand of brands" [value]="stringify(brand)">{{brand.name}}</option>
+                        </select>
+                        <div *ngIf="submitted && f.brand.errors" class="invalid-feedback">
+                            <div *ngIf="f.brand.errors.required">Brand is required</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <label>&nbsp;</label>
+                        <button type="button" class="btn btn-secondary form-control" routerLink="/brand/cadastrar">Nova
+                            Brand
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="table-responsive-sm" style="text-align: center" *ngIf="itemsTypeMeasure.length !== 0">
+                <table class="table table-bordered table-hover">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">id</th>
+                            <th scope="col">Valor</th>
+                            <th scope="col">Preço</th>
+                            <th scope="col">Quantidade</th>
+                            <th scope="col">Peso</th>
+                            <th scope="col">Flag Dominio</th>
+                        </tr>
+                    </thead>
+                    <tbody formArrayName="pHITipoMedida">
+                        <tr *ngFor="let item of itemsTypeMeasure, let i = index" scope="row" formGroupName="{{i}}">
+                          <td>{{item.id}}</td>
+                            <td>{{item.amount}}</td>
+                            <td>{{f.price.value}}</td>
+                            <td>
+                                <input type="text" class="form-control" formControlName="quantity"/>
+                            </td>
+                            <td>{{f.peso.value}}</td>
+                           <td>
+                                <!--<div formArrayName="dominiosFormArray" *ngFor="let dominio of domains, let x = index">-->
+                                    <!--<input type="checkbox" [formControlName]="x">{{dominio.name}}-->
+                                <!--</div>-->
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card-footer bg-transparent text-right">
+            <button *ngSwitchCase="true" type="button" class="btn btn-secondary" (click)="onUpdate()">Update</button>
+            <button *ngSwitchCase="true" type="button" class="btn btn-secondary ml-1" (click)="onDelete(productForm.value)">Delete</button>
+            <button *ngSwitchCase="false" type="button" class="btn btn-secondary" (click)="onSave()">Save</button>
+            <button type="button" class="btn btn-secondary ml-1" (click)="onCancel()">Cancel</button>
+        </div>
+    </form>
+</div>
+<br>

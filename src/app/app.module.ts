@@ -1,67 +1,63 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { AppComponent } from './app.component';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { HeaderComponent } from './header/header.component';
-import { MenuComponent } from './menu/menu.component';
-import { MarcaComponent } from './gerenciar/marca/marca.component';
-import { MarcaListaComponent } from './gerenciar/marca/marca-lista/marca-lista.component';
-import { DialogComponent } from './mensagens/dialog/dialog.component';
-import { MatDialog, MatDialogModule } from '@angular/material';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MarcaCadastrarComponent } from './gerenciar/marca/marca-cadastrar/marca-cadastrar.component';
-import { AlertaComponent } from './mensagens/alerta/alerta.component';
-import { AlertaService } from './service/mensagens/alerta/alerta.service';
-import { routing } from './app.routing';
-import { MarcaService } from './service/marca/marca.service';
-import { MedidaComponent } from './gerenciar/medida/medida.component';
-import { MedidaListarComponent } from './gerenciar/medida/medida-listar/medida-listar.component';
-import { MedidaCadastrarComponent } from './gerenciar/medida/medida-cadastrar/medida-cadastrar.component';
-import { MedidaService } from './service/medida/medida.service';
-import { CategoriaService } from './service/categoria/categoria.service';
-import { SubCategoriaService } from './service/subcategoria/sub-categoria.service';
-import { DisableControlDirective } from './directives/disable-control-directive';
-import { CategoriaComponent } from './gerenciar/categoria/categoria.component';
-import { CategoriaListarComponent } from './gerenciar/categoria/categoria-listar/categoria-listar.component';
-import { CategoriaCadastrarComponent } from './gerenciar/categoria/categoria-cadastrar/categoria-cadastrar.component';
-import { SubcategoriaListarComponent } from './gerenciar/subcategoria/subcategoria-listar/subcategoria-listar.component';
-import { SubcategoriaCadastrarComponent } from './gerenciar/subcategoria/subcategoria-cadastrar/subcategoria-cadastrar.component';
-import { SubcategoriaComponent } from './gerenciar/subcategoria/subcategoria.component';
-import {
-  FormasdepagamentoListarComponent,
-} from './gerenciar/formasdepagamento/formasdepagamento-listar/formasdepagamento-listar.component';
-import {
-  FormasdepagamentoCadastrarComponent,
-} from './gerenciar/formasdepagamento/formasdepagamento-cadastrar/formasdepagamento-cadastrar.component';
-import { FormasdepagamentoComponent } from './gerenciar/formasdepagamento/formasdepagamento.component';
-import { FormasDePagamentoService } from './service/formasDePagamento/formas-de-pagamento.service';
-import { FornecedorCadastrarComponent } from './gerenciar/fornecedor/fornecedor-cadastrar/fornecedor-cadastrar.component';
-import { FornecedorListarComponent } from './gerenciar/fornecedor/fornecedor-listar/fornecedor-listar.component';
-import { FornecedorComponent } from './gerenciar/fornecedor/fornecedor.component';
-import { FornecedorService } from './service/fornecedor/fornecedor.service';
-import { DominioComponent } from './gerenciar/dominio/dominio.component';
-import { DominioCadastrarComponent } from './gerenciar/dominio/dominio-cadastrar/dominio-cadastrar.component';
-import { DominioListarComponent } from './gerenciar/dominio/dominio-listar/dominio-listar.component';
-import { DominioService } from './service/dominio/dominio.service';
-import { ProdutoCadastrarComponent } from './gerenciar/produto/produto-cadastrar/produto-cadastrar.component';
-import { ProdutoListarComponent } from './gerenciar/produto/produto-listar/produto-listar.component';
-import { ProdutoComponent } from './gerenciar/produto/produto.component';
-import { ProdutoService } from './service/produto/produto.service';
-import { CollapseControlDirective } from './directives/collapse-control-directive';
-import { CurrencyMaskModule } from 'ng2-currency-mask';
-import { FileSelectDirective } from 'ng2-file-upload';
-import { VendaComponent } from './gerenciar/venda/venda.component';
-import { VandaAddProdutoComponent } from './gerenciar/venda/vanda-add-produto/vanda-add-produto.component';
-import { DialogTableComponent } from './mensagens/dialogTable/dialog.table.component';
-import { VendaService } from './service/venda/venda.service';
-import { VendaConfirmarComponent } from './gerenciar/venda/venda-confirmar/venda-confirmar.component';
-import { VendaImprimirComponent } from './gerenciar/venda/venda-imprimir/venda-imprimir.component';
-import { LoginComponent } from './gerenciar/login/login.component';
-import { ErrorInterceptor } from './helpers/error.interceptor';
-import { CsrfInterceptor } from './helpers/csrf.interceptor';
-import { AuthInterceptor } from './helpers/auth.interceptor';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {AppComponent} from './app.component';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {DashboardComponent} from './dashboard/dashboard.component';
+import {HeaderComponent} from './header/header.component';
+import {MenuComponent} from './menu/menu.component';
+import {DialogComponent} from './mensagens/dialog/dialog.component';
+import {MatDialog, MatDialogModule} from '@angular/material';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {AlertComponent} from './mensagens/alert/alert.component';
+import {AlertService} from './service/mensagens/alerta/alert.service';
+import {routing} from './app.routing';
+import {BrandService} from './service/brand/brand.service';
+import {MeasureService} from './service/measure/measure.service';
+import {CategoryService} from './service/category/category.service';
+import {SubcategoryService} from './service/subcategory/subcategory.service';
+import {DisableControlDirective} from './directives/disable-control-directive';
+import {PaymentMethodService} from './service/paymentMethod/payment-method.service';
+import {ProviderService} from './service/provider/provider.service';
+import {DomainComponent} from './gerenciar/domain/domain.component';
+import {DomainSaveComponent} from './gerenciar/domain/domain-save/domain-save.component';
+import {DomainService} from './service/domain/domain.service';
+import {ProductService} from './service/product/product.service';
+import {CollapseControlDirective} from './directives/collapse-control-directive';
+import {CurrencyMaskModule} from 'ng2-currency-mask';
+import {FileSelectDirective} from 'ng2-file-upload';
+import {OrderComponent} from './gerenciar/order/order.component';
+import {DialogTableComponent} from './mensagens/dialogTable/dialog.table.component';
+import {OrderService} from './service/venda/order.service';
+import {OrderConfirmComponent} from './gerenciar/order/order-confirm/order-confirm.component';
+import {OrderPrintComponent} from './gerenciar/order/order-print/order-print.component';
+import {LoginComponent} from './gerenciar/login/login.component';
+import {ErrorInterceptor} from './helpers/error.interceptor';
+import {CsrfInterceptor} from './helpers/csrf.interceptor';
+import {AuthInterceptor} from './helpers/auth.interceptor';
+import {BrandComponent} from './gerenciar/brand/brand.component';
+import {CategoryComponent} from './gerenciar/category/category.component';
+import {OrderAddProductComponent} from './gerenciar/order/order-add-product/order-add-product.component';
+import {ProductComponent} from './gerenciar/product/product.component';
+import {BrandListComponent} from './gerenciar/brand/brand-list/brand-list.component';
+import {BrandSaveComponent} from './gerenciar/brand/brand-save/brand-save.component';
+import {MeasureComponent} from './gerenciar/measure/measure.component';
+import {MeasureListComponent} from './gerenciar/measure/measure-list/measure-list.component';
+import {MeasureSaveComponent} from './gerenciar/measure/measure-save/measure-save.component';
+import {CategorySaveComponent} from './gerenciar/category/category-save/category-save.component';
+import {CategoryListComponent} from './gerenciar/category/category-list/category-list.component';
+import {ProductListComponent} from './gerenciar/product/produto-listar/product-list.component';
+import {ProductSaveComponent} from './gerenciar/product/product-save/product-save.component';
+import {DomainListComponent} from './gerenciar/domain/domain-list/domain-list.component';
+import {ProviderSaveComponent} from './gerenciar/provider/provider-save/provider-save.component';
+import {ProviderListComponent} from './gerenciar/provider/provider-list/provider-list.component';
+import {ProviderComponent} from './gerenciar/provider/provider.component';
+import {SubcategorySaveComponent} from './gerenciar/subcategory/subcategory-save/subcategory-save.component';
+import {SubcategoryListComponent} from './gerenciar/subcategory/subcategory-list/subcategory-list.component';
+import {SubcategoryComponent} from './gerenciar/subcategory/subcategory.component';
+import {PaymentMethodListComponent} from './gerenciar/paymentMethod/paymentMethod-list/paymentMethod-list.component';
+import {PaymentMethodSaveComponent} from './gerenciar/paymentMethod/paymentMethod-save/paymentMethod-save.component';
+import {PaymentMethodComponent} from './gerenciar/paymentMethod/paymentMethod.component';
 
 
 @NgModule({
@@ -71,40 +67,40 @@ import { AuthInterceptor } from './helpers/auth.interceptor';
     HeaderComponent,
     MenuComponent,
     HeaderComponent,
-    MarcaComponent,
-    MarcaListaComponent,
-    MarcaCadastrarComponent,
+    BrandComponent,
+    BrandListComponent,
+    BrandSaveComponent,
     DialogComponent,
     DialogTableComponent,
-    AlertaComponent,
-    MedidaComponent,
-    MedidaListarComponent,
-    MedidaCadastrarComponent,
+    AlertComponent,
+    MeasureComponent,
+    MeasureListComponent,
+    MeasureSaveComponent,
     DisableControlDirective,
     CollapseControlDirective,
-    CategoriaComponent,
-    CategoriaListarComponent,
-    CategoriaCadastrarComponent,
-    SubcategoriaListarComponent,
-    SubcategoriaCadastrarComponent,
-    SubcategoriaComponent,
-    FormasdepagamentoListarComponent,
-    FormasdepagamentoCadastrarComponent,
-    FormasdepagamentoComponent,
-    FornecedorCadastrarComponent,
-    FornecedorListarComponent,
-    FornecedorComponent,
-    DominioComponent,
-    DominioCadastrarComponent,
-    DominioListarComponent,
-    ProdutoCadastrarComponent,
-    ProdutoListarComponent,
-    ProdutoComponent,
+    CategoryComponent,
+    CategoryListComponent,
+    CategorySaveComponent,
+    SubcategoryListComponent,
+    SubcategorySaveComponent,
+    SubcategoryComponent,
+    PaymentMethodListComponent,
+    PaymentMethodSaveComponent,
+    PaymentMethodComponent,
+    ProviderSaveComponent,
+    ProviderListComponent,
+    ProviderComponent,
+    DomainComponent,
+    DomainSaveComponent,
+    DomainListComponent,
+    ProductSaveComponent,
+    ProductListComponent,
+    ProductComponent,
     FileSelectDirective,
-    VendaComponent,
-    VandaAddProdutoComponent,
-    VendaConfirmarComponent,
-    VendaImprimirComponent,
+    OrderComponent,
+    OrderAddProductComponent,
+    OrderConfirmComponent,
+    OrderPrintComponent,
     LoginComponent
   ],
   imports: [
@@ -118,9 +114,11 @@ import { AuthInterceptor } from './helpers/auth.interceptor';
     CurrencyMaskModule,
   ],
   entryComponents: [DialogComponent, DialogTableComponent],
-  providers: [AlertaService, MarcaService, MatDialog, MedidaService, CategoriaService,
-    SubCategoriaService, FormasDePagamentoService,
-    FornecedorService, DominioService, ProdutoService, VendaService,
+  providers: [
+    AlertService,
+    BrandService, MatDialog, MeasureService, CategoryService,
+    SubcategoryService, PaymentMethodService,
+    ProviderService, DomainService, ProductService, OrderService,
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: CsrfInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}],

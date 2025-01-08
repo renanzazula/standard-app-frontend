@@ -11,70 +11,69 @@
           <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Caixa</a>
+          <a class="nav-link" href="#">POS</a>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownCadastro" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Cadastros
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownSave" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Create
           </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdownCadastro">
-            <a class="dropdown-item" routerLink="dominio/cadastrar">Dominios</a>
-            <a class="dropdown-item" routerLink="formasdepagamento/cadastrar">Formas de Pagamento</a>
-            <a class="dropdown-item" routerLink="marca/cadastrar">Marca</a>
-            <a class="dropdown-item" routerLink="fornecedor/cadastrar">Fornecedor</a>
-            <a class="dropdown-item" routerLink="medida/cadastrar">Medida</a>
-            <a class="dropdown-item" routerLink="categoria/cadastrar">Categoría</a>
-            <a class="dropdown-item" routerLink="subcategoria/cadastrar">Subcategoría</a>
-            <a class="dropdown-item" routerLink="produto/cadastrar">Produto</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownSave">
+            <a class="dropdown-item" routerLink="domain/save">Domain</a>
+            <a class="dropdown-item" routerLink="paymentMethod/save">Payment Method</a>
+            <a class="dropdown-item" routerLink="brand/save">Brand</a>
+            <a class="dropdown-item" routerLink="provider/save">Provider</a>
+            <a class="dropdown-item" routerLink="measure/save">Measure</a>
+            <a class="dropdown-item" routerLink="category/save">Category</a>
+            <a class="dropdown-item" routerLink="subcategory/save">Subcategory</a>
+            <a class="dropdown-item" routerLink="product/save">Product</a>
           </div>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownListar" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Listar
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownList" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            List
           </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdownListar">
-            <a class="dropdown-item" routerLink="dominio/listar">Dominios</a>
-            <a class="dropdown-item" routerLink="medida/listar">Medida</a>
-            <a class="dropdown-item" routerLink="marca/listar">Marca</a>
-            <a class="dropdown-item" routerLink="fornecedor/listar">Fornecedor</a>
-            <a class="dropdown-item" routerLink="categoria/listar">Categoría</a>
-            <a class="dropdown-item" routerLink="subcategoria/listar">Subcategoría</a>
-            <a class="dropdown-item" routerLink="formasdepagamento/listar">Formas de Pagamento</a>
-            <a class="dropdown-item" routerLink="produto/listar">Produto</a>
-            <a class="dropdown-item" routerLink="/">Vendas</a>
-            <a class="dropdown-item" routerLink="/">Retirada</a>
-
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownList">
+            <a class="dropdown-item" routerLink="domain/list">Domain</a>
+            <a class="dropdown-item" routerLink="measure/list">Measure</a>
+            <a class="dropdown-item" routerLink="brand/list">Brand</a>
+            <a class="dropdown-item" routerLink="provider/list">Provider</a>
+            <a class="dropdown-item" routerLink="category/list">Category</a>
+            <a class="dropdown-item" routerLink="subcategory/list">Subcategory</a>
+            <a class="dropdown-item" routerLink="paymentMethod/list">Payment Method</a>
+            <a class="dropdown-item" routerLink="product/list">Product</a>
+            <a class="dropdown-item" routerLink="/">Order</a>
+            <a class="dropdown-item" routerLink="/">Withdrawal</a>
           </div>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownVenda" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Venda
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownOrder" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Order
           </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdownVenda">
-            <a class="dropdown-item" routerLink="venda/venda-add-produto">Efetuar Venda</a>
-            <a class="dropdown-item" href="#">Cancelar venda</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownOrder">
+            <a class="dropdown-item" routerLink="venda/venda-add-product">Efetuar Venda</a>
+            <a class="dropdown-item" href="#">Cancel Order</a>
           </div>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownRetirada" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Retirada
+            Withdrawal
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownRetirada">
-            <a class="dropdown-item" href="#">Efetuar Retirada</a>
-            <a class="dropdown-item" href="#">Cancelar Retirada</a>
+            <a class="dropdown-item" href="#">Make Withdrawal</a>
+            <a class="dropdown-item" href="#">Cancel Withdrawal</a>
           </div>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Recebimentos</a>
+          <a class="nav-link" href="#">PayBack</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Relatorios</a>
+          <a class="nav-link" href="#">Reports</a>
         </li>
       </ul>
       <ul class="navbar-nav navbar-">
         <li class="nav-item">
           <!--<span class="sr-only">(current)</span>-->
-          <a class="nav-link" href="#">Sair</a>
+          <a class="nav-link" href="#">Exit</a>
         </li>
       </ul>
     </div>

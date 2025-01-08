@@ -1,0 +1,58 @@
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">Search Category</h3>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive-sm">
+            <table class="table table-bordered">
+                <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Category</th>
+                </tr>
+                </thead>
+                <tbody *ngIf="categories.length === 0">
+                <tr>
+                    <td class="col text-center">No Category found!</td>
+                </tr>
+                </tbody>
+                <tbody>
+                <tr *ngFor="let category of categories" scope="row">
+                    <td>
+                        <table class="table" *ngIf="category.subcategories.length !== 0 ">
+                            <tbody>
+                                <tr *ngFor="let subcategory of category.subcategories; let i = index"
+                                    [attr.data-index]="i">
+                                    <td *ngIf="i === 0" scope="col" style="background-color: lightgrey; font-weight: bold"
+                                        [routerLink]="['/category', category.id, 'edit']">
+                                        {{category.name}}
+                                    </td>
+                                </tr>
+                                <tr *ngFor="let subcategory of category.subcategories; let i = index"
+                                    [attr.data-index]="i">
+                                    <td scope="col">
+                                        {{subcategory.name}}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table class="table" *ngIf="category.subcategories.length === 0 ">
+                            <tbody>
+                            <tr  scope="row">
+                                <td scope="col" style="background-color: lightgrey; font-weight: bold"
+                                    [routerLink]="['/category', category.id, 'edit']">
+                                    {{category.name}}
+                                </td>
+                            </tr>
+                            <tr  scope="row">
+                                <td class="col text-center">No Subcategories found!</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+

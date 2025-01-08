@@ -1,10 +1,10 @@
-import { ProdutoHasItensTipoMedida } from '../../model/produtoHasItensTipoMedida';
+import { ProductHasItemsTypeMeasure } from '../../model/productHasItemsTypeMeasure';
 
 export interface DialogTableDataInterface {
     cabecalho: string // Exclusao - danger , edicao - alert
     tipo: string;
     mensagem: string;
-    codigo: string;
-    nome: string;
-    produtoHasItensTipoMedida: ProdutoHasItensTipoMedida[];
+    id: string;
+    name: string;
+    productHasItemsTypeMeasure: ProductHasItemsTypeMeasure[];
 }
