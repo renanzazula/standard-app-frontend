@@ -7,7 +7,7 @@ import {AlertService} from "../../../service/mensagens/alerta/alert.service";
 
 import {ActivatedRoute, Router} from "@angular/router";
 import {DialogComponent} from "../../../mensagens/dialog/dialog.component";
-import {MatDialog} from "@angular/material";
+import {MatDialog} from "@angular/material/dialog";
 
 
 @Component({

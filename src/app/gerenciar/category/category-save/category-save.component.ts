@@ -6,7 +6,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {AlertService} from '../../../service/mensagens/alerta/alert.service';
 import {CategoryService} from '../../../service/category/category.service';
 import {SubcategoryService} from '../../../service/subcategory/subcategory.service';
-import {MatDialog} from '@angular/material';
+import {MatDialog} from '@angular/material/dialog';
 import {DialogComponent} from '../../../mensagens/dialog/dialog.component';
 import {first} from 'rxjs/operators';
 

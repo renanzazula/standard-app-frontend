@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AlertService} from '../../../service/mensagens/alerta/alert.service';
-import {MatDialog} from '@angular/material';
+import {MatDialog} from '@angular/material/dialog';
 import {PaymentMethod} from '../../../model/paymentMethod';
 import {PaymentMethodService} from '../../../service/paymentMethod/payment-method.service';
 import {OrderHasItemTypeMeasure} from '../../../model/orderHasItemTypeMeasure';
@@ -195,5 +195,5 @@ export class OrderAddProductComponent implements OnInit {
     this.onChangeFormapagamento(this.vendaAddProdutosFormGroup.controls.formasDePagamento.value);
     this.calculaTroco();
   }
-
+  onCancel() {}
 }

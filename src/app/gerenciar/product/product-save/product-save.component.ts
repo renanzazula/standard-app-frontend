@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormArray, FormBuilder, ReactiveFormsModule, FormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import {AlertService} from "../../../service/mensagens/alerta/alert.service";
-import {MatDialog} from "@angular/material";
+import {MatDialog} from "@angular/material/dialog";
 import {Subcategory} from "../../../model/subcategory";
 import {first} from "rxjs/operators";
 import {DialogComponent} from "../../../mensagens/dialog/dialog.component";
@@ -320,7 +320,7 @@ export class ProductSaveComponent implements OnInit {
         }
 
         this.domains.forEach((domain, i) => {
-            domainsFormArray.insert(i, new FormControl(false));
+            domainsFormArray.insert(i, new ReactiveFormsModule());
         });
 
         this.itemsTypeMeasure.forEach((itemTipoMedida, i) => {

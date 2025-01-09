@@ -7,7 +7,7 @@ import {DashboardComponent} from './dashboard/dashboard.component';
 import {HeaderComponent} from './header/header.component';
 import {MenuComponent} from './menu/menu.component';
 import {DialogComponent} from './mensagens/dialog/dialog.component';
-import {MatDialog, MatDialogModule} from '@angular/material';
+import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {AlertComponent} from './mensagens/alert/alert.component';
 import {AlertService} from './service/mensagens/alerta/alert.service';
@@ -24,8 +24,6 @@ import {DomainSaveComponent} from './gerenciar/domain/domain-save/domain-save.co
 import {DomainService} from './service/domain/domain.service';
 import {ProductService} from './service/product/product.service';
 import {CollapseControlDirective} from './directives/collapse-control-directive';
-import {CurrencyMaskModule} from 'ng2-currency-mask';
-import {FileSelectDirective} from 'ng2-file-upload';
 import {OrderComponent} from './gerenciar/order/order.component';
 import {DialogTableComponent} from './mensagens/dialogTable/dialog.table.component';
 import {OrderService} from './service/venda/order.service';
@@ -58,6 +56,9 @@ import {SubcategoryComponent} from './gerenciar/subcategory/subcategory.componen
 import {PaymentMethodListComponent} from './gerenciar/paymentMethod/paymentMethod-list/paymentMethod-list.component';
 import {PaymentMethodSaveComponent} from './gerenciar/paymentMethod/paymentMethod-save/paymentMethod-save.component';
 import {PaymentMethodComponent} from './gerenciar/paymentMethod/paymentMethod.component';
+import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
+import { CommonModule } from '@angular/common';
+import { CurrencyMaskModule } from 'ng2-currency-mask';
 
 
 @NgModule({
@@ -96,7 +97,7 @@ import {PaymentMethodComponent} from './gerenciar/paymentMethod/paymentMethod.co
     ProductSaveComponent,
     ProductListComponent,
     ProductComponent,
-    FileSelectDirective,
+    // FileSelectDirective,
     OrderComponent,
     OrderAddProductComponent,
     OrderConfirmComponent,
@@ -106,14 +107,15 @@ import {PaymentMethodComponent} from './gerenciar/paymentMethod/paymentMethod.co
   imports: [
     BrowserModule,
     FormsModule,
-    HttpClientModule,
     ReactiveFormsModule,
+    HttpClientModule,
     MatDialogModule,
     BrowserAnimationsModule,
     routing,
     CurrencyMaskModule,
+    CommonModule
   ],
-  entryComponents: [DialogComponent, DialogTableComponent],
+
   providers: [
     AlertService,
     BrandService, MatDialog, MeasureService, CategoryService,
@@ -121,7 +123,9 @@ import {PaymentMethodComponent} from './gerenciar/paymentMethod/paymentMethod.co
     ProviderService, DomainService, ProductService, OrderService,
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: CsrfInterceptor, multi: true},
-    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}],
+    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
+    {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}],
+
 
   bootstrap: [AppComponent],
 })

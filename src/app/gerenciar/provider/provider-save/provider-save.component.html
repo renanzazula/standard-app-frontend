@@ -2,7 +2,7 @@
   <div class="card-header">
     <h3 class="card-title">Save {{nome_page}}</h3>
   </div>
-  <form [formGroup]="fornecedorForm" [ngSwitch]="update">
+  <form [formGroup]="providerForm" [ngSwitch]="update">
     <div class="card-body">
       <div class="form-group" *ngSwitchCase="true">
         <label for="id">Id</label>
@@ -29,7 +29,7 @@
     </div>
     <div class="card-footer bg-transparent text-right">
       <button *ngSwitchCase="true"  type="button" class="btn btn-secondary" (click)="onUpdate()">Update</button>
-      <button *ngSwitchCase="true"  type="button" class="btn btn-secondary ml-1" (click)="onDelete(fornecedorForm.value)">Delete</button>
+      <button *ngSwitchCase="true"  type="button" class="btn btn-secondary ml-1" (click)="onDelete(providerForm.value)">Delete</button>
       <button *ngSwitchCase="false" type="button" class="btn btn-secondary" (click)="onSave()">Save
       </button>
       <button type="button" class="btn btn-secondary ml-1" (click)="onCancel()">Cancel</button>

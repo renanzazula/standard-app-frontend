@@ -13,7 +13,7 @@ import {SubcategoryService} from "../../../service/subcategory/subcategory.servi
 import {first} from "rxjs/operators";
 import {ItemsTypeMeasure} from "../../../model/ItemsTypeMeasure";
 import {DialogComponent} from "../../../mensagens/dialog/dialog.component";
-import {MatDialog} from "@angular/material";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
     selector: 'app-measure-save',

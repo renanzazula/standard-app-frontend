@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import {AlertService} from "../../../service/mensagens/alerta/alert.service";
-import {MatDialog} from "@angular/material";
+import {MatDialog} from "@angular/material/dialog";
 import {first} from "rxjs/operators";
 import {DialogComponent} from "../../../mensagens/dialog/dialog.component";
 import {DomainService} from "../../../service/domain/domain.service";

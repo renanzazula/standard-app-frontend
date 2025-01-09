@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { DialogTableDataInterface } from './dialog.table-data.interface';
 import { ProductHasItemsTypeMeasure } from '../../model/productHasItemsTypeMeasure';
 
