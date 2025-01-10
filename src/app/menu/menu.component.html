@@ -1,80 +1,131 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="javascript:void(0)">Standard</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" routerLink="/dashboard">
+            <i class="fa-solid fa-chart-line"></i>&nbsp;Dashboard
+          </a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="javascript:void(0)" id="domainDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fa-solid fa-puzzle-piece"></i>&nbsp;Domain
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="domainDropdown">
+            <li>
+              <a class="dropdown-item" routerLink="domain/save">New domain</a>
+            </li>
+            <li>
+              <a class="dropdown-item" routerLink="domain/list">Domain list</a>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="javascript:void(0)" id="categoryDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fa-solid fa-list"></i>&nbsp;Category
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="categoryDropdown">
+            <li>
+              <a class="dropdown-item" routerLink="category/save">New category</a>
+            </li>
+            <li>
+              <a class="dropdown-item" routerLink="category/list">Category list</a>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="javascript:void(0)" id="subcategoryDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fa-solid fa-list"></i>&nbsp;Subcategory
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="subcategoryDropdown">
+            <li>
+              <a class="dropdown-item" routerLink="subcategory/save">New subcategory</a>
+            </li>
+            <li>
+              <a class="dropdown-item" routerLink="subcategory/list">Subcategory list</a>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="javascript:void(0)" id="brandDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fa-solid fa-flag"></i>&nbsp;Brand
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="brandDropdown">
+            <li>
+              <a class="dropdown-item" routerLink="brand/save">New brand</a>
+            </li>
+            <li>
+              <a class="dropdown-item" routerLink="brand/list">Brand list</a>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="javascript:void(0)" id="providerDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fa-solid fa-users-gear"></i>&nbsp;Provider
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="providerDropdown">
+            <li>
+              <a class="dropdown-item" routerLink="provider/save">New provider</a>
+            </li>
+            <li>
+              <a class="dropdown-item" routerLink="provider/list">Provider list</a>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="javascript:void(0)" id="productDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fa-solid fa-boxes-packing"></i>&nbsp;Product
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="productDropdown">
+            <li>
+              <a class="dropdown-item" routerLink="product/save">New product</a>
+            </li>
+            <li>
+              <a class="dropdown-item" routerLink="product/list">Product list</a>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="javascript:void(0)" id="measureDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fa-solid fa-ruler"></i>&nbsp;Provider
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="measureDropdown">
+            <li>
+              <a class="dropdown-item" routerLink="measure/save">New measure</a>
+            </li>
+            <li>
+              <a class="dropdown-item" routerLink="measure/list">Measure list</a>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="javascript:void(0)" id="paymentMethodDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fa-solid fa-credit-card"></i>&nbsp;Provider
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="paymentMethodDropdown">
+            <li>
+              <a class="dropdown-item" routerLink="paymentMethod/save">New paymentMethod</a>
+            </li>
+            <li>
+              <a class="dropdown-item" routerLink="paymentMethod/list">PaymentMethod list</a>
+            </li>
+          </ul>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">POS</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownSave" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Create
+          <a class="nav-link" routerLink="order">
+            <i class="fa-solid fa-cart-shopping"></i>&nbsp;Order
           </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdownSave">
-            <a class="dropdown-item" routerLink="domain/save">Domain</a>
-            <a class="dropdown-item" routerLink="paymentMethod/save">Payment Method</a>
-            <a class="dropdown-item" routerLink="brand/save">Brand</a>
-            <a class="dropdown-item" routerLink="provider/save">Provider</a>
-            <a class="dropdown-item" routerLink="measure/save">Measure</a>
-            <a class="dropdown-item" routerLink="category/save">Category</a>
-            <a class="dropdown-item" routerLink="subcategory/save">Subcategory</a>
-            <a class="dropdown-item" routerLink="product/save">Product</a>
-          </div>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownList" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            List
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdownList">
-            <a class="dropdown-item" routerLink="domain/list">Domain</a>
-            <a class="dropdown-item" routerLink="measure/list">Measure</a>
-            <a class="dropdown-item" routerLink="brand/list">Brand</a>
-            <a class="dropdown-item" routerLink="provider/list">Provider</a>
-            <a class="dropdown-item" routerLink="category/list">Category</a>
-            <a class="dropdown-item" routerLink="subcategory/list">Subcategory</a>
-            <a class="dropdown-item" routerLink="paymentMethod/list">Payment Method</a>
-            <a class="dropdown-item" routerLink="product/list">Product</a>
-            <a class="dropdown-item" routerLink="/">Order</a>
-            <a class="dropdown-item" routerLink="/">Withdrawal</a>
-          </div>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownOrder" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Order
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdownOrder">
-            <a class="dropdown-item" routerLink="venda/venda-add-product">Efetuar Venda</a>
-            <a class="dropdown-item" href="#">Cancel Order</a>
-          </div>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownRetirada" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Withdrawal
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdownRetirada">
-            <a class="dropdown-item" href="#">Make Withdrawal</a>
-            <a class="dropdown-item" href="#">Cancel Withdrawal</a>
-          </div>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">PayBack</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Reports</a>
         </li>
       </ul>
-      <ul class="navbar-nav navbar-">
-        <li class="nav-item">
-          <!--<span class="sr-only">(current)</span>-->
-          <a class="nav-link" href="#">Exit</a>
-        </li>
-      </ul>
+      <form class="d-flex gap-2 align-items-center">
+        <span>Welcome</span>
+        <span class="text-capitalize fw-bold">User !!</span>
+        <button class="btn btn-link" type="submit" (click)="logout()"><i class="fa-solid fa-door-open"></i></button>
+      </form>
     </div>
+  </div>
 </nav>

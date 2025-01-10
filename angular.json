@@ -23,13 +23,7 @@
               "src/assets"
             ],
             "styles": [
-              "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles.css"
-
-            ],
-            "scripts": [
-              "node_modules/jquery/dist/jquery.min.js",
-              "node_modules/bootstrap/dist/js/bootstrap.min.js"
             ]
           },
           "configurations": {
@@ -40,10 +34,9 @@
                   "with": "src/environments/environment.prod.ts"
                 }
               ],
-              "optimization": true,
+              "optimization": false,
               "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
               "namedChunks": false,
               "aot": true,
               "extractLicenses": true,
@@ -55,8 +48,7 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "standard-app-frontend:build",
-            "proxyConfig": "src/proxy.conf.json"
+            "browserTarget": "standard-app-frontend:build"
           },
           "configurations": {
             "production": {
@@ -124,7 +116,6 @@
       }
     }
   },
-  "defaultProject": "standard-app-frontend",
   "cli": {
     "analytics": false
   }

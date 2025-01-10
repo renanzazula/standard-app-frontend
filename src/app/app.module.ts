@@ -1,5 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import {AppComponent} from './app.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -26,13 +26,10 @@ import {ProductService} from './service/product/product.service';
 import {CollapseControlDirective} from './directives/collapse-control-directive';
 import {OrderComponent} from './gerenciar/order/order.component';
 import {DialogTableComponent} from './mensagens/dialogTable/dialog.table.component';
-import {OrderService} from './service/venda/order.service';
+import {OrderService} from './service/order/order.service';
 import {OrderConfirmComponent} from './gerenciar/order/order-confirm/order-confirm.component';
 import {OrderPrintComponent} from './gerenciar/order/order-print/order-print.component';
 import {LoginComponent} from './gerenciar/login/login.component';
-import {ErrorInterceptor} from './helpers/error.interceptor';
-import {CsrfInterceptor} from './helpers/csrf.interceptor';
-import {AuthInterceptor} from './helpers/auth.interceptor';
 import {BrandComponent} from './gerenciar/brand/brand.component';
 import {CategoryComponent} from './gerenciar/category/category.component';
 import {OrderAddProductComponent} from './gerenciar/order/order-add-product/order-add-product.component';
@@ -58,8 +55,13 @@ import {PaymentMethodSaveComponent} from './gerenciar/paymentMethod/paymentMetho
 import {PaymentMethodComponent} from './gerenciar/paymentMethod/paymentMethod.component';
 import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
+import { HttpTokenInterceptor } from './helpers/http-token.interceptor';
+import { KeycloakService } from './helpers/keycloak.service';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 
+export function kcFactory(kcService: KeycloakService) {
+  return () => kcService.init();
+}
 
 @NgModule({
   declarations: [
@@ -116,18 +118,15 @@ import { CurrencyMaskModule } from 'ng2-currency-mask';
     CommonModule
   ],
 
-  providers: [
-    AlertService,
-    BrandService, MatDialog, MeasureService, CategoryService,
-    SubcategoryService, PaymentMethodService,
-    ProviderService, DomainService, ProductService, OrderService,
-    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
-    {provide: HTTP_INTERCEPTORS, useClass: CsrfInterceptor, multi: true},
-    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
-    {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}],
-
-
   bootstrap: [AppComponent],
+
+  providers: [
+    AlertService, BrandService, MatDialog, MeasureService, CategoryService,
+    SubcategoryService, PaymentMethodService, ProviderService, DomainService, ProductService, OrderService,
+    {provide: APP_INITIALIZER, deps: [KeycloakService], useFactory: kcFactory, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: HttpTokenInterceptor, multi: true},
+    {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}
+  ],
 })
 export class AppModule {
 

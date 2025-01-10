@@ -10,7 +10,7 @@ import {ProductService} from '../../../service/product/product.service';
 import {ProductHasItemsTypeMeasure} from '../../../model/productHasItemsTypeMeasure';
 import {Product} from '../../../model/product';
 import {DialogTableComponent} from '../../../mensagens/dialogTable/dialog.table.component';
-import {OrderService} from '../../../service/venda/order.service';
+import {OrderService} from '../../../service/order/order.service';
 import {first} from 'rxjs/operators';
 import {Order} from '../../../model/order';
 

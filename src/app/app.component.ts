@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from './service/user/user.service';
 import { User } from './model/user';
 import { AuthenticationService } from './service/security/authentication/authentication.service';
-import { SessionManagerService } from './helpers/session-manager.service';
+
 
 @Component({
   selector: 'app-root',
@@ -15,8 +15,7 @@ export class AppComponent implements OnInit {
   isAuthenticated = false;
 
   constructor(private userService: UserService,
-              private authenticationService: AuthenticationService,
-              private sessionManager: SessionManagerService) {
+              private authenticationService: AuthenticationService) {
   }
 
   ngOnInit() {

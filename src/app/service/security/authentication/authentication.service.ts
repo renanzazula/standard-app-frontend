@@ -1,55 +1,105 @@
+import { HttpClient, HttpContext } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
-import { catchError, map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { Router } from '@angular/router';
+import { map } from 'rxjs/operators';
 
-@Injectable({
-  providedIn: 'root',
-})
-export class AuthenticationService {
-  constructor(private http: HttpClient, private router: Router) {}
+import { BaseService } from '../../base-service';
+import { ApiConfiguration } from '../../api-configuration';
+import { StrictHttpResponse } from '../../../strict-http-response';
+import { AuthenticationResponse } from '../../../model/security/authentication-response';
 
-  login(username: string, password: string): Observable<any> {
-    return this.http
-      .post<any>(
-        `${environment.apiPublicUrl}/authentication/login`,
-        { username, password },
-        {
-          observe: 'response', // Get full HTTP response
-          withCredentials: true, // Include credentials
-        }
-      )
-      .pipe(
-        map((response) => {
-          if (response.status === 200) {
-            // Handle successful login
-            const expiration = new Date().getTime() + 30 * 60 * 1000; // 30 minutes session timeout
-            localStorage.setItem('sessionExpiration', new Date(expiration).toISOString());
+import { Register$Params } from '../../../fn/authentication/register';
+import { register } from  '../../../fn/authentication/register';
 
-            const csrfToken = response.headers.get('X-CSRF-TOKEN');
-            if (csrfToken) {
-              localStorage.setItem('csrfToken', csrfToken);
-              localStorage.setItem('currentUser', JSON.stringify(response.body));
-            } else {
-              throw new Error('CSRF token not provided');
-            }
+import { Authenticate$Params } from '../../../fn/authentication/authenticate';
+import { authenticate } from '../../../fn/authentication/authenticate';
 
-            return response.body;
-          } else {
-            throw new Error(`Unexpected response status: ${response.status}`);
-          }
-        }),
-        catchError((error) => {
-          console.error('Login error:', error);
-          throw new Error(error);
-        })
-      );
+import { Confirm$Params } from '../../../fn/authentication/confirm';
+import { confirm } from  '../../../fn/authentication/confirm';
+
+@Injectable({ providedIn: 'root' })
+export class AuthenticationService extends BaseService {
+  constructor(config: ApiConfiguration, http: HttpClient) {
+    super(config, http);
   }
 
-  logout(): void {
-    localStorage.clear();
-    this.router.navigate(['/login']);
+  /** Path part for operation `register()` */
+  static readonly RegisterPath = '/auth/register';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `register()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  register$Response(params: Register$Params, context?: HttpContext): Observable<StrictHttpResponse<{
+  }>> {
+    return register(this.http, this.rootUrl, params, context);
   }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `register$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  register(params: Register$Params, context?: HttpContext): Observable<{
+  }> {
+    return this.register$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+      }>): {
+      } => r.body)
+    );
+  }
+
+  /** Path part for operation `authenticate()` */
+  static readonly AuthenticatePath = '/auth/authenticate';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `authenticate()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  authenticate$Response(params: Authenticate$Params, context?: HttpContext): Observable<StrictHttpResponse<AuthenticationResponse>> {
+    return authenticate(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `authenticate$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  authenticate(params: Authenticate$Params, context?: HttpContext): Observable<AuthenticationResponse> {
+    return this.authenticate$Response(params, context).pipe(
+      map((r: StrictHttpResponse<AuthenticationResponse>): AuthenticationResponse => r.body)
+    );
+  }
+
+  /** Path part for operation `confirm()` */
+  static readonly ConfirmPath = '/auth/activate-account';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `confirm()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  confirm$Response(params: Confirm$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return confirm(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `confirm$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  confirm(params: Confirm$Params, context?: HttpContext): Observable<void> {
+    return this.confirm$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
+    );
+  }
+
 }

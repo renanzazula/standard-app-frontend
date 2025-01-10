@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {OrderService} from "../../../service/venda/order.service";
+import {OrderService} from "../../../service/order/order.service";
 import {Order} from "../../../model/order";
 import {ActivatedRoute, Router} from "@angular/router";
 import {first} from "rxjs/operators";

@@ -10,6 +10,9 @@ export class SubcategoryService {
     }
 
     findAll() {
+       console.log("find all")
+      console.log(this.http.get<Subcategory[]>(`${environment.apiPrivateUrl}/subcategory`));
+
         return this.http.get<Subcategory[]>(`${environment.apiPrivateUrl}/subcategory`);
     }
 

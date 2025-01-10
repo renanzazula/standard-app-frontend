@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Order} from "../../../model/order";
 import {ActivatedRoute, Router} from "@angular/router";
 import {AlertService} from "../../../service/mensagens/alerta/alert.service";
-import {OrderService} from "../../../service/venda/order.service";
+import {OrderService} from "../../../service/order/order.service";
 
 @Component({
   selector: 'app-order-print',
