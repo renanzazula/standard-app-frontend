@@ -163,9 +163,9 @@ export class ProductSaveComponent implements OnInit {
         product.percent = this.productForm.controls.percent.value;
         product.price = this.productForm.controls.price.value;
         product.discountPercent = this.productForm.controls.discountPercent.value;
-        product.discount = this.productForm.controls.discount.value;
+        product.discountPrice = this.productForm.controls.discount.value;
         product.salePrice = this.productForm.controls.salePrice.value;
-        product.peso = this.productForm.controls.peso.value;
+        product.weight = this.productForm.controls.peso.value;
         product.provider = JSON.parse(this.productForm.controls.provider.value);
         product.measure = JSON.parse(this.productForm.controls.measure.value);
         product.category = JSON.parse(this.productForm.controls.category.value);

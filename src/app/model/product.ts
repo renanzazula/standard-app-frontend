@@ -11,17 +11,14 @@ export class Product {
     barCode: string;
     name: string;
     description: string;
-
     costPrice: number;
     percent: number;
     price: number;
-
     discountPercent: number;
-    discount: number;
+    discountPrice: number;
     salePrice: number;
-    peso: number;
+    weight: number;
     totalStockQuantity: number
-
     provider: Provider;
     measure: Measure;
     category: Category;
